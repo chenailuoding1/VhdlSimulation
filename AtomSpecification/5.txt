@@ -1,6 +1,0 @@
-Gyro Control Output {
-        GCO sends Gyro power on instruction load instruction to GI[instruction];
-        GCO sends Gyro power on instruction to GCOCC[instruction];
-        GCO receives Gyro power on pulse from GCOCC[signal];
-        GCO sends Gyro power on pulse to G[signal];
-}

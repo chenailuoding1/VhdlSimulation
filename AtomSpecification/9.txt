@@ -1,8 +1,0 @@
-Thruster Distribution Computing {
-        TDC sends Thruster power state load instruction to TD[instruction];
-        TDC sends Triaxial control quantity load instruction to CCR[instruction];
-        TDC sends Thruster power state to TDCC[state];
-        TDC sends Triaxial control quantity to TDCC[value];
-        TDC receives Thruster combination logic from TDCC[value];
-        TDC sends Thruster combination logic storage instruction to TDCR[instruction];
-}

@@ -1,6 +1,0 @@
-Telecontrol Instruction Processing {
-        TIP receives Telecontrol instruction from DMC[instruction];
-        TIP sends Telecontrol instruction to TIPCC[instruction];
-        TIP receives Next cycle mode from TIPCC[value];
-        TIP sends Next cycle mode storage instruction to MR[instruction];
-}

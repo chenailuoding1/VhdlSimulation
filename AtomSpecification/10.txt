@@ -1,6 +1,0 @@
-Thruster Power Control Output {
-        TPCO sends Thruster power on instruction load instruction to TPI[instruction];
-        TPCO sends Thruster power on instruction to TPCOCC[instruction];
-        TPCO receives Thruster power on pulse from TPCOCC[signal];
-        TPCO sends Thruster power on pulse to TCT[signal];
-}

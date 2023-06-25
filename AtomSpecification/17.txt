@@ -1,6 +1,0 @@
-Thruster Triaxial Control Output {
-        TTCO sends Triaxial control instruction load instruction to TTI[instruction];
-        TTCO sends Triaxial control instruction to TTCOCC[instruction];
-        TTCO receives Triaxial control signal from TTCOCC[signal];
-        TTCO sends Triaxial control signal to TCT[signal];
-}

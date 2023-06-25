@@ -1,3 +1,0 @@
-Store Sun Sensor Power on Instruction {
-        SSSPonI sends Sun sensor power on instruction storage instruction to SSI[instruction];
-}

@@ -1,9 +1,0 @@
-{
-	"version": "1.0",
-	"modules": {
-		"SSI6": {
-			"proto_instances": {
-			}
-		}
-	}
-}

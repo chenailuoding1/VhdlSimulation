@@ -1,3 +1,0 @@
-32ms Interrupt Timer Initialization {
-        32ITI sends 32ms interrupt timer start instruction to 32IT[instruction];
-}

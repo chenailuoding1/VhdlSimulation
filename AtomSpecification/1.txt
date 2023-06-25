@@ -1,8 +1,0 @@
-Gyro Data Acquisition 2 {
-        GDA sends Pulse count acquisition instruction to G[instruction];
-        GDA sends Gyro power state perception instruction to G[instruction];
-        GDA sends Pulse count to GDACC[value];
-        GDA receives Angular velocity analog from GDACC[value];
-        GDA sends Angular velocity analog storage instruction to GD[instruction];
-        GDA sends Gyro power state storage instruction to GD[instruction];
-}
