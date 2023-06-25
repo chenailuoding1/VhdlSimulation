@@ -1,0 +1,352 @@
+{
+  "design": {
+    "design_info": {
+      "boundary_crc": "0x66F63183FF90D241",
+      "device": "xc7k70tfbv676-1",
+      "gen_directory": "../../../../DA14.gen/sources_1/bd/DA14",
+      "name": "DA14",
+      "rev_ctrl_bd_flag": "RevCtrlBdOff",
+      "synth_flow_mode": "Hierarchical",
+      "tool_version": "2021.1",
+      "validated": "true"
+    },
+    "design_tree": {
+      "DA14Dependency_0": "",
+      "TDA17_0": "",
+      "SSDA16_0": "",
+      "GDA15_0": ""
+    },
+    "ports": {
+      "clk_0": {
+        "type": "clk",
+        "direction": "I",
+        "parameters": {
+          "ASSOCIATED_RESET": {
+            "value": "rst_0",
+            "value_src": "default"
+          },
+          "CLK_DOMAIN": {
+            "value": "DA14_clk_0",
+            "value_src": "default"
+          },
+          "FREQ_HZ": {
+            "value": "100000000",
+            "value_src": "default"
+          },
+          "FREQ_TOLERANCE_HZ": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "PHASE": {
+            "value": "0.0",
+            "value_src": "default"
+          }
+        }
+      },
+      "rst_0": {
+        "type": "rst",
+        "direction": "I",
+        "parameters": {
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "POLARITY": {
+            "value": "ACTIVE_LOW",
+            "value_src": "default"
+          }
+        }
+      },
+      "done_0": {
+        "direction": "O"
+      },
+      "start_0": {
+        "direction": "I"
+      },
+      "in_TDA_TCT_Thru_powe_stat_0": {
+        "direction": "I",
+        "left": "31",
+        "right": "0"
+      },
+      "out_TDA_TCT_Thru_powe_stat_perc_inst_0": {
+        "direction": "O"
+      },
+      "out_TD_TD_Thru_powe_stat_0": {
+        "direction": "O",
+        "left": "31",
+        "right": "0"
+      },
+      "in_SSDA_SS_Angl_anal_0": {
+        "direction": "I",
+        "left": "31",
+        "right": "0"
+      },
+      "in_SSDA_SS_Sun_sens_powe_stat_0": {
+        "direction": "I",
+        "left": "31",
+        "right": "0"
+      },
+      "in_SSDA_SS_Sun_visi_sign_0": {
+        "direction": "I",
+        "left": "31",
+        "right": "0"
+      },
+      "out_SSDA_SS_Angl_anal_acqu_inst_0": {
+        "direction": "O"
+      },
+      "out_SSDA_SS_Sun_sens_powe_stat_perc_inst_0": {
+        "direction": "O"
+      },
+      "out_SSDA_SS_Sun_visi_sign_acqu_inst_0": {
+        "direction": "O"
+      },
+      "out_SSD_SSD_Sun_meas_angl_0": {
+        "direction": "O",
+        "left": "31",
+        "right": "0"
+      },
+      "out_SSD_SSD_Sun_sens_powe_stat_0": {
+        "direction": "O",
+        "left": "31",
+        "right": "0"
+      },
+      "out_SSD_SSD_Sun_visi_sign_0": {
+        "direction": "O",
+        "left": "31",
+        "right": "0"
+      },
+      "in_GDA_G_Gyro_powe_stat_0": {
+        "direction": "I",
+        "left": "31",
+        "right": "0"
+      },
+      "in_GDA_G_Puls_coun_0": {
+        "direction": "I",
+        "left": "31",
+        "right": "0"
+      },
+      "out_GDA_G_Gyro_powe_stat_perc_inst_0": {
+        "direction": "O"
+      },
+      "out_GDA_G_Puls_coun_acqu_inst_0": {
+        "direction": "O"
+      },
+      "out_GD_GD_Angu_velo_anal_0": {
+        "direction": "O",
+        "left": "31",
+        "right": "0"
+      },
+      "out_GD_GD_Gyro_powe_stat_0": {
+        "direction": "O",
+        "left": "31",
+        "right": "0"
+      }
+    },
+    "components": {
+      "DA14Dependency_0": {
+        "vlnv": "xilinx.com:user:DA14Dependency:1.0",
+        "xci_name": "DA14_DA14Dependency_0_0",
+        "xci_path": "ip\\DA14_DA14Dependency_0_0\\DA14_DA14Dependency_0_0.xci",
+        "inst_hier_path": "DA14Dependency_0"
+      },
+      "TDA17_0": {
+        "vlnv": "xilinx.com:user:TDA17:1.0",
+        "xci_name": "DA14_TDA17_0_0",
+        "xci_path": "ip\\DA14_TDA17_0_0\\DA14_TDA17_0_0.xci",
+        "inst_hier_path": "TDA17_0"
+      },
+      "SSDA16_0": {
+        "vlnv": "xilinx.com:user:SSDA16:1.0",
+        "xci_name": "DA14_SSDA16_0_0",
+        "xci_path": "ip\\DA14_SSDA16_0_0\\DA14_SSDA16_0_0.xci",
+        "inst_hier_path": "SSDA16_0"
+      },
+      "GDA15_0": {
+        "vlnv": "xilinx.com:user:GDA15:1.0",
+        "xci_name": "DA14_GDA15_0_0",
+        "xci_path": "ip\\DA14_GDA15_0_0\\DA14_GDA15_0_0.xci",
+        "inst_hier_path": "GDA15_0"
+      }
+    },
+    "nets": {
+      "DA14Dependency_0_done": {
+        "ports": [
+          "DA14Dependency_0/done",
+          "done_0"
+        ]
+      },
+      "DA14Dependency_0_start0": {
+        "ports": [
+          "DA14Dependency_0/start0",
+          "GDA15_0/start"
+        ]
+      },
+      "DA14Dependency_0_start1": {
+        "ports": [
+          "DA14Dependency_0/start1",
+          "SSDA16_0/start"
+        ]
+      },
+      "DA14Dependency_0_start2": {
+        "ports": [
+          "DA14Dependency_0/start2",
+          "TDA17_0/start"
+        ]
+      },
+      "GDA15_0_done": {
+        "ports": [
+          "GDA15_0/done",
+          "DA14Dependency_0/done0"
+        ]
+      },
+      "GDA15_0_out_GDA_G_Gyro_powe_stat_perc_inst": {
+        "ports": [
+          "GDA15_0/out_GDA_G_Gyro_powe_stat_perc_inst",
+          "out_GDA_G_Gyro_powe_stat_perc_inst_0"
+        ]
+      },
+      "GDA15_0_out_GDA_G_Puls_coun_acqu_inst": {
+        "ports": [
+          "GDA15_0/out_GDA_G_Puls_coun_acqu_inst",
+          "out_GDA_G_Puls_coun_acqu_inst_0"
+        ]
+      },
+      "GDA15_0_out_GD_GD_Angu_velo_anal": {
+        "ports": [
+          "GDA15_0/out_GD_GD_Angu_velo_anal",
+          "out_GD_GD_Angu_velo_anal_0"
+        ]
+      },
+      "GDA15_0_out_GD_GD_Gyro_powe_stat": {
+        "ports": [
+          "GDA15_0/out_GD_GD_Gyro_powe_stat",
+          "out_GD_GD_Gyro_powe_stat_0"
+        ]
+      },
+      "SSDA16_0_done": {
+        "ports": [
+          "SSDA16_0/done",
+          "DA14Dependency_0/done1"
+        ]
+      },
+      "SSDA16_0_out_SSDA_SS_Angl_anal_acqu_inst": {
+        "ports": [
+          "SSDA16_0/out_SSDA_SS_Angl_anal_acqu_inst",
+          "out_SSDA_SS_Angl_anal_acqu_inst_0"
+        ]
+      },
+      "SSDA16_0_out_SSDA_SS_Sun_sens_powe_stat_perc_inst": {
+        "ports": [
+          "SSDA16_0/out_SSDA_SS_Sun_sens_powe_stat_perc_inst",
+          "out_SSDA_SS_Sun_sens_powe_stat_perc_inst_0"
+        ]
+      },
+      "SSDA16_0_out_SSDA_SS_Sun_visi_sign_acqu_inst": {
+        "ports": [
+          "SSDA16_0/out_SSDA_SS_Sun_visi_sign_acqu_inst",
+          "out_SSDA_SS_Sun_visi_sign_acqu_inst_0"
+        ]
+      },
+      "SSDA16_0_out_SSD_SSD_Sun_meas_angl": {
+        "ports": [
+          "SSDA16_0/out_SSD_SSD_Sun_meas_angl",
+          "out_SSD_SSD_Sun_meas_angl_0"
+        ]
+      },
+      "SSDA16_0_out_SSD_SSD_Sun_sens_powe_stat": {
+        "ports": [
+          "SSDA16_0/out_SSD_SSD_Sun_sens_powe_stat",
+          "out_SSD_SSD_Sun_sens_powe_stat_0"
+        ]
+      },
+      "SSDA16_0_out_SSD_SSD_Sun_visi_sign": {
+        "ports": [
+          "SSDA16_0/out_SSD_SSD_Sun_visi_sign",
+          "out_SSD_SSD_Sun_visi_sign_0"
+        ]
+      },
+      "TDA17_0_done": {
+        "ports": [
+          "TDA17_0/done",
+          "DA14Dependency_0/done2"
+        ]
+      },
+      "TDA17_0_out_TDA_TCT_Thru_powe_stat_perc_inst": {
+        "ports": [
+          "TDA17_0/out_TDA_TCT_Thru_powe_stat_perc_inst",
+          "out_TDA_TCT_Thru_powe_stat_perc_inst_0"
+        ]
+      },
+      "TDA17_0_out_TD_TD_Thru_powe_stat": {
+        "ports": [
+          "TDA17_0/out_TD_TD_Thru_powe_stat",
+          "out_TD_TD_Thru_powe_stat_0"
+        ]
+      },
+      "clk_0_1": {
+        "ports": [
+          "clk_0",
+          "DA14Dependency_0/clk",
+          "TDA17_0/clk",
+          "SSDA16_0/clk",
+          "GDA15_0/clk"
+        ]
+      },
+      "in_GDA_G_Gyro_powe_stat_0_1": {
+        "ports": [
+          "in_GDA_G_Gyro_powe_stat_0",
+          "GDA15_0/in_GDA_G_Gyro_powe_stat"
+        ]
+      },
+      "in_GDA_G_Puls_coun_0_1": {
+        "ports": [
+          "in_GDA_G_Puls_coun_0",
+          "GDA15_0/in_GDA_G_Puls_coun"
+        ]
+      },
+      "in_SSDA_SS_Angl_anal_0_1": {
+        "ports": [
+          "in_SSDA_SS_Angl_anal_0",
+          "SSDA16_0/in_SSDA_SS_Angl_anal"
+        ]
+      },
+      "in_SSDA_SS_Sun_sens_powe_stat_0_1": {
+        "ports": [
+          "in_SSDA_SS_Sun_sens_powe_stat_0",
+          "SSDA16_0/in_SSDA_SS_Sun_sens_powe_stat"
+        ]
+      },
+      "in_SSDA_SS_Sun_visi_sign_0_1": {
+        "ports": [
+          "in_SSDA_SS_Sun_visi_sign_0",
+          "SSDA16_0/in_SSDA_SS_Sun_visi_sign"
+        ]
+      },
+      "in_TDA_TCT_Thru_powe_stat_0_1": {
+        "ports": [
+          "in_TDA_TCT_Thru_powe_stat_0",
+          "TDA17_0/in_TDA_TCT_Thru_powe_stat"
+        ]
+      },
+      "rst_0_1": {
+        "ports": [
+          "rst_0",
+          "DA14Dependency_0/rst",
+          "TDA17_0/rst",
+          "SSDA16_0/rst",
+          "GDA15_0/rst"
+        ]
+      },
+      "start_0_1": {
+        "ports": [
+          "start_0",
+          "DA14Dependency_0/start"
+        ]
+      }
+    }
+  }
+}

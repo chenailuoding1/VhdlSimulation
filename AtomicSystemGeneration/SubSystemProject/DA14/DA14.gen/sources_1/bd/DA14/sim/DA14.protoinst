@@ -1,0 +1,9 @@
+{
+	"version": "1.0",
+	"modules": {
+		"DA14": {
+			"proto_instances": {
+			}
+		}
+	}
+}

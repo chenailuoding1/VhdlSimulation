@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Sun May 14 11:04:46 2023" VIVADOVERSION="2021.1">
+
+  <SYSTEMINFO ARCH="kintex7" DEVICE="7k70t" NAME="SSI6" PACKAGE="fbv676" SPEEDGRADE="-1"/>
+
+  <EXTERNALPORTS>
+    <PORT CLKFREQUENCY="100000000" DIR="I" NAME="clk_0" SIGIS="clk" SIGNAME="External_Ports_clk_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="SSI6Dependency_0" PORT="clk"/>
+        <CONNECTION INSTANCE="SSCO8_0" PORT="clk"/>
+        <CONNECTION INSTANCE="SSSPoI7_0" PORT="clk"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="I" NAME="rst_0" POLARITY="ACTIVE_LOW" SIGIS="rst" SIGNAME="External_Ports_rst_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="SSI6Dependency_0" PORT="rst"/>
+        <CONNECTION INSTANCE="SSCO8_0" PORT="rst"/>
+        <CONNECTION INSTANCE="SSSPoI7_0" PORT="rst"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" NAME="done_0" SIGIS="undef" SIGNAME="SSI6Dependency_0_done">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="SSI6Dependency_0" PORT="done"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="I" NAME="start_0" SIGIS="undef" SIGNAME="External_Ports_start_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="SSI6Dependency_0" PORT="start"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="I" LEFT="31" NAME="in_SSCO_SSI_Sun_sens_powe_on_inst_0" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_in_SSCO_SSI_Sun_sens_powe_on_inst_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="SSCO8_0" PORT="in_SSCO_SSI_Sun_sens_powe_on_inst"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" NAME="out_SSCO_SSI_Sun_sens_powe_on_inst_load_inst_0" SIGIS="undef" SIGNAME="SSCO8_0_out_SSCO_SSI_Sun_sens_powe_on_inst_load_inst">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="SSCO8_0" PORT="out_SSCO_SSI_Sun_sens_powe_on_inst_load_inst"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" LEFT="31" NAME="out_SSCO_SS_Sun_sens_powe_on_puls_0" RIGHT="0" SIGIS="undef" SIGNAME="SSCO8_0_out_SSCO_SS_Sun_sens_powe_on_puls">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="SSCO8_0" PORT="out_SSCO_SS_Sun_sens_powe_on_puls"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" LEFT="31" NAME="out_SSSP_SSI_Sun_sens_powe_on_inst_0" RIGHT="0" SIGIS="undef" SIGNAME="SSSPoI7_0_out_SSSP_SSI_Sun_sens_powe_on_inst">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="SSSPoI7_0" PORT="out_SSSP_SSI_Sun_sens_powe_on_inst"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" NAME="out_SSSP_SSI_Sun_sens_powe_on_inst_stor_inst_0" SIGIS="undef" SIGNAME="SSSPoI7_0_out_SSSP_SSI_Sun_sens_powe_on_inst_stor_inst">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="SSSPoI7_0" PORT="out_SSSP_SSI_Sun_sens_powe_on_inst_stor_inst"/>
+      </CONNECTIONS>
+    </PORT>
+  </EXTERNALPORTS>
+
+  <EXTERNALINTERFACES/>
+
+  <MODULES>
+    <MODULE COREREVISION="1" FULLNAME="/SSCO8_0" HWVERSION="1.0" INSTANCE="SSCO8_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="SSCO8" VLNV="xilinx.com:user:SSCO8:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="Component_Name" VALUE="SSI6_SSCO8_0_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT CLKFREQUENCY="100000000" DIR="I" NAME="clk" SIGIS="clk" SIGNAME="External_Ports_clk_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="clk_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="rst" POLARITY="ACTIVE_LOW" SIGIS="rst" SIGNAME="External_Ports_rst_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="rst_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="done" SIGIS="undef" SIGNAME="SSCO8_0_done">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="SSI6Dependency_0" PORT="done1"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="start" SIGIS="undef" SIGNAME="SSI6Dependency_0_start1">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="SSI6Dependency_0" PORT="start1"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="in_SSCO_SSI_Sun_sens_powe_on_inst" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_in_SSCO_SSI_Sun_sens_powe_on_inst_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="in_SSCO_SSI_Sun_sens_powe_on_inst_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_SSCO_SS_Sun_sens_powe_on_puls" RIGHT="0" SIGIS="undef" SIGNAME="SSCO8_0_out_SSCO_SS_Sun_sens_powe_on_puls">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="out_SSCO_SS_Sun_sens_powe_on_puls_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="out_SSCO_SSI_Sun_sens_powe_on_inst_load_inst" SIGIS="undef" SIGNAME="SSCO8_0_out_SSCO_SSI_Sun_sens_powe_on_inst_load_inst">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="out_SSCO_SSI_Sun_sens_powe_on_inst_load_inst_0"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+    <MODULE COREREVISION="1" FULLNAME="/SSI6Dependency_0" HWVERSION="1.0" INSTANCE="SSI6Dependency_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="SSI6Dependency" VLNV="xilinx.com:user:SSI6Dependency:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="Component_Name" VALUE="SSI6_SSI6Dependency_0_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="O" NAME="start0" SIGIS="undef" SIGNAME="SSI6Dependency_0_start0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="SSSPoI7_0" PORT="start"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="done0" SIGIS="undef" SIGNAME="SSSPoI7_0_done">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="SSSPoI7_0" PORT="done"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="start1" SIGIS="undef" SIGNAME="SSI6Dependency_0_start1">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="SSCO8_0" PORT="start"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="done1" SIGIS="undef" SIGNAME="SSCO8_0_done">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="SSCO8_0" PORT="done"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="start" SIGIS="undef" SIGNAME="External_Ports_start_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="start_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="done" SIGIS="undef" SIGNAME="SSI6Dependency_0_done">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="done_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT CLKFREQUENCY="100000000" DIR="I" NAME="clk" SIGIS="clk" SIGNAME="External_Ports_clk_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="clk_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="rst" POLARITY="ACTIVE_LOW" SIGIS="rst" SIGNAME="External_Ports_rst_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="rst_0"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+    <MODULE COREREVISION="1" FULLNAME="/SSSPoI7_0" HWVERSION="1.0" INSTANCE="SSSPoI7_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="SSSPoI7" VLNV="xilinx.com:user:SSSPoI7:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="Component_Name" VALUE="SSI6_SSSPoI7_0_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="O" NAME="out_SSSP_SSI_Sun_sens_powe_on_inst_stor_inst" SIGIS="undef" SIGNAME="SSSPoI7_0_out_SSSP_SSI_Sun_sens_powe_on_inst_stor_inst">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="out_SSSP_SSI_Sun_sens_powe_on_inst_stor_inst_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_SSSP_SSI_Sun_sens_powe_on_inst" RIGHT="0" SIGIS="undef" SIGNAME="SSSPoI7_0_out_SSSP_SSI_Sun_sens_powe_on_inst">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="out_SSSP_SSI_Sun_sens_powe_on_inst_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT CLKFREQUENCY="100000000" DIR="I" NAME="clk" SIGIS="clk" SIGNAME="External_Ports_clk_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="clk_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="start" SIGIS="undef" SIGNAME="SSI6Dependency_0_start0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="SSI6Dependency_0" PORT="start0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="done" SIGIS="undef" SIGNAME="SSSPoI7_0_done">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="SSI6Dependency_0" PORT="done0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="rst" POLARITY="ACTIVE_LOW" SIGIS="rst" SIGNAME="External_Ports_rst_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="rst_0"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+  </MODULES>
+
+</EDKSYSTEM>

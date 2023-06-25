@@ -1,0 +1,3 @@
+Store Thruster Power on Instruction {
+        STPonI sends Thruster power on instruction storage instruction to TPI[instruction];
+}

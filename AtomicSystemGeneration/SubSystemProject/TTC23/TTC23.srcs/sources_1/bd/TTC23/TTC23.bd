@@ -1,0 +1,189 @@
+{
+  "design": {
+    "design_info": {
+      "boundary_crc": "0xC31069C13F59A209",
+      "device": "xc7k70tfbv676-1",
+      "gen_directory": "../../../../TTC23.gen/sources_1/bd/TTC23",
+      "name": "TTC23",
+      "rev_ctrl_bd_flag": "RevCtrlBdOff",
+      "synth_flow_mode": "Hierarchical",
+      "tool_version": "2021.1",
+      "validated": "true"
+    },
+    "design_tree": {
+      "TTC23Dependency_0": "",
+      "TTCO25_0": "",
+      "TTC24_0": ""
+    },
+    "ports": {
+      "clk_0": {
+        "type": "clk",
+        "direction": "I",
+        "parameters": {
+          "ASSOCIATED_RESET": {
+            "value": "rst_0",
+            "value_src": "default"
+          },
+          "CLK_DOMAIN": {
+            "value": "TTC23_clk_0",
+            "value_src": "default"
+          },
+          "FREQ_HZ": {
+            "value": "100000000",
+            "value_src": "default"
+          },
+          "FREQ_TOLERANCE_HZ": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "PHASE": {
+            "value": "0.0",
+            "value_src": "default"
+          }
+        }
+      },
+      "rst_0": {
+        "type": "rst",
+        "direction": "I",
+        "parameters": {
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "POLARITY": {
+            "value": "ACTIVE_LOW",
+            "value_src": "default"
+          }
+        }
+      },
+      "done_0": {
+        "direction": "O"
+      },
+      "start_0": {
+        "direction": "I"
+      },
+      "in_TTI_TTI_Tria_cont_inst_0": {
+        "direction": "I",
+        "left": "31",
+        "right": "0"
+      },
+      "out_TTCO_TCT_Tria_cont_sign_0": {
+        "direction": "O",
+        "left": "31",
+        "right": "0"
+      },
+      "in_TDCR_TDCR_Thru_comb_logi_0": {
+        "direction": "I",
+        "left": "31",
+        "right": "0"
+      },
+      "out_TTI_TTI_Tria_cont_inst_0": {
+        "direction": "O",
+        "left": "31",
+        "right": "0"
+      }
+    },
+    "components": {
+      "TTC23Dependency_0": {
+        "vlnv": "xilinx.com:user:TTC23Dependency:1.0",
+        "xci_name": "TTC23_TTC23Dependency_0_0",
+        "xci_path": "ip\\TTC23_TTC23Dependency_0_0\\TTC23_TTC23Dependency_0_0.xci",
+        "inst_hier_path": "TTC23Dependency_0"
+      },
+      "TTCO25_0": {
+        "vlnv": "xilinx.com:user:TTCO25:1.0",
+        "xci_name": "TTC23_TTCO25_0_0",
+        "xci_path": "ip\\TTC23_TTCO25_0_0\\TTC23_TTCO25_0_0.xci",
+        "inst_hier_path": "TTCO25_0"
+      },
+      "TTC24_0": {
+        "vlnv": "xilinx.com:user:TTC24:1.0",
+        "xci_name": "TTC23_TTC24_0_0",
+        "xci_path": "ip\\TTC23_TTC24_0_0\\TTC23_TTC24_0_0.xci",
+        "inst_hier_path": "TTC24_0"
+      }
+    },
+    "nets": {
+      "TTC23Dependency_0_done": {
+        "ports": [
+          "TTC23Dependency_0/done",
+          "done_0"
+        ]
+      },
+      "TTC23Dependency_0_start0": {
+        "ports": [
+          "TTC23Dependency_0/start0",
+          "TTC24_0/start"
+        ]
+      },
+      "TTC23Dependency_0_start1": {
+        "ports": [
+          "TTC23Dependency_0/start1",
+          "TTCO25_0/start"
+        ]
+      },
+      "TTC24_0_done": {
+        "ports": [
+          "TTC24_0/done",
+          "TTC23Dependency_0/done0"
+        ]
+      },
+      "TTC24_0_out_TTI_TTI_Tria_cont_inst": {
+        "ports": [
+          "TTC24_0/out_TTI_TTI_Tria_cont_inst",
+          "out_TTI_TTI_Tria_cont_inst_0"
+        ]
+      },
+      "TTCO25_0_done": {
+        "ports": [
+          "TTCO25_0/done",
+          "TTC23Dependency_0/done1"
+        ]
+      },
+      "TTCO25_0_out_TTCO_TCT_Tria_cont_sign": {
+        "ports": [
+          "TTCO25_0/out_TTCO_TCT_Tria_cont_sign",
+          "out_TTCO_TCT_Tria_cont_sign_0"
+        ]
+      },
+      "clk_0_1": {
+        "ports": [
+          "clk_0",
+          "TTC23Dependency_0/clk",
+          "TTCO25_0/clk",
+          "TTC24_0/clk"
+        ]
+      },
+      "in_TDCR_TDCR_Thru_comb_logi_0_1": {
+        "ports": [
+          "in_TDCR_TDCR_Thru_comb_logi_0",
+          "TTC24_0/in_TDCR_TDCR_Thru_comb_logi"
+        ]
+      },
+      "in_TTI_TTI_Tria_cont_inst_0_1": {
+        "ports": [
+          "in_TTI_TTI_Tria_cont_inst_0",
+          "TTCO25_0/in_TTI_TTI_Tria_cont_inst"
+        ]
+      },
+      "rst_0_1": {
+        "ports": [
+          "rst_0",
+          "TTC23Dependency_0/rst",
+          "TTCO25_0/rst",
+          "TTC24_0/rst"
+        ]
+      },
+      "start_0_1": {
+        "ports": [
+          "start_0",
+          "TTC23Dependency_0/start"
+        ]
+      }
+    }
+  }
+}

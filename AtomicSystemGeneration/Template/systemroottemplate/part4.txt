@@ -1,0 +1,2 @@
+begin
+        case current_sta is

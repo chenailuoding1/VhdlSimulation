@@ -1,0 +1,454 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Sun May 14 11:05:22 2023" VIVADOVERSION="2021.1">
+
+  <SYSTEMINFO ARCH="kintex7" DEVICE="7k70t" NAME="I1" PACKAGE="fbv676" SPEEDGRADE="-1"/>
+
+  <EXTERNALPORTS>
+    <PORT CLKFREQUENCY="100000000" DIR="I" NAME="clk_0" SIGIS="clk" SIGNAME="External_Ports_clk_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="I1Dependency_0" PORT="clk"/>
+        <CONNECTION INSTANCE="MI12_0" PORT="clk"/>
+        <CONNECTION INSTANCE="TI9_wrapper_0" PORT="clk_0"/>
+        <CONNECTION INSTANCE="SSI6_wrapper_0" PORT="clk_0"/>
+        <CONNECTION INSTANCE="GI3_wrapper_0" PORT="clk_0"/>
+        <CONNECTION INSTANCE="ITI2_0" PORT="clk"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="I" NAME="rst_0" POLARITY="ACTIVE_LOW" SIGIS="rst" SIGNAME="External_Ports_rst_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="I1Dependency_0" PORT="rst"/>
+        <CONNECTION INSTANCE="MI12_0" PORT="rst"/>
+        <CONNECTION INSTANCE="TI9_wrapper_0" PORT="rst_0"/>
+        <CONNECTION INSTANCE="SSI6_wrapper_0" PORT="rst_0"/>
+        <CONNECTION INSTANCE="GI3_wrapper_0" PORT="rst_0"/>
+        <CONNECTION INSTANCE="ITI2_0" PORT="rst"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" NAME="done_0" SIGIS="undef" SIGNAME="I1Dependency_0_done">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="I1Dependency_0" PORT="done"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="I" NAME="start_0" SIGIS="undef" SIGNAME="External_Ports_start_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="I1Dependency_0" PORT="start"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" LEFT="31" NAME="out_MI_MR_Curr_mode_0" RIGHT="0" SIGIS="undef" SIGNAME="MI12_0_out_MI_MR_Curr_mode">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="MI12_0" PORT="out_MI_MR_Curr_mode"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" NAME="out_MI_MR_Curr_mode_stor_inst_0" SIGIS="undef" SIGNAME="MI12_0_out_MI_MR_Curr_mode_stor_inst">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="MI12_0" PORT="out_MI_MR_Curr_mode_stor_inst"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="I" LEFT="31" NAME="in_TPCO_TPI_Thru_powe_on_inst_0_0" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_in_TPCO_TPI_Thru_powe_on_inst_0_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="TI9_wrapper_0" PORT="in_TPCO_TPI_Thru_powe_on_inst_0"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" LEFT="31" NAME="out_STPo_TPI_Thru_powe_on_inst_0_0" RIGHT="0" SIGIS="undef" SIGNAME="TI9_wrapper_0_out_STPo_TPI_Thru_powe_on_inst_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="TI9_wrapper_0" PORT="out_STPo_TPI_Thru_powe_on_inst_0"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" NAME="out_STPo_TPI_Thru_powe_on_inst_stor_inst_0_0" SIGIS="undef" SIGNAME="TI9_wrapper_0_out_STPo_TPI_Thru_powe_on_inst_stor_inst_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="TI9_wrapper_0" PORT="out_STPo_TPI_Thru_powe_on_inst_stor_inst_0"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" LEFT="31" NAME="out_TPCO_TCT_Thru_powe_on_puls_0_0" RIGHT="0" SIGIS="undef" SIGNAME="TI9_wrapper_0_out_TPCO_TCT_Thru_powe_on_puls_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="TI9_wrapper_0" PORT="out_TPCO_TCT_Thru_powe_on_puls_0"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" NAME="out_TPCO_TPI_Thru_powe_on_inst_load_inst_0_0" SIGIS="undef" SIGNAME="TI9_wrapper_0_out_TPCO_TPI_Thru_powe_on_inst_load_inst_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="TI9_wrapper_0" PORT="out_TPCO_TPI_Thru_powe_on_inst_load_inst_0"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="I" LEFT="31" NAME="in_SSCO_SSI_Sun_sens_powe_on_inst_0_0" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_in_SSCO_SSI_Sun_sens_powe_on_inst_0_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="SSI6_wrapper_0" PORT="in_SSCO_SSI_Sun_sens_powe_on_inst_0"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" NAME="out_SSCO_SSI_Sun_sens_powe_on_inst_load_inst_0_0" SIGIS="undef" SIGNAME="SSI6_wrapper_0_out_SSCO_SSI_Sun_sens_powe_on_inst_load_inst_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="SSI6_wrapper_0" PORT="out_SSCO_SSI_Sun_sens_powe_on_inst_load_inst_0"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" LEFT="31" NAME="out_SSCO_SS_Sun_sens_powe_on_puls_0_0" RIGHT="0" SIGIS="undef" SIGNAME="SSI6_wrapper_0_out_SSCO_SS_Sun_sens_powe_on_puls_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="SSI6_wrapper_0" PORT="out_SSCO_SS_Sun_sens_powe_on_puls_0"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" LEFT="31" NAME="out_SSSP_SSI_Sun_sens_powe_on_inst_0_0" RIGHT="0" SIGIS="undef" SIGNAME="SSI6_wrapper_0_out_SSSP_SSI_Sun_sens_powe_on_inst_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="SSI6_wrapper_0" PORT="out_SSSP_SSI_Sun_sens_powe_on_inst_0"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" NAME="out_SSSP_SSI_Sun_sens_powe_on_inst_stor_inst_0_0" SIGIS="undef" SIGNAME="SSI6_wrapper_0_out_SSSP_SSI_Sun_sens_powe_on_inst_stor_inst_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="SSI6_wrapper_0" PORT="out_SSSP_SSI_Sun_sens_powe_on_inst_stor_inst_0"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="I" LEFT="31" NAME="in_GCO_GI_Gyro_powe_on_inst_0_0" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_in_GCO_GI_Gyro_powe_on_inst_0_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="GI3_wrapper_0" PORT="in_GCO_GI_Gyro_powe_on_inst_0"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" NAME="out_GCO_GI_Gyro_powe_on_inst_load_inst_0_0" SIGIS="undef" SIGNAME="GI3_wrapper_0_out_GCO_GI_Gyro_powe_on_inst_load_inst_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="GI3_wrapper_0" PORT="out_GCO_GI_Gyro_powe_on_inst_load_inst_0"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" LEFT="31" NAME="out_GCO_G_Gyro_powe_on_puls_0_0" RIGHT="0" SIGIS="undef" SIGNAME="GI3_wrapper_0_out_GCO_G_Gyro_powe_on_puls_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="GI3_wrapper_0" PORT="out_GCO_G_Gyro_powe_on_puls_0"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" LEFT="31" NAME="out_SGPo_GI_Gyro_powe_on_inst_0_0" RIGHT="0" SIGIS="undef" SIGNAME="GI3_wrapper_0_out_SGPo_GI_Gyro_powe_on_inst_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="GI3_wrapper_0" PORT="out_SGPo_GI_Gyro_powe_on_inst_0"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" NAME="out_SGPo_GI_Gyro_powe_on_inst_stor_inst_0_0" SIGIS="undef" SIGNAME="GI3_wrapper_0_out_SGPo_GI_Gyro_powe_on_inst_stor_inst_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="GI3_wrapper_0" PORT="out_SGPo_GI_Gyro_powe_on_inst_stor_inst_0"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" LEFT="31" NAME="out_32IT_32IT_32ms_inte_time_star_inst_0" RIGHT="0" SIGIS="undef" SIGNAME="ITI2_0_out_32IT_32IT_32ms_inte_time_star_inst">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="ITI2_0" PORT="out_32IT_32IT_32ms_inte_time_star_inst"/>
+      </CONNECTIONS>
+    </PORT>
+  </EXTERNALPORTS>
+
+  <EXTERNALINTERFACES/>
+
+  <MODULES>
+    <MODULE COREREVISION="1" FULLNAME="/GI3_wrapper_0" HWVERSION="1.0" INSTANCE="GI3_wrapper_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="GI3_wrapper" VLNV="xilinx.com:user:GI3_wrapper:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="Component_Name" VALUE="I1_GI3_wrapper_0_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="I" NAME="clk_0" SIGIS="undef" SIGNAME="External_Ports_clk_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="clk_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="done_0" SIGIS="undef" SIGNAME="GI3_wrapper_0_done_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="I1Dependency_0" PORT="done1"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="in_GCO_GI_Gyro_powe_on_inst_0" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_in_GCO_GI_Gyro_powe_on_inst_0_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="in_GCO_GI_Gyro_powe_on_inst_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="out_GCO_GI_Gyro_powe_on_inst_load_inst_0" SIGIS="undef" SIGNAME="GI3_wrapper_0_out_GCO_GI_Gyro_powe_on_inst_load_inst_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="out_GCO_GI_Gyro_powe_on_inst_load_inst_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_GCO_G_Gyro_powe_on_puls_0" RIGHT="0" SIGIS="undef" SIGNAME="GI3_wrapper_0_out_GCO_G_Gyro_powe_on_puls_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="out_GCO_G_Gyro_powe_on_puls_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_SGPo_GI_Gyro_powe_on_inst_0" RIGHT="0" SIGIS="undef" SIGNAME="GI3_wrapper_0_out_SGPo_GI_Gyro_powe_on_inst_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="out_SGPo_GI_Gyro_powe_on_inst_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="out_SGPo_GI_Gyro_powe_on_inst_stor_inst_0" SIGIS="undef" SIGNAME="GI3_wrapper_0_out_SGPo_GI_Gyro_powe_on_inst_stor_inst_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="out_SGPo_GI_Gyro_powe_on_inst_stor_inst_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="rst_0" POLARITY="ACTIVE_LOW" SIGIS="undef" SIGNAME="External_Ports_rst_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="rst_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="start_0" SIGIS="undef" SIGNAME="I1Dependency_0_start1">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="I1Dependency_0" PORT="start1"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+    <MODULE COREREVISION="1" FULLNAME="/I1Dependency_0" HWVERSION="1.0" INSTANCE="I1Dependency_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="I1Dependency" VLNV="xilinx.com:user:I1Dependency:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="Component_Name" VALUE="I1_I1Dependency_0_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="O" NAME="start0" SIGIS="undef" SIGNAME="I1Dependency_0_start0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ITI2_0" PORT="start"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="done0" SIGIS="undef" SIGNAME="ITI2_0_done">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ITI2_0" PORT="done"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="start1" SIGIS="undef" SIGNAME="I1Dependency_0_start1">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="GI3_wrapper_0" PORT="start_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="done1" SIGIS="undef" SIGNAME="GI3_wrapper_0_done_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="GI3_wrapper_0" PORT="done_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="start2" SIGIS="undef" SIGNAME="I1Dependency_0_start2">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="SSI6_wrapper_0" PORT="start_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="done2" SIGIS="undef" SIGNAME="SSI6_wrapper_0_done_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="SSI6_wrapper_0" PORT="done_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="start3" SIGIS="undef" SIGNAME="I1Dependency_0_start3">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="TI9_wrapper_0" PORT="start_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="done3" SIGIS="undef" SIGNAME="TI9_wrapper_0_done_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="TI9_wrapper_0" PORT="done_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="start4" SIGIS="undef" SIGNAME="I1Dependency_0_start4">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="MI12_0" PORT="start"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="done4" SIGIS="undef" SIGNAME="MI12_0_done">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="MI12_0" PORT="done"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="start" SIGIS="undef" SIGNAME="External_Ports_start_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="start_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="done" SIGIS="undef" SIGNAME="I1Dependency_0_done">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="done_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT CLKFREQUENCY="100000000" DIR="I" NAME="clk" SIGIS="clk" SIGNAME="External_Ports_clk_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="clk_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="rst" POLARITY="ACTIVE_LOW" SIGIS="rst" SIGNAME="External_Ports_rst_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="rst_0"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+    <MODULE COREREVISION="1" FULLNAME="/ITI2_0" HWVERSION="1.0" INSTANCE="ITI2_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="ITI2" VLNV="xilinx.com:user:ITI2:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="Component_Name" VALUE="I1_ITI2_0_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="O" LEFT="31" NAME="out_32IT_32IT_32ms_inte_time_star_inst" RIGHT="0" SIGIS="undef" SIGNAME="ITI2_0_out_32IT_32IT_32ms_inte_time_star_inst">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="out_32IT_32IT_32ms_inte_time_star_inst_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT CLKFREQUENCY="100000000" DIR="I" NAME="clk" SIGIS="clk" SIGNAME="External_Ports_clk_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="clk_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="start" SIGIS="undef" SIGNAME="I1Dependency_0_start0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="I1Dependency_0" PORT="start0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="done" SIGIS="undef" SIGNAME="ITI2_0_done">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="I1Dependency_0" PORT="done0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="rst" POLARITY="ACTIVE_LOW" SIGIS="rst" SIGNAME="External_Ports_rst_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="rst_0"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+    <MODULE COREREVISION="1" FULLNAME="/MI12_0" HWVERSION="1.0" INSTANCE="MI12_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="MI12" VLNV="xilinx.com:user:MI12:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="Component_Name" VALUE="I1_MI12_0_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="O" NAME="out_MI_MR_Curr_mode_stor_inst" SIGIS="undef" SIGNAME="MI12_0_out_MI_MR_Curr_mode_stor_inst">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="out_MI_MR_Curr_mode_stor_inst_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_MI_MR_Curr_mode" RIGHT="0" SIGIS="undef" SIGNAME="MI12_0_out_MI_MR_Curr_mode">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="out_MI_MR_Curr_mode_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT CLKFREQUENCY="100000000" DIR="I" NAME="clk" SIGIS="clk" SIGNAME="External_Ports_clk_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="clk_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="start" SIGIS="undef" SIGNAME="I1Dependency_0_start4">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="I1Dependency_0" PORT="start4"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="done" SIGIS="undef" SIGNAME="MI12_0_done">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="I1Dependency_0" PORT="done4"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="rst" POLARITY="ACTIVE_LOW" SIGIS="rst" SIGNAME="External_Ports_rst_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="rst_0"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+    <MODULE COREREVISION="1" FULLNAME="/SSI6_wrapper_0" HWVERSION="1.0" INSTANCE="SSI6_wrapper_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="SSI6_wrapper" VLNV="xilinx.com:user:SSI6_wrapper:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="Component_Name" VALUE="I1_SSI6_wrapper_0_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="I" NAME="clk_0" SIGIS="undef" SIGNAME="External_Ports_clk_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="clk_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="done_0" SIGIS="undef" SIGNAME="SSI6_wrapper_0_done_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="I1Dependency_0" PORT="done2"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="in_SSCO_SSI_Sun_sens_powe_on_inst_0" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_in_SSCO_SSI_Sun_sens_powe_on_inst_0_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="in_SSCO_SSI_Sun_sens_powe_on_inst_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="out_SSCO_SSI_Sun_sens_powe_on_inst_load_inst_0" SIGIS="undef" SIGNAME="SSI6_wrapper_0_out_SSCO_SSI_Sun_sens_powe_on_inst_load_inst_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="out_SSCO_SSI_Sun_sens_powe_on_inst_load_inst_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_SSCO_SS_Sun_sens_powe_on_puls_0" RIGHT="0" SIGIS="undef" SIGNAME="SSI6_wrapper_0_out_SSCO_SS_Sun_sens_powe_on_puls_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="out_SSCO_SS_Sun_sens_powe_on_puls_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_SSSP_SSI_Sun_sens_powe_on_inst_0" RIGHT="0" SIGIS="undef" SIGNAME="SSI6_wrapper_0_out_SSSP_SSI_Sun_sens_powe_on_inst_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="out_SSSP_SSI_Sun_sens_powe_on_inst_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="out_SSSP_SSI_Sun_sens_powe_on_inst_stor_inst_0" SIGIS="undef" SIGNAME="SSI6_wrapper_0_out_SSSP_SSI_Sun_sens_powe_on_inst_stor_inst_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="out_SSSP_SSI_Sun_sens_powe_on_inst_stor_inst_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="rst_0" POLARITY="ACTIVE_LOW" SIGIS="undef" SIGNAME="External_Ports_rst_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="rst_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="start_0" SIGIS="undef" SIGNAME="I1Dependency_0_start2">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="I1Dependency_0" PORT="start2"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+    <MODULE COREREVISION="1" FULLNAME="/TI9_wrapper_0" HWVERSION="1.0" INSTANCE="TI9_wrapper_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="TI9_wrapper" VLNV="xilinx.com:user:TI9_wrapper:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="Component_Name" VALUE="I1_TI9_wrapper_0_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="I" NAME="clk_0" SIGIS="undef" SIGNAME="External_Ports_clk_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="clk_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="done_0" SIGIS="undef" SIGNAME="TI9_wrapper_0_done_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="I1Dependency_0" PORT="done3"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="in_TPCO_TPI_Thru_powe_on_inst_0" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_in_TPCO_TPI_Thru_powe_on_inst_0_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="in_TPCO_TPI_Thru_powe_on_inst_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_STPo_TPI_Thru_powe_on_inst_0" RIGHT="0" SIGIS="undef" SIGNAME="TI9_wrapper_0_out_STPo_TPI_Thru_powe_on_inst_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="out_STPo_TPI_Thru_powe_on_inst_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="out_STPo_TPI_Thru_powe_on_inst_stor_inst_0" SIGIS="undef" SIGNAME="TI9_wrapper_0_out_STPo_TPI_Thru_powe_on_inst_stor_inst_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="out_STPo_TPI_Thru_powe_on_inst_stor_inst_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_TPCO_TCT_Thru_powe_on_puls_0" RIGHT="0" SIGIS="undef" SIGNAME="TI9_wrapper_0_out_TPCO_TCT_Thru_powe_on_puls_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="out_TPCO_TCT_Thru_powe_on_puls_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="out_TPCO_TPI_Thru_powe_on_inst_load_inst_0" SIGIS="undef" SIGNAME="TI9_wrapper_0_out_TPCO_TPI_Thru_powe_on_inst_load_inst_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="out_TPCO_TPI_Thru_powe_on_inst_load_inst_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="rst_0" POLARITY="ACTIVE_LOW" SIGIS="undef" SIGNAME="External_Ports_rst_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="rst_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="start_0" SIGIS="undef" SIGNAME="I1Dependency_0_start3">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="I1Dependency_0" PORT="start3"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+  </MODULES>
+
+</EDKSYSTEM>

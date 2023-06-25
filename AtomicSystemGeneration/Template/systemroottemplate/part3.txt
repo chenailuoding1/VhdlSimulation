@@ -1,0 +1,2 @@
+signal current_sta,next_sta:states;
+begin

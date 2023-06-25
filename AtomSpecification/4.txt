@@ -1,0 +1,3 @@
+Store Gyro Power on Instruction {
+        SGPonI sends Gyro power on instruction storage instruction to GI[instruction];
+}

@@ -1,0 +1,4 @@
+        clk:in std_logic;
+        rst:in std_logic
+        
+    );

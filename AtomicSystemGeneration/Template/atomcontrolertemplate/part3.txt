@@ -1,0 +1,22 @@
+begin
+    process(start)
+    begin
+            if start='1' then 
+                Count:=1;
+            else
+                Count:=0;
+            end if;
+    end process;
+    process(clk,rst)
+    begin
+        if rst = '1' then
+            sta <= sta0;
+        elsif clk'event and clk = '1' then
+            case sta is
+                when sta0 =>
+                if Count=1 then 
+                    sta<=sta1;
+                else
+                    sta<=sta0;
+                end if;
+    

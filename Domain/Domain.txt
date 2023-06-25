@@ -1,0 +1,5 @@
+Causal Domain 32IT, G, SS, TCT;
+Biddable Domain DMC;
+Computer Components Domain GCOCC, SSCOCC, TPCOCC,GDACC,  SSDACC,  ADCC,CCC,  TDCC,  TTCCC, TTCOCC, TIPCC, TPCC,MSMCC;
+Logical Lexical Domain  GD,  SSD,  TD, ADR,  CCR, TDCR,  TTI;
+Physical Lexical Domain GI, SSI, TPI,MR;

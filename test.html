@@ -1,0 +1,27 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>前后端分离示例</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>前后端分离示例</h1>
+    <button onclick="getData()">获取数据</button>
+    <div id="result"></div>
+    <script>
+        function getData() {
+            $.ajax({
+                url: 'http://localhost:5000/data', // 后端API接口地址
+                method: 'GET',
+                success: function(response) {
+                    $('#result').html(response); // 将后端返回的数据显示在页面上
+                },
+                error: function(error) {
+                    console.error(error);
+                }
+            });
+        }
+    </script>
+</body>
+</html>

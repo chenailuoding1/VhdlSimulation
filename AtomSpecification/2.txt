@@ -1,0 +1,10 @@
+Sun Sensor Data Acquisition 2 {
+        SSDA sends Sun visible sign acquisition instruction to SS[instruction];
+        SSDA sends Angle analog acquisition instruction to SS[instruction];
+        SSDA sends Sun sensor power state perception instruction to SS[instruction];
+        SSDA sends Angle analog to SSDACC[value];
+        SSDA receives Sun measurement angle from SSDACC[value];
+        SSDA sends Sun visible sign storage instruction to SSD[instruction];
+        SSDA sends Sun measurement angle storage instruction to SSD[instruction];
+        SSDA sends Sun sensor power state storage instruction to SSD[instruction];
+}

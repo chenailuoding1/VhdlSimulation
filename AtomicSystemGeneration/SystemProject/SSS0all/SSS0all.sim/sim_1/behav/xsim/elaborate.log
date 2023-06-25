@@ -1,0 +1,30 @@
+Vivado Simulator v2021.1
+Copyright 1986-1999, 2001-2021 Xilinx, Inc. All Rights Reserved.
+Running: E:/xilinx/Vivado/2021.1/bin/unwrapped/win64.o/xelab.exe -wto 03b21512d34642568fd6881e3f27695d --incr --debug typical --relax --mt 2 -L xil_defaultlib -L secureip -L xpm --snapshot SSS0all_wrapper_behav xil_defaultlib.SSS0all_wrapper -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-4940] 'sss0all_sss0_wrapper_0_0' remains a black box since it has no binding entity [E:/Pycharmworkplace/VhdlSimulation/AtomicSystemGeneration/SystemProject/SSS0all/SSS0all.gen/sources_1/bd/SSS0all/sim/SSS0all.vhd:147]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package std.standard
+Compiling package std.textio
+Compiling package ieee.std_logic_1164
+Compiling package ieee.numeric_std
+Compiling package unisim.vcomponents
+Compiling package ieee.std_logic_arith
+Compiling package ieee.std_logic_unsigned
+Compiling architecture behavioral of entity xil_defaultlib.DMC [dmc_default]
+Compiling architecture sss0all_dmc_0_0_arch of entity xil_defaultlib.SSS0all_DMC_0_0 [sss0all_dmc_0_0_default]
+Compiling architecture behavioral of entity xil_defaultlib.G [g_default]
+Compiling architecture sss0all_g_0_0_arch of entity xil_defaultlib.SSS0all_G_0_0 [sss0all_g_0_0_default]
+Compiling architecture behavioral of entity xil_defaultlib.IT [it_default]
+Compiling architecture sss0all_it_0_0_arch of entity xil_defaultlib.SSS0all_IT_0_0 [sss0all_it_0_0_default]
+Compiling architecture behavioral of entity xil_defaultlib.SS [ss_default]
+Compiling architecture sss0all_ss_0_0_arch of entity xil_defaultlib.SSS0all_SS_0_0 [sss0all_ss_0_0_default]
+Compiling architecture behavioral of entity xil_defaultlib.TCT [tct_default]
+Compiling architecture sss0all_tct_0_0_arch of entity xil_defaultlib.SSS0all_TCT_0_0 [sss0all_tct_0_0_default]
+Compiling architecture structure of entity xil_defaultlib.SSS0all [sss0all_default]
+Compiling architecture structure of entity xil_defaultlib.sss0all_wrapper
+Built simulation snapshot SSS0all_wrapper_behav

@@ -1,0 +1,20 @@
+Mode Switching Management 3 {
+        MSM sends Triaxial attitude angle load instruction to ADR[instruction];
+        MSM sends Triaxial angular velocity load instruction to ADR[instruction];
+        MSM sends Sun visible sign load instruction to SSD[instruction];
+        MSM sends Current mode load instruction to MR[instruction];
+        MSM sends Current mode working time load instruction to MR[instruction];
+        MSM sends Triaxial attitude angle to MSMCC[value];
+        MSM sends Triaxial angular velocity to MSMCC[value];
+        MSM sends Sun visible sign to MSMCC[value];
+        MSM sends Current mode to MSMCC[value];
+        MSM sends Current mode working time to MSMCC[value];
+        MSM receives Next cycle mode from MSMCC[value];
+        MSM receives Current mode working time from MSMCC[value];
+        MSM receives Target angle from MSMCC[value];
+        MSM receives Target angular velocity from MSMCC[value];
+        MSM sends Next cycle mode storage instruction to MR[instruction];
+        MSM sends Current mode working time storage instruction to MR[instruction];
+        MSM sends Target angle storage instruction to MR[instruction];
+        MSM sends Target angular velocity storage instruction to MR[instruction];
+}

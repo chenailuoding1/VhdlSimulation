@@ -1,0 +1,11 @@
+end case;
+    end process;
+    process(clk,rst) --??
+    begin
+        if rst = '1' then
+                current_sta <= st0;
+        elsif clk'event and clk = '1' then
+            current_sta <= next_sta;
+        end if;
+     end process;
+end Behavioral;

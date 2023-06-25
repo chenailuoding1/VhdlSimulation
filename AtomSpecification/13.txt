@@ -1,0 +1,3 @@
+Mode Initialization {
+        MI sends Current mode storage instruction to MR[instruction];
+}

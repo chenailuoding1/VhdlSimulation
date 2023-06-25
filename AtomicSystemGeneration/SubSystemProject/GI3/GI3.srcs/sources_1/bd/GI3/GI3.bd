@@ -1,0 +1,196 @@
+{
+  "design": {
+    "design_info": {
+      "boundary_crc": "0x253B4306485E0DFF",
+      "device": "xc7k70tfbv676-1",
+      "gen_directory": "../../../../GI3.gen/sources_1/bd/GI3",
+      "name": "GI3",
+      "rev_ctrl_bd_flag": "RevCtrlBdOff",
+      "synth_flow_mode": "Hierarchical",
+      "tool_version": "2021.1",
+      "validated": "true"
+    },
+    "design_tree": {
+      "GI3Dependency_0": "",
+      "GCO5_0": "",
+      "SGPoI4_0": ""
+    },
+    "ports": {
+      "clk_0": {
+        "type": "clk",
+        "direction": "I",
+        "parameters": {
+          "ASSOCIATED_RESET": {
+            "value": "rst_0",
+            "value_src": "default"
+          },
+          "CLK_DOMAIN": {
+            "value": "GI3_clk_0",
+            "value_src": "default"
+          },
+          "FREQ_HZ": {
+            "value": "100000000",
+            "value_src": "default"
+          },
+          "FREQ_TOLERANCE_HZ": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "PHASE": {
+            "value": "0.0",
+            "value_src": "default"
+          }
+        }
+      },
+      "rst_0": {
+        "type": "rst",
+        "direction": "I",
+        "parameters": {
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "POLARITY": {
+            "value": "ACTIVE_LOW",
+            "value_src": "default"
+          }
+        }
+      },
+      "done_0": {
+        "direction": "O"
+      },
+      "start_0": {
+        "direction": "I"
+      },
+      "in_GCO_GI_Gyro_powe_on_inst_0": {
+        "direction": "I",
+        "left": "31",
+        "right": "0"
+      },
+      "out_GCO_GI_Gyro_powe_on_inst_load_inst_0": {
+        "direction": "O"
+      },
+      "out_GCO_G_Gyro_powe_on_puls_0": {
+        "direction": "O",
+        "left": "31",
+        "right": "0"
+      },
+      "out_SGPo_GI_Gyro_powe_on_inst_0": {
+        "direction": "O",
+        "left": "31",
+        "right": "0"
+      },
+      "out_SGPo_GI_Gyro_powe_on_inst_stor_inst_0": {
+        "direction": "O"
+      }
+    },
+    "components": {
+      "GI3Dependency_0": {
+        "vlnv": "xilinx.com:user:GI3Dependency:1.0",
+        "xci_name": "GI3_GI3Dependency_0_0",
+        "xci_path": "ip\\GI3_GI3Dependency_0_0\\GI3_GI3Dependency_0_0.xci",
+        "inst_hier_path": "GI3Dependency_0"
+      },
+      "GCO5_0": {
+        "vlnv": "xilinx.com:user:GCO5:1.0",
+        "xci_name": "GI3_GCO5_0_0",
+        "xci_path": "ip\\GI3_GCO5_0_0\\GI3_GCO5_0_0.xci",
+        "inst_hier_path": "GCO5_0"
+      },
+      "SGPoI4_0": {
+        "vlnv": "xilinx.com:user:SGPoI4:1.0",
+        "xci_name": "GI3_SGPoI4_0_0",
+        "xci_path": "ip\\GI3_SGPoI4_0_0\\GI3_SGPoI4_0_0.xci",
+        "inst_hier_path": "SGPoI4_0"
+      }
+    },
+    "nets": {
+      "GCO5_0_done": {
+        "ports": [
+          "GCO5_0/done",
+          "GI3Dependency_0/done1"
+        ]
+      },
+      "GCO5_0_out_GCO_GI_Gyro_powe_on_inst_load_inst": {
+        "ports": [
+          "GCO5_0/out_GCO_GI_Gyro_powe_on_inst_load_inst",
+          "out_GCO_GI_Gyro_powe_on_inst_load_inst_0"
+        ]
+      },
+      "GCO5_0_out_GCO_G_Gyro_powe_on_puls": {
+        "ports": [
+          "GCO5_0/out_GCO_G_Gyro_powe_on_puls",
+          "out_GCO_G_Gyro_powe_on_puls_0"
+        ]
+      },
+      "GI3Dependency_0_done": {
+        "ports": [
+          "GI3Dependency_0/done",
+          "done_0"
+        ]
+      },
+      "GI3Dependency_0_start0": {
+        "ports": [
+          "GI3Dependency_0/start0",
+          "SGPoI4_0/start"
+        ]
+      },
+      "GI3Dependency_0_start1": {
+        "ports": [
+          "GI3Dependency_0/start1",
+          "GCO5_0/start"
+        ]
+      },
+      "SGPoI4_0_done": {
+        "ports": [
+          "SGPoI4_0/done",
+          "GI3Dependency_0/done0"
+        ]
+      },
+      "SGPoI4_0_out_SGPo_GI_Gyro_powe_on_inst": {
+        "ports": [
+          "SGPoI4_0/out_SGPo_GI_Gyro_powe_on_inst",
+          "out_SGPo_GI_Gyro_powe_on_inst_0"
+        ]
+      },
+      "SGPoI4_0_out_SGPo_GI_Gyro_powe_on_inst_stor_inst": {
+        "ports": [
+          "SGPoI4_0/out_SGPo_GI_Gyro_powe_on_inst_stor_inst",
+          "out_SGPo_GI_Gyro_powe_on_inst_stor_inst_0"
+        ]
+      },
+      "clk_0_1": {
+        "ports": [
+          "clk_0",
+          "GI3Dependency_0/clk",
+          "GCO5_0/clk",
+          "SGPoI4_0/clk"
+        ]
+      },
+      "in_GCO_GI_Gyro_powe_on_inst_0_1": {
+        "ports": [
+          "in_GCO_GI_Gyro_powe_on_inst_0",
+          "GCO5_0/in_GCO_GI_Gyro_powe_on_inst"
+        ]
+      },
+      "rst_0_1": {
+        "ports": [
+          "rst_0",
+          "GI3Dependency_0/rst",
+          "GCO5_0/rst",
+          "SGPoI4_0/rst"
+        ]
+      },
+      "start_0_1": {
+        "ports": [
+          "start_0",
+          "GI3Dependency_0/start"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+Sun Search Subsystem {
+        Initialization;
+        while(160ms) {
+                Telecontrol Instruction Processing;
+                Data Acquisition;
+                Attitude Determination;
+                Mode Switching Management 3;
+                Thruster Control Computing 2;
+                Thruster Distribution Computing;
+                Telemetry Processing 3;
+                always@(128ms) {
+                        Thruster Triaxial Control;
+                }
+        }
+}

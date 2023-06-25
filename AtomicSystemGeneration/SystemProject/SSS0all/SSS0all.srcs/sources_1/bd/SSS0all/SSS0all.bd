@@ -1,0 +1,226 @@
+{
+  "design": {
+    "design_info": {
+      "boundary_crc": "0x2E2DF6BC9B56E38D",
+      "device": "xc7k70tfbv676-1",
+      "gen_directory": "../../../../SSS0all.gen/sources_1/bd/SSS0all",
+      "name": "SSS0all",
+      "rev_ctrl_bd_flag": "RevCtrlBdOff",
+      "synth_flow_mode": "Hierarchical",
+      "tool_version": "2021.1",
+      "validated": "true"
+    },
+    "design_tree": {
+      "G_0": "",
+      "SS_0": "",
+      "DMC_0": "",
+      "TCT_0": "",
+      "IT_0": "",
+      "SSS0_wrapper_0": ""
+    },
+    "ports": {
+      "clk_0_0": {
+        "direction": "I"
+      },
+      "out_GD_GD_Gyro_powe_stat_0_0_0": {
+        "direction": "O",
+        "left": "31",
+        "right": "0"
+      },
+      "out_SSD_SSD_Sun_sens_powe_stat_0_0_0": {
+        "direction": "O",
+        "left": "31",
+        "right": "0"
+      },
+      "rst_0_0": {
+        "direction": "I"
+      }
+    },
+    "components": {
+      "G_0": {
+        "vlnv": "xilinx.com:user:G:1.0",
+        "xci_name": "SSS0all_G_0_0",
+        "xci_path": "ip\\SSS0all_G_0_0\\SSS0all_G_0_0.xci",
+        "inst_hier_path": "G_0"
+      },
+      "SS_0": {
+        "vlnv": "xilinx.com:user:SS:1.0",
+        "xci_name": "SSS0all_SS_0_0",
+        "xci_path": "ip\\SSS0all_SS_0_0\\SSS0all_SS_0_0.xci",
+        "inst_hier_path": "SS_0"
+      },
+      "DMC_0": {
+        "vlnv": "xilinx.com:user:DMC:1.0",
+        "xci_name": "SSS0all_DMC_0_0",
+        "xci_path": "ip\\SSS0all_DMC_0_0\\SSS0all_DMC_0_0.xci",
+        "inst_hier_path": "DMC_0"
+      },
+      "TCT_0": {
+        "vlnv": "xilinx.com:user:TCT:1.0",
+        "xci_name": "SSS0all_TCT_0_0",
+        "xci_path": "ip\\SSS0all_TCT_0_0\\SSS0all_TCT_0_0.xci",
+        "inst_hier_path": "TCT_0"
+      },
+      "IT_0": {
+        "vlnv": "xilinx.com:user:IT:1.0",
+        "xci_name": "SSS0all_IT_0_0",
+        "xci_path": "ip\\SSS0all_IT_0_0\\SSS0all_IT_0_0.xci",
+        "inst_hier_path": "IT_0"
+      },
+      "SSS0_wrapper_0": {
+        "vlnv": "xilinx.com:user:SSS0_wrapper:1.0",
+        "xci_name": "SSS0all_SSS0_wrapper_0_0",
+        "xci_path": "ip\\SSS0all_SSS0_wrapper_0_0\\SSS0all_SSS0_wrapper_0_0.xci",
+        "inst_hier_path": "SSS0_wrapper_0"
+      }
+    },
+    "nets": {
+      "DMC_0_out_DMC_TIP_Tele_inst": {
+        "ports": [
+          "DMC_0/out_DMC_TIP_Tele_inst",
+          "SSS0_wrapper_0/in_DMC_TIP_Tele_inst_0"
+        ]
+      },
+      "G_0_out_GDA_G_Gyro_powe_stat": {
+        "ports": [
+          "G_0/out_GDA_G_Gyro_powe_stat",
+          "SSS0_wrapper_0/in_GDA_G_Gyro_powe_stat_0_0"
+        ]
+      },
+      "G_0_out_GDA_G_Puls_coun": {
+        "ports": [
+          "G_0/out_GDA_G_Puls_coun",
+          "SSS0_wrapper_0/in_GDA_G_Puls_coun_0_0"
+        ]
+      },
+      "IT_0_interruptsignal": {
+        "ports": [
+          "IT_0/interruptsignal",
+          "SSS0_wrapper_0/interruptsignal_0"
+        ]
+      },
+      "SSS0_wrapper_0_out_32IT_32IT_32ms_inte_time_star_inst_0_0": {
+        "ports": [
+          "SSS0_wrapper_0/out_32IT_32IT_32ms_inte_time_star_inst_0_0",
+          "IT_0/in_32IT_32IT_32ms_inte_time_star_inst"
+        ]
+      },
+      "SSS0_wrapper_0_out_GCO_G_Gyro_powe_on_puls_0_0_0": {
+        "ports": [
+          "SSS0_wrapper_0/out_GCO_G_Gyro_powe_on_puls_0_0_0",
+          "G_0/in_GCO_G_Gyro_powe_on_puls"
+        ]
+      },
+      "SSS0_wrapper_0_out_GDA_G_Gyro_powe_stat_perc_inst_0_0": {
+        "ports": [
+          "SSS0_wrapper_0/out_GDA_G_Gyro_powe_stat_perc_inst_0_0",
+          "G_0/in_GDA_G_Gyro_powe_stat_perc_inst"
+        ]
+      },
+      "SSS0_wrapper_0_out_GDA_G_Puls_coun_acqu_inst_0_0": {
+        "ports": [
+          "SSS0_wrapper_0/out_GDA_G_Puls_coun_acqu_inst_0_0",
+          "G_0/in_GDA_G_Puls_coun_acqu_inst"
+        ]
+      },
+      "SSS0_wrapper_0_out_GD_GD_Gyro_powe_stat_0_0": {
+        "ports": [
+          "SSS0_wrapper_0/out_GD_GD_Gyro_powe_stat_0_0",
+          "out_GD_GD_Gyro_powe_stat_0_0_0"
+        ]
+      },
+      "SSS0_wrapper_0_out_SSCO_SS_Sun_sens_powe_on_puls_0_0_0": {
+        "ports": [
+          "SSS0_wrapper_0/out_SSCO_SS_Sun_sens_powe_on_puls_0_0_0",
+          "SS_0/in_SSCO_SS_Sun_sens_powe_on_puls"
+        ]
+      },
+      "SSS0_wrapper_0_out_SSDA_SS_Angl_anal_acqu_inst_0_0": {
+        "ports": [
+          "SSS0_wrapper_0/out_SSDA_SS_Angl_anal_acqu_inst_0_0",
+          "SS_0/in_SSDA_SS_Angl_anal_acqu_inst"
+        ]
+      },
+      "SSS0_wrapper_0_out_SSDA_SS_Sun_sens_powe_stat_perc_inst_0_0": {
+        "ports": [
+          "SSS0_wrapper_0/out_SSDA_SS_Sun_sens_powe_stat_perc_inst_0_0",
+          "SS_0/in_SSDA_SS_Sun_sens_powe_stat_perc_inst"
+        ]
+      },
+      "SSS0_wrapper_0_out_SSDA_SS_Sun_visi_sign_acqu_inst_0_0": {
+        "ports": [
+          "SSS0_wrapper_0/out_SSDA_SS_Sun_visi_sign_acqu_inst_0_0",
+          "SS_0/in_SSDA_SS_Sun_visi_sign_acqu_inst"
+        ]
+      },
+      "SSS0_wrapper_0_out_SSD_SSD_Sun_sens_powe_stat_0_0": {
+        "ports": [
+          "SSS0_wrapper_0/out_SSD_SSD_Sun_sens_powe_stat_0_0",
+          "out_SSD_SSD_Sun_sens_powe_stat_0_0_0"
+        ]
+      },
+      "SSS0_wrapper_0_out_TDA_TCT_Thru_powe_stat_perc_inst_0_0": {
+        "ports": [
+          "SSS0_wrapper_0/out_TDA_TCT_Thru_powe_stat_perc_inst_0_0",
+          "TCT_0/in_TDA_TCT_Thru_powe_stat_perc_inst"
+        ]
+      },
+      "SSS0_wrapper_0_out_TPCO_TCT_Thru_powe_on_puls_0_0_0": {
+        "ports": [
+          "SSS0_wrapper_0/out_TPCO_TCT_Thru_powe_on_puls_0_0_0",
+          "TCT_0/in_TPCO_TCT_Thru_powe_on_puls"
+        ]
+      },
+      "SSS0_wrapper_0_out_TP_DMC_Tele_data_tran_inst_0": {
+        "ports": [
+          "SSS0_wrapper_0/out_TP_DMC_Tele_data_tran_inst_0",
+          "DMC_0/in_TP_DMC_Tele_data_tran_inst"
+        ]
+      },
+      "SSS0_wrapper_0_out_TTCO_TCT_Tria_cont_sign_0_0": {
+        "ports": [
+          "SSS0_wrapper_0/out_TTCO_TCT_Tria_cont_sign_0_0",
+          "TCT_0/in_TTCO_TCT_Tria_cont_sign"
+        ]
+      },
+      "SS_0_out_SSDA_SS_Angl_anal": {
+        "ports": [
+          "SS_0/out_SSDA_SS_Angl_anal",
+          "SSS0_wrapper_0/in_SSDA_SS_Angl_anal_0_0"
+        ]
+      },
+      "SS_0_out_SSDA_SS_Sun_sens_powe_stat": {
+        "ports": [
+          "SS_0/out_SSDA_SS_Sun_sens_powe_stat",
+          "SSS0_wrapper_0/in_SSDA_SS_Sun_sens_powe_stat_0_0"
+        ]
+      },
+      "SS_0_out_SSDA_SS_Sun_visi_sign": {
+        "ports": [
+          "SS_0/out_SSDA_SS_Sun_visi_sign",
+          "SSS0_wrapper_0/in_SSDA_SS_Sun_visi_sign_0_0"
+        ]
+      },
+      "TCT_0_out_TDA_TCT_Thru_powe_stat": {
+        "ports": [
+          "TCT_0/out_TDA_TCT_Thru_powe_stat",
+          "SSS0_wrapper_0/in_TDA_TCT_Thru_powe_stat_0_0"
+        ]
+      },
+      "clk_0_0_1": {
+        "ports": [
+          "clk_0_0",
+          "SSS0_wrapper_0/clk_0",
+          "IT_0/clk"
+        ]
+      },
+      "rst_0_0_1": {
+        "ports": [
+          "rst_0_0",
+          "SSS0_wrapper_0/rst_0",
+          "IT_0/reset"
+        ]
+      }
+    }
+  }
+}

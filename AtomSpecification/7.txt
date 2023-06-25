@@ -1,0 +1,6 @@
+Sun Sensor Control Output {
+        SSCO sends Sun sensor power on instruction load instruction to SSI[instruction];
+        SSCO sends Sun sensor power on instruction to SSCOCC[instruction];
+        SSCO receives Sun sensor power on pulse from SSCOCC[signal];
+        SSCO sends Sun sensor power on pulse to SS[signal];
+}

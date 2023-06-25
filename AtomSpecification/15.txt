@@ -1,0 +1,14 @@
+Attitude Determination {
+        AD sends Angular velocity analog load instruction to GD[instruction];
+        AD sends Sun visible sign load instruction to SSD[instruction];
+        AD sends Sun measurement angle load instruction to SSD[instruction];
+        AD sends Current mode load instruction to MR[instruction];
+        AD sends Angular velocity analog to ADCC[value];
+        AD sends Sun visible sign to ADCC[value];
+        AD sends Sun measurement angle to ADCC[value];
+        AD sends Current mode to ADCC[value];
+        AD receives Triaxial attitude angle from ADCC[value];
+        AD receives Triaxial angular velocity from ADCC[value];
+        AD sends Triaxial attitude angle storage instruction to ADR[instruction];
+        AD sends Triaxial angular velocity storage instruction to ADR[instruction];
+}

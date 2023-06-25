@@ -1,0 +1,6 @@
+Thruster Triaxial Control 2{
+    TTC sends Thruster combination logic load instruction to TDCR[instruction];
+    TTC sends Thruster combination logic to TTCCC[value];
+    TTC receives Triaxial control instruction from TTCCC[instruction];
+    TTC sends Triaxial control instruction storage instruction to TTI[instruction];
+}

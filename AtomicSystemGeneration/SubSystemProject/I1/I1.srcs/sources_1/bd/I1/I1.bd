@@ -1,0 +1,392 @@
+{
+  "design": {
+    "design_info": {
+      "boundary_crc": "0xEDCF1802BA7D92F7",
+      "device": "xc7k70tfbv676-1",
+      "gen_directory": "../../../../I1.gen/sources_1/bd/I1",
+      "name": "I1",
+      "rev_ctrl_bd_flag": "RevCtrlBdOff",
+      "synth_flow_mode": "Hierarchical",
+      "tool_version": "2021.1",
+      "validated": "true"
+    },
+    "design_tree": {
+      "I1Dependency_0": "",
+      "MI12_0": "",
+      "TI9_wrapper_0": "",
+      "SSI6_wrapper_0": "",
+      "GI3_wrapper_0": "",
+      "ITI2_0": ""
+    },
+    "ports": {
+      "clk_0": {
+        "type": "clk",
+        "direction": "I",
+        "parameters": {
+          "ASSOCIATED_RESET": {
+            "value": "rst_0",
+            "value_src": "default"
+          },
+          "CLK_DOMAIN": {
+            "value": "I1_clk_0",
+            "value_src": "default"
+          },
+          "FREQ_HZ": {
+            "value": "100000000",
+            "value_src": "default"
+          },
+          "FREQ_TOLERANCE_HZ": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "PHASE": {
+            "value": "0.0",
+            "value_src": "default"
+          }
+        }
+      },
+      "rst_0": {
+        "type": "rst",
+        "direction": "I",
+        "parameters": {
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "POLARITY": {
+            "value": "ACTIVE_LOW",
+            "value_src": "default"
+          }
+        }
+      },
+      "done_0": {
+        "direction": "O"
+      },
+      "start_0": {
+        "direction": "I"
+      },
+      "out_MI_MR_Curr_mode_0": {
+        "direction": "O",
+        "left": "31",
+        "right": "0"
+      },
+      "out_MI_MR_Curr_mode_stor_inst_0": {
+        "direction": "O"
+      },
+      "in_TPCO_TPI_Thru_powe_on_inst_0_0": {
+        "direction": "I",
+        "left": "31",
+        "right": "0"
+      },
+      "out_STPo_TPI_Thru_powe_on_inst_0_0": {
+        "direction": "O",
+        "left": "31",
+        "right": "0"
+      },
+      "out_STPo_TPI_Thru_powe_on_inst_stor_inst_0_0": {
+        "direction": "O"
+      },
+      "out_TPCO_TCT_Thru_powe_on_puls_0_0": {
+        "direction": "O",
+        "left": "31",
+        "right": "0"
+      },
+      "out_TPCO_TPI_Thru_powe_on_inst_load_inst_0_0": {
+        "direction": "O"
+      },
+      "in_SSCO_SSI_Sun_sens_powe_on_inst_0_0": {
+        "direction": "I",
+        "left": "31",
+        "right": "0"
+      },
+      "out_SSCO_SSI_Sun_sens_powe_on_inst_load_inst_0_0": {
+        "direction": "O"
+      },
+      "out_SSCO_SS_Sun_sens_powe_on_puls_0_0": {
+        "direction": "O",
+        "left": "31",
+        "right": "0"
+      },
+      "out_SSSP_SSI_Sun_sens_powe_on_inst_0_0": {
+        "direction": "O",
+        "left": "31",
+        "right": "0"
+      },
+      "out_SSSP_SSI_Sun_sens_powe_on_inst_stor_inst_0_0": {
+        "direction": "O"
+      },
+      "in_GCO_GI_Gyro_powe_on_inst_0_0": {
+        "direction": "I",
+        "left": "31",
+        "right": "0"
+      },
+      "out_GCO_GI_Gyro_powe_on_inst_load_inst_0_0": {
+        "direction": "O"
+      },
+      "out_GCO_G_Gyro_powe_on_puls_0_0": {
+        "direction": "O",
+        "left": "31",
+        "right": "0"
+      },
+      "out_SGPo_GI_Gyro_powe_on_inst_0_0": {
+        "direction": "O",
+        "left": "31",
+        "right": "0"
+      },
+      "out_SGPo_GI_Gyro_powe_on_inst_stor_inst_0_0": {
+        "direction": "O"
+      },
+      "out_32IT_32IT_32ms_inte_time_star_inst_0": {
+        "direction": "O",
+        "left": "31",
+        "right": "0"
+      }
+    },
+    "components": {
+      "I1Dependency_0": {
+        "vlnv": "xilinx.com:user:I1Dependency:1.0",
+        "xci_name": "I1_I1Dependency_0_0",
+        "xci_path": "ip\\I1_I1Dependency_0_0\\I1_I1Dependency_0_0.xci",
+        "inst_hier_path": "I1Dependency_0"
+      },
+      "MI12_0": {
+        "vlnv": "xilinx.com:user:MI12:1.0",
+        "xci_name": "I1_MI12_0_0",
+        "xci_path": "ip\\I1_MI12_0_0\\I1_MI12_0_0.xci",
+        "inst_hier_path": "MI12_0"
+      },
+      "TI9_wrapper_0": {
+        "vlnv": "xilinx.com:user:TI9_wrapper:1.0",
+        "xci_name": "I1_TI9_wrapper_0_0",
+        "xci_path": "ip\\I1_TI9_wrapper_0_0\\I1_TI9_wrapper_0_0.xci",
+        "inst_hier_path": "TI9_wrapper_0"
+      },
+      "SSI6_wrapper_0": {
+        "vlnv": "xilinx.com:user:SSI6_wrapper:1.0",
+        "xci_name": "I1_SSI6_wrapper_0_0",
+        "xci_path": "ip\\I1_SSI6_wrapper_0_0\\I1_SSI6_wrapper_0_0.xci",
+        "inst_hier_path": "SSI6_wrapper_0"
+      },
+      "GI3_wrapper_0": {
+        "vlnv": "xilinx.com:user:GI3_wrapper:1.0",
+        "xci_name": "I1_GI3_wrapper_0_0",
+        "xci_path": "ip\\I1_GI3_wrapper_0_0\\I1_GI3_wrapper_0_0.xci",
+        "inst_hier_path": "GI3_wrapper_0"
+      },
+      "ITI2_0": {
+        "vlnv": "xilinx.com:user:ITI2:1.0",
+        "xci_name": "I1_ITI2_0_0",
+        "xci_path": "ip\\I1_ITI2_0_0\\I1_ITI2_0_0.xci",
+        "inst_hier_path": "ITI2_0"
+      }
+    },
+    "nets": {
+      "GI3_wrapper_0_done_0": {
+        "ports": [
+          "GI3_wrapper_0/done_0",
+          "I1Dependency_0/done1"
+        ]
+      },
+      "GI3_wrapper_0_out_GCO_GI_Gyro_powe_on_inst_load_inst_0": {
+        "ports": [
+          "GI3_wrapper_0/out_GCO_GI_Gyro_powe_on_inst_load_inst_0",
+          "out_GCO_GI_Gyro_powe_on_inst_load_inst_0_0"
+        ]
+      },
+      "GI3_wrapper_0_out_GCO_G_Gyro_powe_on_puls_0": {
+        "ports": [
+          "GI3_wrapper_0/out_GCO_G_Gyro_powe_on_puls_0",
+          "out_GCO_G_Gyro_powe_on_puls_0_0"
+        ]
+      },
+      "GI3_wrapper_0_out_SGPo_GI_Gyro_powe_on_inst_0": {
+        "ports": [
+          "GI3_wrapper_0/out_SGPo_GI_Gyro_powe_on_inst_0",
+          "out_SGPo_GI_Gyro_powe_on_inst_0_0"
+        ]
+      },
+      "GI3_wrapper_0_out_SGPo_GI_Gyro_powe_on_inst_stor_inst_0": {
+        "ports": [
+          "GI3_wrapper_0/out_SGPo_GI_Gyro_powe_on_inst_stor_inst_0",
+          "out_SGPo_GI_Gyro_powe_on_inst_stor_inst_0_0"
+        ]
+      },
+      "I1Dependency_0_done": {
+        "ports": [
+          "I1Dependency_0/done",
+          "done_0"
+        ]
+      },
+      "I1Dependency_0_start0": {
+        "ports": [
+          "I1Dependency_0/start0",
+          "ITI2_0/start"
+        ]
+      },
+      "I1Dependency_0_start1": {
+        "ports": [
+          "I1Dependency_0/start1",
+          "GI3_wrapper_0/start_0"
+        ]
+      },
+      "I1Dependency_0_start2": {
+        "ports": [
+          "I1Dependency_0/start2",
+          "SSI6_wrapper_0/start_0"
+        ]
+      },
+      "I1Dependency_0_start3": {
+        "ports": [
+          "I1Dependency_0/start3",
+          "TI9_wrapper_0/start_0"
+        ]
+      },
+      "I1Dependency_0_start4": {
+        "ports": [
+          "I1Dependency_0/start4",
+          "MI12_0/start"
+        ]
+      },
+      "ITI2_0_done": {
+        "ports": [
+          "ITI2_0/done",
+          "I1Dependency_0/done0"
+        ]
+      },
+      "ITI2_0_out_32IT_32IT_32ms_inte_time_star_inst": {
+        "ports": [
+          "ITI2_0/out_32IT_32IT_32ms_inte_time_star_inst",
+          "out_32IT_32IT_32ms_inte_time_star_inst_0"
+        ]
+      },
+      "MI12_0_done": {
+        "ports": [
+          "MI12_0/done",
+          "I1Dependency_0/done4"
+        ]
+      },
+      "MI12_0_out_MI_MR_Curr_mode": {
+        "ports": [
+          "MI12_0/out_MI_MR_Curr_mode",
+          "out_MI_MR_Curr_mode_0"
+        ]
+      },
+      "MI12_0_out_MI_MR_Curr_mode_stor_inst": {
+        "ports": [
+          "MI12_0/out_MI_MR_Curr_mode_stor_inst",
+          "out_MI_MR_Curr_mode_stor_inst_0"
+        ]
+      },
+      "SSI6_wrapper_0_done_0": {
+        "ports": [
+          "SSI6_wrapper_0/done_0",
+          "I1Dependency_0/done2"
+        ]
+      },
+      "SSI6_wrapper_0_out_SSCO_SSI_Sun_sens_powe_on_inst_load_inst_0": {
+        "ports": [
+          "SSI6_wrapper_0/out_SSCO_SSI_Sun_sens_powe_on_inst_load_inst_0",
+          "out_SSCO_SSI_Sun_sens_powe_on_inst_load_inst_0_0"
+        ]
+      },
+      "SSI6_wrapper_0_out_SSCO_SS_Sun_sens_powe_on_puls_0": {
+        "ports": [
+          "SSI6_wrapper_0/out_SSCO_SS_Sun_sens_powe_on_puls_0",
+          "out_SSCO_SS_Sun_sens_powe_on_puls_0_0"
+        ]
+      },
+      "SSI6_wrapper_0_out_SSSP_SSI_Sun_sens_powe_on_inst_0": {
+        "ports": [
+          "SSI6_wrapper_0/out_SSSP_SSI_Sun_sens_powe_on_inst_0",
+          "out_SSSP_SSI_Sun_sens_powe_on_inst_0_0"
+        ]
+      },
+      "SSI6_wrapper_0_out_SSSP_SSI_Sun_sens_powe_on_inst_stor_inst_0": {
+        "ports": [
+          "SSI6_wrapper_0/out_SSSP_SSI_Sun_sens_powe_on_inst_stor_inst_0",
+          "out_SSSP_SSI_Sun_sens_powe_on_inst_stor_inst_0_0"
+        ]
+      },
+      "TI9_wrapper_0_done_0": {
+        "ports": [
+          "TI9_wrapper_0/done_0",
+          "I1Dependency_0/done3"
+        ]
+      },
+      "TI9_wrapper_0_out_STPo_TPI_Thru_powe_on_inst_0": {
+        "ports": [
+          "TI9_wrapper_0/out_STPo_TPI_Thru_powe_on_inst_0",
+          "out_STPo_TPI_Thru_powe_on_inst_0_0"
+        ]
+      },
+      "TI9_wrapper_0_out_STPo_TPI_Thru_powe_on_inst_stor_inst_0": {
+        "ports": [
+          "TI9_wrapper_0/out_STPo_TPI_Thru_powe_on_inst_stor_inst_0",
+          "out_STPo_TPI_Thru_powe_on_inst_stor_inst_0_0"
+        ]
+      },
+      "TI9_wrapper_0_out_TPCO_TCT_Thru_powe_on_puls_0": {
+        "ports": [
+          "TI9_wrapper_0/out_TPCO_TCT_Thru_powe_on_puls_0",
+          "out_TPCO_TCT_Thru_powe_on_puls_0_0"
+        ]
+      },
+      "TI9_wrapper_0_out_TPCO_TPI_Thru_powe_on_inst_load_inst_0": {
+        "ports": [
+          "TI9_wrapper_0/out_TPCO_TPI_Thru_powe_on_inst_load_inst_0",
+          "out_TPCO_TPI_Thru_powe_on_inst_load_inst_0_0"
+        ]
+      },
+      "clk_0_1": {
+        "ports": [
+          "clk_0",
+          "I1Dependency_0/clk",
+          "MI12_0/clk",
+          "TI9_wrapper_0/clk_0",
+          "SSI6_wrapper_0/clk_0",
+          "GI3_wrapper_0/clk_0",
+          "ITI2_0/clk"
+        ]
+      },
+      "in_GCO_GI_Gyro_powe_on_inst_0_0_1": {
+        "ports": [
+          "in_GCO_GI_Gyro_powe_on_inst_0_0",
+          "GI3_wrapper_0/in_GCO_GI_Gyro_powe_on_inst_0"
+        ]
+      },
+      "in_SSCO_SSI_Sun_sens_powe_on_inst_0_0_1": {
+        "ports": [
+          "in_SSCO_SSI_Sun_sens_powe_on_inst_0_0",
+          "SSI6_wrapper_0/in_SSCO_SSI_Sun_sens_powe_on_inst_0"
+        ]
+      },
+      "in_TPCO_TPI_Thru_powe_on_inst_0_0_1": {
+        "ports": [
+          "in_TPCO_TPI_Thru_powe_on_inst_0_0",
+          "TI9_wrapper_0/in_TPCO_TPI_Thru_powe_on_inst_0"
+        ]
+      },
+      "rst_0_1": {
+        "ports": [
+          "rst_0",
+          "I1Dependency_0/rst",
+          "MI12_0/rst",
+          "TI9_wrapper_0/rst_0",
+          "SSI6_wrapper_0/rst_0",
+          "GI3_wrapper_0/rst_0",
+          "ITI2_0/rst"
+        ]
+      },
+      "start_0_1": {
+        "ports": [
+          "start_0",
+          "I1Dependency_0/start"
+        ]
+      }
+    }
+  }
+}

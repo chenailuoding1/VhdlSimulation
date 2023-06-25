@@ -1,0 +1,196 @@
+{
+  "design": {
+    "design_info": {
+      "boundary_crc": "0xB30642B03C5C2DBB",
+      "device": "xc7k70tfbv676-1",
+      "gen_directory": "../../../../SSI6.gen/sources_1/bd/SSI6",
+      "name": "SSI6",
+      "rev_ctrl_bd_flag": "RevCtrlBdOff",
+      "synth_flow_mode": "Hierarchical",
+      "tool_version": "2021.1",
+      "validated": "true"
+    },
+    "design_tree": {
+      "SSI6Dependency_0": "",
+      "SSCO8_0": "",
+      "SSSPoI7_0": ""
+    },
+    "ports": {
+      "clk_0": {
+        "type": "clk",
+        "direction": "I",
+        "parameters": {
+          "ASSOCIATED_RESET": {
+            "value": "rst_0",
+            "value_src": "default"
+          },
+          "CLK_DOMAIN": {
+            "value": "SSI6_clk_0",
+            "value_src": "default"
+          },
+          "FREQ_HZ": {
+            "value": "100000000",
+            "value_src": "default"
+          },
+          "FREQ_TOLERANCE_HZ": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "PHASE": {
+            "value": "0.0",
+            "value_src": "default"
+          }
+        }
+      },
+      "rst_0": {
+        "type": "rst",
+        "direction": "I",
+        "parameters": {
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "POLARITY": {
+            "value": "ACTIVE_LOW",
+            "value_src": "default"
+          }
+        }
+      },
+      "done_0": {
+        "direction": "O"
+      },
+      "start_0": {
+        "direction": "I"
+      },
+      "in_SSCO_SSI_Sun_sens_powe_on_inst_0": {
+        "direction": "I",
+        "left": "31",
+        "right": "0"
+      },
+      "out_SSCO_SSI_Sun_sens_powe_on_inst_load_inst_0": {
+        "direction": "O"
+      },
+      "out_SSCO_SS_Sun_sens_powe_on_puls_0": {
+        "direction": "O",
+        "left": "31",
+        "right": "0"
+      },
+      "out_SSSP_SSI_Sun_sens_powe_on_inst_0": {
+        "direction": "O",
+        "left": "31",
+        "right": "0"
+      },
+      "out_SSSP_SSI_Sun_sens_powe_on_inst_stor_inst_0": {
+        "direction": "O"
+      }
+    },
+    "components": {
+      "SSI6Dependency_0": {
+        "vlnv": "xilinx.com:user:SSI6Dependency:1.0",
+        "xci_name": "SSI6_SSI6Dependency_0_0",
+        "xci_path": "ip\\SSI6_SSI6Dependency_0_0\\SSI6_SSI6Dependency_0_0.xci",
+        "inst_hier_path": "SSI6Dependency_0"
+      },
+      "SSCO8_0": {
+        "vlnv": "xilinx.com:user:SSCO8:1.0",
+        "xci_name": "SSI6_SSCO8_0_0",
+        "xci_path": "ip\\SSI6_SSCO8_0_0\\SSI6_SSCO8_0_0.xci",
+        "inst_hier_path": "SSCO8_0"
+      },
+      "SSSPoI7_0": {
+        "vlnv": "xilinx.com:user:SSSPoI7:1.0",
+        "xci_name": "SSI6_SSSPoI7_0_0",
+        "xci_path": "ip\\SSI6_SSSPoI7_0_0\\SSI6_SSSPoI7_0_0.xci",
+        "inst_hier_path": "SSSPoI7_0"
+      }
+    },
+    "nets": {
+      "SSCO8_0_done": {
+        "ports": [
+          "SSCO8_0/done",
+          "SSI6Dependency_0/done1"
+        ]
+      },
+      "SSCO8_0_out_SSCO_SSI_Sun_sens_powe_on_inst_load_inst": {
+        "ports": [
+          "SSCO8_0/out_SSCO_SSI_Sun_sens_powe_on_inst_load_inst",
+          "out_SSCO_SSI_Sun_sens_powe_on_inst_load_inst_0"
+        ]
+      },
+      "SSCO8_0_out_SSCO_SS_Sun_sens_powe_on_puls": {
+        "ports": [
+          "SSCO8_0/out_SSCO_SS_Sun_sens_powe_on_puls",
+          "out_SSCO_SS_Sun_sens_powe_on_puls_0"
+        ]
+      },
+      "SSI6Dependency_0_done": {
+        "ports": [
+          "SSI6Dependency_0/done",
+          "done_0"
+        ]
+      },
+      "SSI6Dependency_0_start0": {
+        "ports": [
+          "SSI6Dependency_0/start0",
+          "SSSPoI7_0/start"
+        ]
+      },
+      "SSI6Dependency_0_start1": {
+        "ports": [
+          "SSI6Dependency_0/start1",
+          "SSCO8_0/start"
+        ]
+      },
+      "SSSPoI7_0_done": {
+        "ports": [
+          "SSSPoI7_0/done",
+          "SSI6Dependency_0/done0"
+        ]
+      },
+      "SSSPoI7_0_out_SSSP_SSI_Sun_sens_powe_on_inst": {
+        "ports": [
+          "SSSPoI7_0/out_SSSP_SSI_Sun_sens_powe_on_inst",
+          "out_SSSP_SSI_Sun_sens_powe_on_inst_0"
+        ]
+      },
+      "SSSPoI7_0_out_SSSP_SSI_Sun_sens_powe_on_inst_stor_inst": {
+        "ports": [
+          "SSSPoI7_0/out_SSSP_SSI_Sun_sens_powe_on_inst_stor_inst",
+          "out_SSSP_SSI_Sun_sens_powe_on_inst_stor_inst_0"
+        ]
+      },
+      "clk_0_1": {
+        "ports": [
+          "clk_0",
+          "SSI6Dependency_0/clk",
+          "SSCO8_0/clk",
+          "SSSPoI7_0/clk"
+        ]
+      },
+      "in_SSCO_SSI_Sun_sens_powe_on_inst_0_1": {
+        "ports": [
+          "in_SSCO_SSI_Sun_sens_powe_on_inst_0",
+          "SSCO8_0/in_SSCO_SSI_Sun_sens_powe_on_inst"
+        ]
+      },
+      "rst_0_1": {
+        "ports": [
+          "rst_0",
+          "SSI6Dependency_0/rst",
+          "SSCO8_0/rst",
+          "SSSPoI7_0/rst"
+        ]
+      },
+      "start_0_1": {
+        "ports": [
+          "start_0",
+          "SSI6Dependency_0/start"
+        ]
+      }
+    }
+  }
+}

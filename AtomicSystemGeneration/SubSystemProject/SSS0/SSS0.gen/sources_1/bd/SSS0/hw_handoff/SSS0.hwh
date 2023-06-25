@@ -1,0 +1,1162 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Wed May 31 09:50:47 2023" VIVADOVERSION="2021.1">
+
+  <SYSTEMINFO ARCH="kintex7" DEVICE="7k70t" NAME="SSS0" PACKAGE="fbv676" SPEEDGRADE="-1"/>
+
+  <EXTERNALPORTS>
+    <PORT CLKFREQUENCY="100000000" DIR="I" NAME="clk_0" SIGIS="clk" SIGNAME="External_Ports_clk_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="TTC23_wrapper_0" PORT="clk_0"/>
+        <CONNECTION INSTANCE="TP22_0" PORT="clk"/>
+        <CONNECTION INSTANCE="TDC21_0" PORT="clk"/>
+        <CONNECTION INSTANCE="TCC20_0" PORT="clk"/>
+        <CONNECTION INSTANCE="MSM19_0" PORT="clk"/>
+        <CONNECTION INSTANCE="AD18_0" PORT="clk"/>
+        <CONNECTION INSTANCE="DA14_wrapper_0" PORT="clk_0"/>
+        <CONNECTION INSTANCE="TIP13_0" PORT="clk"/>
+        <CONNECTION INSTANCE="I1_wrapper_0" PORT="clk_0"/>
+        <CONNECTION INSTANCE="SSS0Dependency_0" PORT="clk"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="I" NAME="rst_0" POLARITY="ACTIVE_LOW" SIGIS="rst" SIGNAME="External_Ports_rst_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="TTC23_wrapper_0" PORT="rst_0"/>
+        <CONNECTION INSTANCE="TP22_0" PORT="rst"/>
+        <CONNECTION INSTANCE="TDC21_0" PORT="rst"/>
+        <CONNECTION INSTANCE="TCC20_0" PORT="rst"/>
+        <CONNECTION INSTANCE="MSM19_0" PORT="rst"/>
+        <CONNECTION INSTANCE="AD18_0" PORT="rst"/>
+        <CONNECTION INSTANCE="DA14_wrapper_0" PORT="rst_0"/>
+        <CONNECTION INSTANCE="TIP13_0" PORT="rst"/>
+        <CONNECTION INSTANCE="I1_wrapper_0" PORT="rst_0"/>
+        <CONNECTION INSTANCE="SSS0Dependency_0" PORT="rst"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="I" LEFT="31" NAME="in_DMC_TIP_Tele_inst_0" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_in_DMC_TIP_Tele_inst_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="TIP13_0" PORT="in_DMC_TIP_Tele_inst"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="I" LEFT="31" NAME="in_GDA_G_Gyro_powe_stat_0_0" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_in_GDA_G_Gyro_powe_stat_0_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="DA14_wrapper_0" PORT="in_GDA_G_Gyro_powe_stat_0"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="I" LEFT="31" NAME="in_GDA_G_Puls_coun_0_0" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_in_GDA_G_Puls_coun_0_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="DA14_wrapper_0" PORT="in_GDA_G_Puls_coun_0"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="I" LEFT="31" NAME="in_SSDA_SS_Angl_anal_0_0" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_in_SSDA_SS_Angl_anal_0_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="DA14_wrapper_0" PORT="in_SSDA_SS_Angl_anal_0"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="I" LEFT="31" NAME="in_SSDA_SS_Sun_sens_powe_stat_0_0" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_in_SSDA_SS_Sun_sens_powe_stat_0_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="DA14_wrapper_0" PORT="in_SSDA_SS_Sun_sens_powe_stat_0"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="I" LEFT="31" NAME="in_SSDA_SS_Sun_visi_sign_0_0" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_in_SSDA_SS_Sun_visi_sign_0_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="DA14_wrapper_0" PORT="in_SSDA_SS_Sun_visi_sign_0"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="I" LEFT="31" NAME="in_TDA_TCT_Thru_powe_stat_0_0" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_in_TDA_TCT_Thru_powe_stat_0_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="DA14_wrapper_0" PORT="in_TDA_TCT_Thru_powe_stat_0"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" NAME="out_GDA_G_Gyro_powe_stat_perc_inst_0_0" SIGIS="undef" SIGNAME="DA14_wrapper_0_out_GDA_G_Gyro_powe_stat_perc_inst_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="DA14_wrapper_0" PORT="out_GDA_G_Gyro_powe_stat_perc_inst_0"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" NAME="out_GDA_G_Puls_coun_acqu_inst_0_0" SIGIS="undef" SIGNAME="DA14_wrapper_0_out_GDA_G_Puls_coun_acqu_inst_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="DA14_wrapper_0" PORT="out_GDA_G_Puls_coun_acqu_inst_0"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" LEFT="31" NAME="out_GD_GD_Gyro_powe_stat_0_0" RIGHT="0" SIGIS="undef" SIGNAME="DA14_wrapper_0_out_GD_GD_Gyro_powe_stat_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="DA14_wrapper_0" PORT="out_GD_GD_Gyro_powe_stat_0"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" NAME="out_SSDA_SS_Angl_anal_acqu_inst_0_0" SIGIS="undef" SIGNAME="DA14_wrapper_0_out_SSDA_SS_Angl_anal_acqu_inst_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="DA14_wrapper_0" PORT="out_SSDA_SS_Angl_anal_acqu_inst_0"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" NAME="out_SSDA_SS_Sun_sens_powe_stat_perc_inst_0_0" SIGIS="undef" SIGNAME="DA14_wrapper_0_out_SSDA_SS_Sun_sens_powe_stat_perc_inst_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="DA14_wrapper_0" PORT="out_SSDA_SS_Sun_sens_powe_stat_perc_inst_0"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" NAME="out_SSDA_SS_Sun_visi_sign_acqu_inst_0_0" SIGIS="undef" SIGNAME="DA14_wrapper_0_out_SSDA_SS_Sun_visi_sign_acqu_inst_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="DA14_wrapper_0" PORT="out_SSDA_SS_Sun_visi_sign_acqu_inst_0"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" LEFT="31" NAME="out_SSD_SSD_Sun_sens_powe_stat_0_0" RIGHT="0" SIGIS="undef" SIGNAME="DA14_wrapper_0_out_SSD_SSD_Sun_sens_powe_stat_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="DA14_wrapper_0" PORT="out_SSD_SSD_Sun_sens_powe_stat_0"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" NAME="out_TDA_TCT_Thru_powe_stat_perc_inst_0_0" SIGIS="undef" SIGNAME="DA14_wrapper_0_out_TDA_TCT_Thru_powe_stat_perc_inst_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="DA14_wrapper_0" PORT="out_TDA_TCT_Thru_powe_stat_perc_inst_0"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" LEFT="31" NAME="out_TP_DMC_Tele_data_tran_inst_0" RIGHT="0" SIGIS="undef" SIGNAME="TP22_0_out_TP_DMC_Tele_data_tran_inst">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="TP22_0" PORT="out_TP_DMC_Tele_data_tran_inst"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" LEFT="31" NAME="out_32IT_32IT_32ms_inte_time_star_inst_0_0" RIGHT="0" SIGIS="undef" SIGNAME="I1_wrapper_0_out_32IT_32IT_32ms_inte_time_star_inst_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="I1_wrapper_0" PORT="out_32IT_32IT_32ms_inte_time_star_inst_0"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" LEFT="31" NAME="out_GCO_G_Gyro_powe_on_puls_0_0_0" RIGHT="0" SIGIS="undef" SIGNAME="I1_wrapper_0_out_GCO_G_Gyro_powe_on_puls_0_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="I1_wrapper_0" PORT="out_GCO_G_Gyro_powe_on_puls_0_0"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" LEFT="31" NAME="out_SSCO_SS_Sun_sens_powe_on_puls_0_0_0" RIGHT="0" SIGIS="undef" SIGNAME="I1_wrapper_0_out_SSCO_SS_Sun_sens_powe_on_puls_0_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="I1_wrapper_0" PORT="out_SSCO_SS_Sun_sens_powe_on_puls_0_0"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" LEFT="31" NAME="out_TPCO_TCT_Thru_powe_on_puls_0_0_0" RIGHT="0" SIGIS="undef" SIGNAME="I1_wrapper_0_out_TPCO_TCT_Thru_powe_on_puls_0_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="I1_wrapper_0" PORT="out_TPCO_TCT_Thru_powe_on_puls_0_0"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" LEFT="31" NAME="out_TTCO_TCT_Tria_cont_sign_0_0" RIGHT="0" SIGIS="undef" SIGNAME="TTC23_wrapper_0_out_TTCO_TCT_Tria_cont_sign_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="TTC23_wrapper_0" PORT="out_TTCO_TCT_Tria_cont_sign_0"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="I" NAME="interruptsignal_0" SIGIS="undef" SIGNAME="External_Ports_interruptsignal_0">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="SSS0Dependency_0" PORT="interruptsignal"/>
+      </CONNECTIONS>
+    </PORT>
+  </EXTERNALPORTS>
+
+  <EXTERNALINTERFACES/>
+
+  <MODULES>
+    <MODULE COREREVISION="1" FULLNAME="/AD18_0" HWVERSION="1.0" INSTANCE="AD18_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="AD18" VLNV="xilinx.com:user:AD18:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="Component_Name" VALUE="SSS0_AD18_0_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT CLKFREQUENCY="100000000" DIR="I" NAME="clk" SIGIS="clk" SIGNAME="External_Ports_clk_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="clk_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="rst" POLARITY="ACTIVE_LOW" SIGIS="rst" SIGNAME="External_Ports_rst_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="rst_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="done" SIGIS="undef" SIGNAME="AD18_0_done">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="SSS0Dependency_0" PORT="done3"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="start" SIGIS="undef" SIGNAME="SSS0Dependency_0_start3">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="SSS0Dependency_0" PORT="start3"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="in_AD_MR_Curr_mode" RIGHT="0" SIGIS="undef" SIGNAME="MR_0_out_AD_MR_Curr_mode">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="MR_0" PORT="out_AD_MR_Curr_mode"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="in_SSD_SSD_Sun_meas_angl" RIGHT="0" SIGIS="undef" SIGNAME="DA14_wrapper_0_out_SSD_SSD_Sun_meas_angl_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="DA14_wrapper_0" PORT="out_SSD_SSD_Sun_meas_angl_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="in_GD_GD_Angu_velo_anal" RIGHT="0" SIGIS="undef" SIGNAME="DA14_wrapper_0_out_GD_GD_Angu_velo_anal_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="DA14_wrapper_0" PORT="out_GD_GD_Angu_velo_anal_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="in_SSD_SSD_Sun_visi_sign" RIGHT="0" SIGIS="undef" SIGNAME="DA14_wrapper_0_out_SSD_SSD_Sun_visi_sign_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="DA14_wrapper_0" PORT="out_SSD_SSD_Sun_visi_sign_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_ADR_ADR_Tria_angu_velo" RIGHT="0" SIGIS="undef" SIGNAME="AD18_0_out_ADR_ADR_Tria_angu_velo">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="TCC20_0" PORT="in_ADR_ADR_Tria_angu_velo"/>
+            <CONNECTION INSTANCE="TP22_0" PORT="in_ADR_ADR_Tria_angu_velo"/>
+            <CONNECTION INSTANCE="MSM19_0" PORT="in_ADR_ADR_Tria_angu_velo"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="out_AD_MR_Curr_mode_load_inst" SIGIS="undef" SIGNAME="AD18_0_out_AD_MR_Curr_mode_load_inst">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="MR_0" PORT="in_AD_MR_Curr_mode_load_inst"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_ADR_ADR_Tria_atti_angl" RIGHT="0" SIGIS="undef" SIGNAME="AD18_0_out_ADR_ADR_Tria_atti_angl">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="TCC20_0" PORT="in_ADR_ADR_Tria_atti_angl"/>
+            <CONNECTION INSTANCE="TP22_0" PORT="in_ADR_ADR_Tria_atti_angl"/>
+            <CONNECTION INSTANCE="MSM19_0" PORT="in_ADR_ADR_Tria_atti_angl"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+    <MODULE COREREVISION="1" FULLNAME="/DA14_wrapper_0" HWVERSION="1.0" INSTANCE="DA14_wrapper_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="DA14_wrapper" VLNV="xilinx.com:user:DA14_wrapper:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="Component_Name" VALUE="SSS0_DA14_wrapper_0_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="I" NAME="clk_0" SIGIS="undef" SIGNAME="External_Ports_clk_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="clk_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="done_0" SIGIS="undef" SIGNAME="DA14_wrapper_0_done_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="SSS0Dependency_0" PORT="done2"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="in_GDA_G_Gyro_powe_stat_0" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_in_GDA_G_Gyro_powe_stat_0_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="in_GDA_G_Gyro_powe_stat_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="in_GDA_G_Puls_coun_0" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_in_GDA_G_Puls_coun_0_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="in_GDA_G_Puls_coun_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="in_SSDA_SS_Angl_anal_0" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_in_SSDA_SS_Angl_anal_0_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="in_SSDA_SS_Angl_anal_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="in_SSDA_SS_Sun_sens_powe_stat_0" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_in_SSDA_SS_Sun_sens_powe_stat_0_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="in_SSDA_SS_Sun_sens_powe_stat_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="in_SSDA_SS_Sun_visi_sign_0" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_in_SSDA_SS_Sun_visi_sign_0_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="in_SSDA_SS_Sun_visi_sign_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="in_TDA_TCT_Thru_powe_stat_0" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_in_TDA_TCT_Thru_powe_stat_0_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="in_TDA_TCT_Thru_powe_stat_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="out_GDA_G_Gyro_powe_stat_perc_inst_0" SIGIS="undef" SIGNAME="DA14_wrapper_0_out_GDA_G_Gyro_powe_stat_perc_inst_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="out_GDA_G_Gyro_powe_stat_perc_inst_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="out_GDA_G_Puls_coun_acqu_inst_0" SIGIS="undef" SIGNAME="DA14_wrapper_0_out_GDA_G_Puls_coun_acqu_inst_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="out_GDA_G_Puls_coun_acqu_inst_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_GD_GD_Angu_velo_anal_0" RIGHT="0" SIGIS="undef" SIGNAME="DA14_wrapper_0_out_GD_GD_Angu_velo_anal_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="AD18_0" PORT="in_GD_GD_Angu_velo_anal"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_GD_GD_Gyro_powe_stat_0" RIGHT="0" SIGIS="undef" SIGNAME="DA14_wrapper_0_out_GD_GD_Gyro_powe_stat_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="out_GD_GD_Gyro_powe_stat_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="out_SSDA_SS_Angl_anal_acqu_inst_0" SIGIS="undef" SIGNAME="DA14_wrapper_0_out_SSDA_SS_Angl_anal_acqu_inst_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="out_SSDA_SS_Angl_anal_acqu_inst_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="out_SSDA_SS_Sun_sens_powe_stat_perc_inst_0" SIGIS="undef" SIGNAME="DA14_wrapper_0_out_SSDA_SS_Sun_sens_powe_stat_perc_inst_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="out_SSDA_SS_Sun_sens_powe_stat_perc_inst_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="out_SSDA_SS_Sun_visi_sign_acqu_inst_0" SIGIS="undef" SIGNAME="DA14_wrapper_0_out_SSDA_SS_Sun_visi_sign_acqu_inst_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="out_SSDA_SS_Sun_visi_sign_acqu_inst_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_SSD_SSD_Sun_meas_angl_0" RIGHT="0" SIGIS="undef" SIGNAME="DA14_wrapper_0_out_SSD_SSD_Sun_meas_angl_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="AD18_0" PORT="in_SSD_SSD_Sun_meas_angl"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_SSD_SSD_Sun_sens_powe_stat_0" RIGHT="0" SIGIS="undef" SIGNAME="DA14_wrapper_0_out_SSD_SSD_Sun_sens_powe_stat_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="out_SSD_SSD_Sun_sens_powe_stat_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_SSD_SSD_Sun_visi_sign_0" RIGHT="0" SIGIS="undef" SIGNAME="DA14_wrapper_0_out_SSD_SSD_Sun_visi_sign_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="AD18_0" PORT="in_SSD_SSD_Sun_visi_sign"/>
+            <CONNECTION INSTANCE="MSM19_0" PORT="in_SSD_SSD_Sun_visi_sign"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="out_TDA_TCT_Thru_powe_stat_perc_inst_0" SIGIS="undef" SIGNAME="DA14_wrapper_0_out_TDA_TCT_Thru_powe_stat_perc_inst_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="out_TDA_TCT_Thru_powe_stat_perc_inst_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_TD_TD_Thru_powe_stat_0" RIGHT="0" SIGIS="undef" SIGNAME="DA14_wrapper_0_out_TD_TD_Thru_powe_stat_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="TDC21_0" PORT="in_TD_TD_Thru_powe_stat"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="rst_0" POLARITY="ACTIVE_LOW" SIGIS="undef" SIGNAME="External_Ports_rst_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="rst_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="start_0" SIGIS="undef" SIGNAME="SSS0Dependency_0_start2">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="SSS0Dependency_0" PORT="start2"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+    <MODULE COREREVISION="1" FULLNAME="/GI_0" HWVERSION="1.0" INSTANCE="GI_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="GI" VLNV="xilinx.com:user:GI:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="Component_Name" VALUE="SSS0_GI_0_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="I" NAME="in_SGPo_GI_Gyro_powe_on_inst_stor_inst" SIGIS="undef" SIGNAME="I1_wrapper_0_out_SGPo_GI_Gyro_powe_on_inst_stor_inst_0_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="I1_wrapper_0" PORT="out_SGPo_GI_Gyro_powe_on_inst_stor_inst_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="in_SGPo_GI_Gyro_powe_on_inst" RIGHT="0" SIGIS="undef" SIGNAME="I1_wrapper_0_out_SGPo_GI_Gyro_powe_on_inst_0_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="I1_wrapper_0" PORT="out_SGPo_GI_Gyro_powe_on_inst_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="in_GCO_GI_Gyro_powe_on_inst_load_inst" SIGIS="undef" SIGNAME="I1_wrapper_0_out_GCO_GI_Gyro_powe_on_inst_load_inst_0_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="I1_wrapper_0" PORT="out_GCO_GI_Gyro_powe_on_inst_load_inst_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_GCO_GI_Gyro_powe_on_inst" RIGHT="0" SIGIS="undef" SIGNAME="GI_0_out_GCO_GI_Gyro_powe_on_inst">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="I1_wrapper_0" PORT="in_GCO_GI_Gyro_powe_on_inst_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+    <MODULE COREREVISION="1" FULLNAME="/I1_wrapper_0" HWVERSION="1.0" INSTANCE="I1_wrapper_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="I1_wrapper" VLNV="xilinx.com:user:I1_wrapper:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="Component_Name" VALUE="SSS0_I1_wrapper_0_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="I" NAME="clk_0" SIGIS="undef" SIGNAME="External_Ports_clk_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="clk_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="done_0" SIGIS="undef" SIGNAME="I1_wrapper_0_done_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="SSS0Dependency_0" PORT="done0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="in_GCO_GI_Gyro_powe_on_inst_0_0" RIGHT="0" SIGIS="undef" SIGNAME="GI_0_out_GCO_GI_Gyro_powe_on_inst">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="GI_0" PORT="out_GCO_GI_Gyro_powe_on_inst"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="in_SSCO_SSI_Sun_sens_powe_on_inst_0_0" RIGHT="0" SIGIS="undef" SIGNAME="SSI_0_out_SSCO_SSI_Sun_sens_powe_on_inst">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="SSI_0" PORT="out_SSCO_SSI_Sun_sens_powe_on_inst"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="in_TPCO_TPI_Thru_powe_on_inst_0_0" RIGHT="0" SIGIS="undef" SIGNAME="TPI_0_out_TPCO_TPI_Thru_powe_on_inst">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="TPI_0" PORT="out_TPCO_TPI_Thru_powe_on_inst"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_32IT_32IT_32ms_inte_time_star_inst_0" RIGHT="0" SIGIS="undef" SIGNAME="I1_wrapper_0_out_32IT_32IT_32ms_inte_time_star_inst_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="out_32IT_32IT_32ms_inte_time_star_inst_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="out_GCO_GI_Gyro_powe_on_inst_load_inst_0_0" SIGIS="undef" SIGNAME="I1_wrapper_0_out_GCO_GI_Gyro_powe_on_inst_load_inst_0_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="GI_0" PORT="in_GCO_GI_Gyro_powe_on_inst_load_inst"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_GCO_G_Gyro_powe_on_puls_0_0" RIGHT="0" SIGIS="undef" SIGNAME="I1_wrapper_0_out_GCO_G_Gyro_powe_on_puls_0_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="out_GCO_G_Gyro_powe_on_puls_0_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_MI_MR_Curr_mode_0" RIGHT="0" SIGIS="undef" SIGNAME="I1_wrapper_0_out_MI_MR_Curr_mode_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="MR_0" PORT="in_MI_MR_Curr_mode"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="out_MI_MR_Curr_mode_stor_inst_0" SIGIS="undef" SIGNAME="I1_wrapper_0_out_MI_MR_Curr_mode_stor_inst_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="MR_0" PORT="in_MI_MR_Curr_mode_stor_inst"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_SGPo_GI_Gyro_powe_on_inst_0_0" RIGHT="0" SIGIS="undef" SIGNAME="I1_wrapper_0_out_SGPo_GI_Gyro_powe_on_inst_0_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="GI_0" PORT="in_SGPo_GI_Gyro_powe_on_inst"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="out_SGPo_GI_Gyro_powe_on_inst_stor_inst_0_0" SIGIS="undef" SIGNAME="I1_wrapper_0_out_SGPo_GI_Gyro_powe_on_inst_stor_inst_0_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="GI_0" PORT="in_SGPo_GI_Gyro_powe_on_inst_stor_inst"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="out_SSCO_SSI_Sun_sens_powe_on_inst_load_inst_0_0" SIGIS="undef" SIGNAME="I1_wrapper_0_out_SSCO_SSI_Sun_sens_powe_on_inst_load_inst_0_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="SSI_0" PORT="in_SSCO_SSI_Sun_sens_powe_on_inst_load_inst"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_SSCO_SS_Sun_sens_powe_on_puls_0_0" RIGHT="0" SIGIS="undef" SIGNAME="I1_wrapper_0_out_SSCO_SS_Sun_sens_powe_on_puls_0_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="out_SSCO_SS_Sun_sens_powe_on_puls_0_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_SSSP_SSI_Sun_sens_powe_on_inst_0_0" RIGHT="0" SIGIS="undef" SIGNAME="I1_wrapper_0_out_SSSP_SSI_Sun_sens_powe_on_inst_0_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="SSI_0" PORT="in_SSSP_SSI_Sun_sens_powe_on_inst"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="out_SSSP_SSI_Sun_sens_powe_on_inst_stor_inst_0_0" SIGIS="undef" SIGNAME="I1_wrapper_0_out_SSSP_SSI_Sun_sens_powe_on_inst_stor_inst_0_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="SSI_0" PORT="in_SSSP_SSI_Sun_sens_powe_on_inst_stor_inst"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_STPo_TPI_Thru_powe_on_inst_0_0" RIGHT="0" SIGIS="undef" SIGNAME="I1_wrapper_0_out_STPo_TPI_Thru_powe_on_inst_0_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="TPI_0" PORT="in_STPo_TPI_Thru_powe_on_inst"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="out_STPo_TPI_Thru_powe_on_inst_stor_inst_0_0" SIGIS="undef" SIGNAME="I1_wrapper_0_out_STPo_TPI_Thru_powe_on_inst_stor_inst_0_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="TPI_0" PORT="in_STPo_TPI_Thru_powe_on_inst_stor_inst"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_TPCO_TCT_Thru_powe_on_puls_0_0" RIGHT="0" SIGIS="undef" SIGNAME="I1_wrapper_0_out_TPCO_TCT_Thru_powe_on_puls_0_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="out_TPCO_TCT_Thru_powe_on_puls_0_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="out_TPCO_TPI_Thru_powe_on_inst_load_inst_0_0" SIGIS="undef" SIGNAME="I1_wrapper_0_out_TPCO_TPI_Thru_powe_on_inst_load_inst_0_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="TPI_0" PORT="in_TPCO_TPI_Thru_powe_on_inst_load_inst"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="rst_0" POLARITY="ACTIVE_LOW" SIGIS="undef" SIGNAME="External_Ports_rst_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="rst_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="start_0" SIGIS="undef" SIGNAME="SSS0Dependency_0_start0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="SSS0Dependency_0" PORT="start0"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+    <MODULE COREREVISION="1" FULLNAME="/MR_0" HWVERSION="1.0" INSTANCE="MR_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="MR" VLNV="xilinx.com:user:MR:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="Component_Name" VALUE="SSS0_MR_0_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="I" NAME="in_TP_MR_Curr_mode_load_inst" SIGIS="undef" SIGNAME="TP22_0_out_TP_MR_Curr_mode_load_inst">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="TP22_0" PORT="out_TP_MR_Curr_mode_load_inst"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="in_MI_MR_Curr_mode_stor_inst" SIGIS="undef" SIGNAME="I1_wrapper_0_out_MI_MR_Curr_mode_stor_inst_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="I1_wrapper_0" PORT="out_MI_MR_Curr_mode_stor_inst_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="in_MI_MR_Curr_mode" RIGHT="0" SIGIS="undef" SIGNAME="I1_wrapper_0_out_MI_MR_Curr_mode_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="I1_wrapper_0" PORT="out_MI_MR_Curr_mode_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="in_AD_MR_Curr_mode_load_inst" SIGIS="undef" SIGNAME="AD18_0_out_AD_MR_Curr_mode_load_inst">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="AD18_0" PORT="out_AD_MR_Curr_mode_load_inst"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="in_TCC_MR_Targ_angl_load_inst" SIGIS="undef" SIGNAME="TCC20_0_out_TCC_MR_Targ_angl_load_inst">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="TCC20_0" PORT="out_TCC_MR_Targ_angl_load_inst"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="in_TCC_MR_Targ_angu_velo_load_inst" SIGIS="undef" SIGNAME="TCC20_0_out_TCC_MR_Targ_angu_velo_load_inst">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="TCC20_0" PORT="out_TCC_MR_Targ_angu_velo_load_inst"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="in_MSM_MR_Curr_mode_load_inst" SIGIS="undef" SIGNAME="MSM19_0_out_MSM_MR_Curr_mode_load_inst">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="MSM19_0" PORT="out_MSM_MR_Curr_mode_load_inst"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="in_MSM_MR_Curr_mode_work_time_load_inst" SIGIS="undef" SIGNAME="MSM19_0_out_MSM_MR_Curr_mode_work_time_load_inst">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="MSM19_0" PORT="out_MSM_MR_Curr_mode_work_time_load_inst"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="in_MSM_MR_Next_cycl_mode_stor_inst" SIGIS="undef" SIGNAME="MSM19_0_out_MSM_MR_Next_cycl_mode_stor_inst">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="MSM19_0" PORT="out_MSM_MR_Next_cycl_mode_stor_inst"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="in_MSM_MR_Next_cycl_mode" RIGHT="0" SIGIS="undef" SIGNAME="MSM19_0_out_MSM_MR_Next_cycl_mode">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="MSM19_0" PORT="out_MSM_MR_Next_cycl_mode"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="in_MSM_MR_Curr_mode_work_time_stor_inst" SIGIS="undef" SIGNAME="MSM19_0_out_MSM_MR_Curr_mode_work_time_stor_inst">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="MSM19_0" PORT="out_MSM_MR_Curr_mode_work_time_stor_inst"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="in_MSM_MR_Curr_mode_work_time" RIGHT="0" SIGIS="undef" SIGNAME="MSM19_0_out_MSM_MR_Curr_mode_work_time">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="MSM19_0" PORT="out_MSM_MR_Curr_mode_work_time"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="in_MSM_MR_Targ_angl_stor_inst" SIGIS="undef" SIGNAME="MSM19_0_out_MSM_MR_Targ_angl_stor_inst">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="MSM19_0" PORT="out_MSM_MR_Targ_angl_stor_inst"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="in_MSM_MR_Targ_angl" RIGHT="0" SIGIS="undef" SIGNAME="MSM19_0_out_MSM_MR_Targ_angl">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="MSM19_0" PORT="out_MSM_MR_Targ_angl"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="in_MSM_MR_Targ_angu_velo_stor_inst" SIGIS="undef" SIGNAME="MSM19_0_out_MSM_MR_Targ_angu_velo_stor_inst">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="MSM19_0" PORT="out_MSM_MR_Targ_angu_velo_stor_inst"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="in_MSM_MR_Targ_angu_velo" RIGHT="0" SIGIS="undef" SIGNAME="MSM19_0_out_MSM_MR_Targ_angu_velo">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="MSM19_0" PORT="out_MSM_MR_Targ_angu_velo"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="in_TIP_MR_Next_cycl_mode_stor_inst" SIGIS="undef" SIGNAME="TIP13_0_out_TIP_MR_Next_cycl_mode_stor_inst">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="TIP13_0" PORT="out_TIP_MR_Next_cycl_mode_stor_inst"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="in_TIP_MR_Next_cycl_mode" RIGHT="0" SIGIS="undef" SIGNAME="TIP13_0_out_TIP_MR_Next_cycl_mode">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="TIP13_0" PORT="out_TIP_MR_Next_cycl_mode"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_TP_MR_Curr_mode" RIGHT="0" SIGIS="undef" SIGNAME="MR_0_out_TP_MR_Curr_mode">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="TP22_0" PORT="in_TP_MR_Curr_mode"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_AD_MR_Curr_mode" RIGHT="0" SIGIS="undef" SIGNAME="MR_0_out_AD_MR_Curr_mode">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="AD18_0" PORT="in_AD_MR_Curr_mode"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_TCC_MR_Targ_angl" RIGHT="0" SIGIS="undef" SIGNAME="MR_0_out_TCC_MR_Targ_angl">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="TCC20_0" PORT="in_TCC_MR_Targ_angl"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_TCC_MR_Targ_angu_velo" RIGHT="0" SIGIS="undef" SIGNAME="MR_0_out_TCC_MR_Targ_angu_velo">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="TCC20_0" PORT="in_TCC_MR_Targ_angu_velo"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_MSM_MR_Curr_mode" RIGHT="0" SIGIS="undef" SIGNAME="MR_0_out_MSM_MR_Curr_mode">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="MSM19_0" PORT="in_MSM_MR_Curr_mode"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_MSM_MR_Curr_mode_work_time" RIGHT="0" SIGIS="undef" SIGNAME="MR_0_out_MSM_MR_Curr_mode_work_time">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="MSM19_0" PORT="in_MSM_MR_Curr_mode_work_time"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+    <MODULE COREREVISION="1" FULLNAME="/MSM19_0" HWVERSION="1.0" INSTANCE="MSM19_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="MSM19" VLNV="xilinx.com:user:MSM19:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="Component_Name" VALUE="SSS0_MSM19_0_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT CLKFREQUENCY="100000000" DIR="I" NAME="clk" SIGIS="clk" SIGNAME="External_Ports_clk_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="clk_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="rst" POLARITY="ACTIVE_LOW" SIGIS="rst" SIGNAME="External_Ports_rst_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="rst_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="done" SIGIS="undef" SIGNAME="MSM19_0_done">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="SSS0Dependency_0" PORT="done4"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="start" SIGIS="undef" SIGNAME="SSS0Dependency_0_start4">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="SSS0Dependency_0" PORT="start4"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="in_ADR_ADR_Tria_angu_velo" RIGHT="0" SIGIS="undef" SIGNAME="AD18_0_out_ADR_ADR_Tria_angu_velo">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="AD18_0" PORT="out_ADR_ADR_Tria_angu_velo"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="in_MSM_MR_Curr_mode_work_time" RIGHT="0" SIGIS="undef" SIGNAME="MR_0_out_MSM_MR_Curr_mode_work_time">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="MR_0" PORT="out_MSM_MR_Curr_mode_work_time"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="in_SSD_SSD_Sun_visi_sign" RIGHT="0" SIGIS="undef" SIGNAME="DA14_wrapper_0_out_SSD_SSD_Sun_visi_sign_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="DA14_wrapper_0" PORT="out_SSD_SSD_Sun_visi_sign_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="in_ADR_ADR_Tria_atti_angl" RIGHT="0" SIGIS="undef" SIGNAME="AD18_0_out_ADR_ADR_Tria_atti_angl">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="AD18_0" PORT="out_ADR_ADR_Tria_atti_angl"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="in_MSM_MR_Curr_mode" RIGHT="0" SIGIS="undef" SIGNAME="MR_0_out_MSM_MR_Curr_mode">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="MR_0" PORT="out_MSM_MR_Curr_mode"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="out_MSM_MR_Curr_mode_load_inst" SIGIS="undef" SIGNAME="MSM19_0_out_MSM_MR_Curr_mode_load_inst">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="MR_0" PORT="in_MSM_MR_Curr_mode_load_inst"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_MSM_MR_Curr_mode_work_time" RIGHT="0" SIGIS="undef" SIGNAME="MSM19_0_out_MSM_MR_Curr_mode_work_time">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="MR_0" PORT="in_MSM_MR_Curr_mode_work_time"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="out_MSM_MR_Targ_angl_stor_inst" SIGIS="undef" SIGNAME="MSM19_0_out_MSM_MR_Targ_angl_stor_inst">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="MR_0" PORT="in_MSM_MR_Targ_angl_stor_inst"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_MSM_MR_Targ_angu_velo" RIGHT="0" SIGIS="undef" SIGNAME="MSM19_0_out_MSM_MR_Targ_angu_velo">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="MR_0" PORT="in_MSM_MR_Targ_angu_velo"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_MSM_MR_Targ_angl" RIGHT="0" SIGIS="undef" SIGNAME="MSM19_0_out_MSM_MR_Targ_angl">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="MR_0" PORT="in_MSM_MR_Targ_angl"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="out_MSM_MR_Curr_mode_work_time_load_inst" SIGIS="undef" SIGNAME="MSM19_0_out_MSM_MR_Curr_mode_work_time_load_inst">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="MR_0" PORT="in_MSM_MR_Curr_mode_work_time_load_inst"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_MSM_MR_Next_cycl_mode" RIGHT="0" SIGIS="undef" SIGNAME="MSM19_0_out_MSM_MR_Next_cycl_mode">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="MR_0" PORT="in_MSM_MR_Next_cycl_mode"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="out_MSM_MR_Curr_mode_work_time_stor_inst" SIGIS="undef" SIGNAME="MSM19_0_out_MSM_MR_Curr_mode_work_time_stor_inst">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="MR_0" PORT="in_MSM_MR_Curr_mode_work_time_stor_inst"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="out_MSM_MR_Targ_angu_velo_stor_inst" SIGIS="undef" SIGNAME="MSM19_0_out_MSM_MR_Targ_angu_velo_stor_inst">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="MR_0" PORT="in_MSM_MR_Targ_angu_velo_stor_inst"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="out_MSM_MR_Next_cycl_mode_stor_inst" SIGIS="undef" SIGNAME="MSM19_0_out_MSM_MR_Next_cycl_mode_stor_inst">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="MR_0" PORT="in_MSM_MR_Next_cycl_mode_stor_inst"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+    <MODULE COREREVISION="1" FULLNAME="/SSI_0" HWVERSION="1.0" INSTANCE="SSI_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="SSI" VLNV="xilinx.com:user:SSI:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="Component_Name" VALUE="SSS0_SSI_0_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="I" NAME="in_SSSP_SSI_Sun_sens_powe_on_inst_stor_inst" SIGIS="undef" SIGNAME="I1_wrapper_0_out_SSSP_SSI_Sun_sens_powe_on_inst_stor_inst_0_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="I1_wrapper_0" PORT="out_SSSP_SSI_Sun_sens_powe_on_inst_stor_inst_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="in_SSSP_SSI_Sun_sens_powe_on_inst" RIGHT="0" SIGIS="undef" SIGNAME="I1_wrapper_0_out_SSSP_SSI_Sun_sens_powe_on_inst_0_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="I1_wrapper_0" PORT="out_SSSP_SSI_Sun_sens_powe_on_inst_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="in_SSCO_SSI_Sun_sens_powe_on_inst_load_inst" SIGIS="undef" SIGNAME="I1_wrapper_0_out_SSCO_SSI_Sun_sens_powe_on_inst_load_inst_0_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="I1_wrapper_0" PORT="out_SSCO_SSI_Sun_sens_powe_on_inst_load_inst_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_SSCO_SSI_Sun_sens_powe_on_inst" RIGHT="0" SIGIS="undef" SIGNAME="SSI_0_out_SSCO_SSI_Sun_sens_powe_on_inst">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="I1_wrapper_0" PORT="in_SSCO_SSI_Sun_sens_powe_on_inst_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+    <MODULE COREREVISION="2" FULLNAME="/SSS0Dependency_0" HWVERSION="1.0" INSTANCE="SSS0Dependency_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="SSS0Dependency" VLNV="xilinx.com:user:SSS0Dependency:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="Component_Name" VALUE="SSS0_SSS0Dependency_0_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="I" NAME="interruptsignal" SIGIS="undef" SIGNAME="External_Ports_interruptsignal_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="interruptsignal_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="start0" SIGIS="undef" SIGNAME="SSS0Dependency_0_start0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="I1_wrapper_0" PORT="start_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="done0" SIGIS="undef" SIGNAME="I1_wrapper_0_done_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="I1_wrapper_0" PORT="done_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="start1" SIGIS="undef" SIGNAME="SSS0Dependency_0_start1">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="TIP13_0" PORT="start"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="done1" SIGIS="undef" SIGNAME="TIP13_0_done">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="TIP13_0" PORT="done"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="start2" SIGIS="undef" SIGNAME="SSS0Dependency_0_start2">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="DA14_wrapper_0" PORT="start_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="done2" SIGIS="undef" SIGNAME="DA14_wrapper_0_done_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="DA14_wrapper_0" PORT="done_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="start3" SIGIS="undef" SIGNAME="SSS0Dependency_0_start3">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="AD18_0" PORT="start"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="done3" SIGIS="undef" SIGNAME="AD18_0_done">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="AD18_0" PORT="done"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="start4" SIGIS="undef" SIGNAME="SSS0Dependency_0_start4">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="MSM19_0" PORT="start"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="done4" SIGIS="undef" SIGNAME="MSM19_0_done">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="MSM19_0" PORT="done"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="start5" SIGIS="undef" SIGNAME="SSS0Dependency_0_start5">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="TCC20_0" PORT="start"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="done5" SIGIS="undef" SIGNAME="TCC20_0_done">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="TCC20_0" PORT="done"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="start6" SIGIS="undef" SIGNAME="SSS0Dependency_0_start6">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="TDC21_0" PORT="start"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="done6" SIGIS="undef" SIGNAME="TDC21_0_done">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="TDC21_0" PORT="done"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="start7" SIGIS="undef" SIGNAME="SSS0Dependency_0_start7">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="TP22_0" PORT="start"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="done7" SIGIS="undef" SIGNAME="TP22_0_done">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="TP22_0" PORT="done"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="start8" SIGIS="undef" SIGNAME="SSS0Dependency_0_start8">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="TTC23_wrapper_0" PORT="start_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="done8" SIGIS="undef" SIGNAME="TTC23_wrapper_0_done_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="TTC23_wrapper_0" PORT="done_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT CLKFREQUENCY="100000000" DIR="I" NAME="clk" SIGIS="clk" SIGNAME="External_Ports_clk_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="clk_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="rst" POLARITY="ACTIVE_LOW" SIGIS="rst" SIGNAME="External_Ports_rst_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="rst_0"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+    <MODULE COREREVISION="1" FULLNAME="/TCC20_0" HWVERSION="1.0" INSTANCE="TCC20_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="TCC20" VLNV="xilinx.com:user:TCC20:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="Component_Name" VALUE="SSS0_TCC20_0_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT CLKFREQUENCY="100000000" DIR="I" NAME="clk" SIGIS="clk" SIGNAME="External_Ports_clk_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="clk_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="rst" POLARITY="ACTIVE_LOW" SIGIS="rst" SIGNAME="External_Ports_rst_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="rst_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="done" SIGIS="undef" SIGNAME="TCC20_0_done">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="SSS0Dependency_0" PORT="done5"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="start" SIGIS="undef" SIGNAME="SSS0Dependency_0_start5">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="SSS0Dependency_0" PORT="start5"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="in_TCC_MR_Targ_angu_velo" RIGHT="0" SIGIS="undef" SIGNAME="MR_0_out_TCC_MR_Targ_angu_velo">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="MR_0" PORT="out_TCC_MR_Targ_angu_velo"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="in_ADR_ADR_Tria_angu_velo" RIGHT="0" SIGIS="undef" SIGNAME="AD18_0_out_ADR_ADR_Tria_angu_velo">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="AD18_0" PORT="out_ADR_ADR_Tria_angu_velo"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="in_TCC_MR_Targ_angl" RIGHT="0" SIGIS="undef" SIGNAME="MR_0_out_TCC_MR_Targ_angl">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="MR_0" PORT="out_TCC_MR_Targ_angl"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="in_ADR_ADR_Tria_atti_angl" RIGHT="0" SIGIS="undef" SIGNAME="AD18_0_out_ADR_ADR_Tria_atti_angl">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="AD18_0" PORT="out_ADR_ADR_Tria_atti_angl"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_CCR_CCR_Tria_cont_quan" RIGHT="0" SIGIS="undef" SIGNAME="TCC20_0_out_CCR_CCR_Tria_cont_quan">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="TDC21_0" PORT="in_CCR_CCR_Tria_cont_quan"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="out_TCC_MR_Targ_angu_velo_load_inst" SIGIS="undef" SIGNAME="TCC20_0_out_TCC_MR_Targ_angu_velo_load_inst">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="MR_0" PORT="in_TCC_MR_Targ_angu_velo_load_inst"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="out_TCC_MR_Targ_angl_load_inst" SIGIS="undef" SIGNAME="TCC20_0_out_TCC_MR_Targ_angl_load_inst">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="MR_0" PORT="in_TCC_MR_Targ_angl_load_inst"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+    <MODULE COREREVISION="1" FULLNAME="/TDC21_0" HWVERSION="1.0" INSTANCE="TDC21_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="TDC21" VLNV="xilinx.com:user:TDC21:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="Component_Name" VALUE="SSS0_TDC21_0_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT CLKFREQUENCY="100000000" DIR="I" NAME="clk" SIGIS="clk" SIGNAME="External_Ports_clk_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="clk_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="rst" POLARITY="ACTIVE_LOW" SIGIS="rst" SIGNAME="External_Ports_rst_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="rst_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="done" SIGIS="undef" SIGNAME="TDC21_0_done">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="SSS0Dependency_0" PORT="done6"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="start" SIGIS="undef" SIGNAME="SSS0Dependency_0_start6">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="SSS0Dependency_0" PORT="start6"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="in_CCR_CCR_Tria_cont_quan" RIGHT="0" SIGIS="undef" SIGNAME="TCC20_0_out_CCR_CCR_Tria_cont_quan">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="TCC20_0" PORT="out_CCR_CCR_Tria_cont_quan"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="in_TD_TD_Thru_powe_stat" RIGHT="0" SIGIS="undef" SIGNAME="DA14_wrapper_0_out_TD_TD_Thru_powe_stat_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="DA14_wrapper_0" PORT="out_TD_TD_Thru_powe_stat_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_TDCR_TDCR_Thru_comb_logi" RIGHT="0" SIGIS="undef" SIGNAME="TDC21_0_out_TDCR_TDCR_Thru_comb_logi">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="TTC23_wrapper_0" PORT="in_TDCR_TDCR_Thru_comb_logi_0"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+    <MODULE COREREVISION="1" FULLNAME="/TIP13_0" HWVERSION="1.0" INSTANCE="TIP13_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="TIP13" VLNV="xilinx.com:user:TIP13:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="Component_Name" VALUE="SSS0_TIP13_0_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT CLKFREQUENCY="100000000" DIR="I" NAME="clk" SIGIS="clk" SIGNAME="External_Ports_clk_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="clk_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="rst" POLARITY="ACTIVE_LOW" SIGIS="rst" SIGNAME="External_Ports_rst_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="rst_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="done" SIGIS="undef" SIGNAME="TIP13_0_done">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="SSS0Dependency_0" PORT="done1"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="start" SIGIS="undef" SIGNAME="SSS0Dependency_0_start1">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="SSS0Dependency_0" PORT="start1"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="in_DMC_TIP_Tele_inst" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_in_DMC_TIP_Tele_inst_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="in_DMC_TIP_Tele_inst_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="out_TIP_MR_Next_cycl_mode_stor_inst" SIGIS="undef" SIGNAME="TIP13_0_out_TIP_MR_Next_cycl_mode_stor_inst">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="MR_0" PORT="in_TIP_MR_Next_cycl_mode_stor_inst"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_TIP_MR_Next_cycl_mode" RIGHT="0" SIGIS="undef" SIGNAME="TIP13_0_out_TIP_MR_Next_cycl_mode">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="MR_0" PORT="in_TIP_MR_Next_cycl_mode"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+    <MODULE COREREVISION="1" FULLNAME="/TP22_0" HWVERSION="1.0" INSTANCE="TP22_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="TP22" VLNV="xilinx.com:user:TP22:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="Component_Name" VALUE="SSS0_TP22_0_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT CLKFREQUENCY="100000000" DIR="I" NAME="clk" SIGIS="clk" SIGNAME="External_Ports_clk_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="clk_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="rst" POLARITY="ACTIVE_LOW" SIGIS="rst" SIGNAME="External_Ports_rst_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="rst_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="done" SIGIS="undef" SIGNAME="TP22_0_done">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="SSS0Dependency_0" PORT="done7"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="start" SIGIS="undef" SIGNAME="SSS0Dependency_0_start7">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="SSS0Dependency_0" PORT="start7"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="in_ADR_ADR_Tria_angu_velo" RIGHT="0" SIGIS="undef" SIGNAME="AD18_0_out_ADR_ADR_Tria_angu_velo">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="AD18_0" PORT="out_ADR_ADR_Tria_angu_velo"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="in_TP_MR_Curr_mode" RIGHT="0" SIGIS="undef" SIGNAME="MR_0_out_TP_MR_Curr_mode">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="MR_0" PORT="out_TP_MR_Curr_mode"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="in_ADR_ADR_Tria_atti_angl" RIGHT="0" SIGIS="undef" SIGNAME="AD18_0_out_ADR_ADR_Tria_atti_angl">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="AD18_0" PORT="out_ADR_ADR_Tria_atti_angl"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_TP_DMC_Tele_data_tran_inst" RIGHT="0" SIGIS="undef" SIGNAME="TP22_0_out_TP_DMC_Tele_data_tran_inst">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="out_TP_DMC_Tele_data_tran_inst_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="out_TP_MR_Curr_mode_load_inst" SIGIS="undef" SIGNAME="TP22_0_out_TP_MR_Curr_mode_load_inst">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="MR_0" PORT="in_TP_MR_Curr_mode_load_inst"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+    <MODULE COREREVISION="1" FULLNAME="/TPI_0" HWVERSION="1.0" INSTANCE="TPI_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="TPI" VLNV="xilinx.com:user:TPI:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="Component_Name" VALUE="SSS0_TPI_0_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="I" NAME="in_TPCO_TPI_Thru_powe_on_inst_load_inst" SIGIS="undef" SIGNAME="I1_wrapper_0_out_TPCO_TPI_Thru_powe_on_inst_load_inst_0_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="I1_wrapper_0" PORT="out_TPCO_TPI_Thru_powe_on_inst_load_inst_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="in_STPo_TPI_Thru_powe_on_inst_stor_inst" SIGIS="undef" SIGNAME="I1_wrapper_0_out_STPo_TPI_Thru_powe_on_inst_stor_inst_0_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="I1_wrapper_0" PORT="out_STPo_TPI_Thru_powe_on_inst_stor_inst_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="in_STPo_TPI_Thru_powe_on_inst" RIGHT="0" SIGIS="undef" SIGNAME="I1_wrapper_0_out_STPo_TPI_Thru_powe_on_inst_0_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="I1_wrapper_0" PORT="out_STPo_TPI_Thru_powe_on_inst_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_TPCO_TPI_Thru_powe_on_inst" RIGHT="0" SIGIS="undef" SIGNAME="TPI_0_out_TPCO_TPI_Thru_powe_on_inst">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="I1_wrapper_0" PORT="in_TPCO_TPI_Thru_powe_on_inst_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+    <MODULE COREREVISION="1" FULLNAME="/TTC23_wrapper_0" HWVERSION="1.0" INSTANCE="TTC23_wrapper_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="TTC23_wrapper" VLNV="xilinx.com:user:TTC23_wrapper:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="Component_Name" VALUE="SSS0_TTC23_wrapper_0_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="I" NAME="clk_0" SIGIS="undef" SIGNAME="External_Ports_clk_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="clk_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="done_0" SIGIS="undef" SIGNAME="TTC23_wrapper_0_done_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="SSS0Dependency_0" PORT="done8"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="in_TDCR_TDCR_Thru_comb_logi_0" RIGHT="0" SIGIS="undef" SIGNAME="TDC21_0_out_TDCR_TDCR_Thru_comb_logi">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="TDC21_0" PORT="out_TDCR_TDCR_Thru_comb_logi"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="in_TTI_TTI_Tria_cont_inst_0" RIGHT="0" SIGIS="undef" SIGNAME="TTC23_wrapper_0_out_TTI_TTI_Tria_cont_inst_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="TTC23_wrapper_0" PORT="out_TTI_TTI_Tria_cont_inst_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_TTCO_TCT_Tria_cont_sign_0" RIGHT="0" SIGIS="undef" SIGNAME="TTC23_wrapper_0_out_TTCO_TCT_Tria_cont_sign_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="out_TTCO_TCT_Tria_cont_sign_0_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="out_TTI_TTI_Tria_cont_inst_0" RIGHT="0" SIGIS="undef" SIGNAME="TTC23_wrapper_0_out_TTI_TTI_Tria_cont_inst_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="TTC23_wrapper_0" PORT="in_TTI_TTI_Tria_cont_inst_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="rst_0" POLARITY="ACTIVE_LOW" SIGIS="undef" SIGNAME="External_Ports_rst_0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="rst_0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="start_0" SIGIS="undef" SIGNAME="SSS0Dependency_0_start8">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="SSS0Dependency_0" PORT="start8"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+  </MODULES>
+
+</EDKSYSTEM>

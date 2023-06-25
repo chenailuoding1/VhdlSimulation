@@ -1,0 +1,10 @@
+Telemetry Processing 3 {
+        TP sends Current mode load instruction to MR[instruction];
+        TP sends Triaxial attitude angle load instruction to ADR[instruction];
+        TP sends Triaxial angular velocity load instruction to ADR[instruction];
+        TP sends Current mode to TPCC[value];
+        TP sends Triaxial attitude angle to TPCC[value];
+        TP sends Triaxial angular velocity to TPCC[value];
+        TP receives Telemetry data from TPCC[value];
+        TP sends Telemetry data transmission instruction to DMC[instruction];
+}

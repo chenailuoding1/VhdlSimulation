@@ -1,0 +1,9 @@
+{
+	"version": "1.0",
+	"modules": {
+		"TTC23": {
+			"proto_instances": {
+			}
+		}
+	}
+}

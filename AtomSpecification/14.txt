@@ -1,0 +1,4 @@
+Thruster Data Acquisition 2 {
+        TDA sends Thruster power state perception instruction to TCT[instruction];
+        TDA sends Thruster power state storage instruction to TD[instruction];
+}
