@@ -103,29 +103,21 @@ def download_dir():
 
 @app.route('/api/complete_computer', methods=['POST'])
 def complete_computer():
-    if 'file' not in request.files:
-        return "No file uploaded", 400
-    try:
-        files = request.files.getlist('file')  # 获取名为 'file' 的文件字段的所有文件
-        with open("./Extractionjson/computerdict.json", 'r') as f:
-            data = f.read()
-            # 将JSON字符串转换为Python字典insysdict_atomsys为所有原子系统目录结构及端口信息的字典
-        computerdict = json.loads(data)
-
-        for file in files:
-            # 保存文件
-            savepath = "./AtomicSystemGeneration/AtomSystemVhdl/" + computerdict.get(file.filename.split(".")[0]) + "/" + file.filename
-            file.save(savepath)
-        data = {
-            'message': 'Computer Component Vhdl Complete Successful!'
-        }
-    except Exception:
-        # 处理 ZeroDivisionError 异常
-        print("计算机补全失败")
-        data = {
-            'message': 'Computer Component Vhdl Complete Fail!'
-        }
-
+    data = request.get_json()
+    filename = data.get('filename', '')
+    txt = data.get('txt', '')
+    # print(txt)
+    with open("./Extractionjson/computerdict.json", 'r') as f:
+        data = f.read()
+        # 将JSON字符串转换为Python字典insysdict_atomsys为所有原子系统目录结构及端口信息的字典
+    computerdict = json.loads(data)
+    path = "./AtomicSystemGeneration/AtomSystemVhdl/" + computerdict.get(filename.split(".")[0]) + "/" + filename
+    # print(path)
+    with open(path, "w") as file:
+        file.write(txt)
+    data = {
+        'message': 'complete_computer Successful!'
+    }
 
     return jsonify(data)
 
