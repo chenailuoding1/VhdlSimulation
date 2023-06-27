@@ -5,7 +5,7 @@ import re
 from collections import defaultdict
 import json
 import DealFile.DealFunction
-
+import AtomicSystemGeneration.atomtest
 import AtomicSystemGeneration.DataExtraction
 import AtomicSystemGeneration.GenerateAtomsystemVhdl
 import AtomicSystemGeneration.GenerateDomainVhdl
@@ -58,21 +58,34 @@ def upload_file():
         #     for root, dirs, files in os.walk(folder_path):
         #         for file in files:
         #             zip.write(os.path.join(root, file))
-
-        computervhdl={}
+        # tbtestdict = {}
+        with open("./Extractionjson/tbtestdict.json", 'r') as f:
+            data = f.read()
+            # 将JSON字符串转换为Python字典insysdict_atomsys为所有原子系统目录结构及端口信息的字典
+        tbtestdict = json.loads(data)
+        computervhdl=[]
         computerpath="./AtomicSystemGeneration/ComputerVhdl"
-        for files in os.listdir(computerpath):
-            inputpath = os.path.join(computerpath, files)
+        for filename in os.listdir(computerpath):
+            computervhdldict={}
+            inputpath = computerpath+"/"+filename
             with open(inputpath, "r") as infile:
                 txt = infile.read()
-            computervhdl[files]=txt
+
+            computervhdldict["filename"]=filename
+            computervhdldict["txt"] = txt
+            computervhdl.append(computervhdldict)
         data = {
             'message': 'VHDL Generate Successful!',
-            'computervhdl': computervhdl
+            'computervhdl': computervhdl,
+            'tbtestdict':tbtestdict
         }
     except Exception:
         # 处理 ZeroDivisionError 异常
         print("原子系统抽取信息失败+！")
+        data = {
+            'message': 'VHDL Generate Fail!'
+
+        }
     # 返回下载链接
     # "VHDL Generate Successful", 200, computerdict,
     # return send_file(zip_name, attachment_filename=zip_name, as_attachment=True)
@@ -90,20 +103,32 @@ def download_dir():
 
 @app.route('/api/complete_computer', methods=['POST'])
 def complete_computer():
-    data = request.get_json()
-    filename=data.get('filename', '')
-    txt = data.get('txt', '')
-    # print(txt)
-    with open("./Extractionjson/computerdict.json", 'r') as f:
-        data = f.read()
-        # 将JSON字符串转换为Python字典insysdict_atomsys为所有原子系统目录结构及端口信息的字典
-    computerdict = json.loads(data)
-    path="./AtomicSystemGeneration/AtomSystemVhdl/"+computerdict.get(filename.split(".")[0])+"/"+filename
-    # print(path)
-    with open(path, "w") as file:
-        file.write(txt)
+    if 'file' not in request.files:
+        return "No file uploaded", 400
+    try:
+        files = request.files.getlist('file')  # 获取名为 'file' 的文件字段的所有文件
+        with open("./Extractionjson/computerdict.json", 'r') as f:
+            data = f.read()
+            # 将JSON字符串转换为Python字典insysdict_atomsys为所有原子系统目录结构及端口信息的字典
+        computerdict = json.loads(data)
 
-    return "Computer Component Vhdl Complete Successful!"
+        for file in files:
+            # 保存文件
+            savepath = "./AtomicSystemGeneration/AtomSystemVhdl/" + computerdict.get(file.filename.split(".")[0]) + "/" + file.filename
+            file.save(savepath)
+        data = {
+            'message': 'Computer Component Vhdl Complete Successful!'
+        }
+    except Exception:
+        # 处理 ZeroDivisionError 异常
+        print("计算机补全失败")
+        data = {
+            'message': 'Computer Component Vhdl Complete Fail!'
+        }
+
+
+    return jsonify(data)
+
 @app.route('/api/complete_tb', methods=['POST'])
 def complete_tb():
     data = request.get_json()
@@ -120,7 +145,14 @@ def complete_tb():
         file.write(txt)
 
     return "Computer Component Vhdl Complete Successful!"
-
+@app.route('/api/atomtest', methods=['POST'])
+def atomtest():
+    data = request.get_json()
+    filename=data.get('filename', '')
+    testdata = data.get('testdata', '')
+    AtomicSystemGeneration.atomtest.compelte_tb_vhdl(filename,testdata)
+    print(testdata)
+    return "Computer Component Vhdl Complete Successful!"
 @app.route('/api/complete_PL', methods=['POST'])
 def complete_PL():
     data = request.get_json()
@@ -147,17 +179,26 @@ def complete_B():
     return "biddable_domain Vhdl Complete Successful!"
 @app.route('/api/complete_C', methods=['POST'])
 def complete_C():
-    data = request.get_json()
-    filename = data.get('filename', '')
-    txt = data.get('txt', '')
+    if 'file' not in request.files:
+        return "No file uploaded", 400
+    try:
+        files = request.files.getlist('file')  # 获取名为 'file' 的文件字段的所有文件
+        for file in files:
+            # 保存文件
+            savepath = './AtomicSystemGeneration/DomainVhdl/causal_domain/' + file.filename
+            file.save(savepath)
+        data = {
+            'message': 'causal_domain Domain Vhdl upload Successful!'
+        }
+    except Exception:
+        # 处理 ZeroDivisionError 异常
+        print("设备模型上传失败")
+        data = {
+            'message': 'causal_domain Domain Vhdl upload Fail!'
+        }
 
 
-    path = "./AtomicSystemGeneration/DomainVhdl/causal_domain/" + filename
-    # print(path)
-    with open(path, "w") as file:
-        file.write(txt)
-
-    return "causal_domain Domain Vhdl Complete Successful!"
+    return jsonify(data)
 @app.route('/api/judge_PL', methods=['POST'])
 def judge_PL():
     PLDomaincomplete=AtomicSystemGeneration.GenerateDomainVhdl.Generate_PL_Domain_vhdl("./Extractionjson/physical_lexical_domain_dict.json",
@@ -229,9 +270,7 @@ def judge_C():
 def atomproject():
 
     AtomicSystemGeneration.GenerateProject.Generate_atomsystem_project()
-    AtomicSystemGeneration.GenerateProject.Generate_domain_project(
-        "./AtomicSystemGeneration/DomainVhdl/biddable_domain/",
-        "./AtomicSystemGeneration/DomainProject/biddable_domain/")
+
     AtomicSystemGeneration.GenerateProject.Generate_domain_project("./AtomicSystemGeneration/DomainVhdl/causal_domain/",
                                                                    "./AtomicSystemGeneration/DomainProject/causal_domain/")
     return "Generate Atomsystem Project Successful!"
