@@ -25,7 +25,7 @@ def Generate_atomsystem_vhdl(inputpath):
         except OSError:
             os.remove(path)
     computerdict={}
-    tbtestdict = {}
+    tbtestdict = []
     ###每个item为一个原子系统，key为原子系统名称简写，value为原子系统目录结构及端口信息的字典
     # 'GDA15': {'GDA': {'type': 'controler', 'in_port': ['in_G_Pulse count', 'in_G_Gyro power state', 'in_GDACC_Angular velocity analog'], 'out_port': ['out_G_Pulse count acquisition instruction', 'out_G_Gyro power state perception instruction', 'out_GDACC_Pulse count', 'out_GD_Angular velocity analog', 'out_GD_Gyro power state', 'out_calculate instruction'], 'stacount': 5, 'stasprocess': [{'port': ['out_G_Pulse count acquisition instruction'], 'type': 0}, {'port': ['out_G_Gyro power state perception instruction'], 'type': 0}, {'port': ['out_GDACC_Pulse count', 'out_calculate instruction'], 'type': 1}, {'port': ['out_GD_Angular velocity analog'], 'type': 0}, {'port': ['out_GD_Gyro power state'], 'type': 0}]}
     for key, value in insysdict_atomsys.items():
@@ -77,6 +77,7 @@ def Generate_atomsystem_vhdl(inputpath):
                                   computer_name)
             Generate_tb_vhdl(dirname, dirname, topfile_port)
             ports={}
+            ports["filename"] = dirname
             ports["input"]=[]
             ports["output"] = []
 
@@ -102,7 +103,7 @@ def Generate_atomsystem_vhdl(inputpath):
                 # print(i)
                 # print(DataHandling.IsAccessIns(i))
                 ports["output"].append(port)
-            tbtestdict[dirname]=ports
+            tbtestdict.append(ports)
         else:
             Generate_tb_vhdl(dirname, controler_name , controler_port)
             # print("print(controler_port_out)")
@@ -110,6 +111,7 @@ def Generate_atomsystem_vhdl(inputpath):
             ports = {}
             ports["input"] = []
             ports["output"] = []
+            ports["filename"] = dirname
             for i in set(controler_port_in).union(set(["clk", "rst", "start"])):
                 port = {}
                 port["name"] = i
@@ -134,7 +136,7 @@ def Generate_atomsystem_vhdl(inputpath):
                 ports["output"].append(port)
             # print("ports")
             # print(ports)
-            tbtestdict[dirname] = ports
+            tbtestdict.append(ports)
 
     json_str = json.dumps(computerdict)
     # 将JSON格式的字符串写入文件
