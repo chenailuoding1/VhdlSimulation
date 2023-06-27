@@ -81,7 +81,68 @@ def Generate_atomsystem_project():
         #         os.system(vivado_path + " -mode batch -source "+tcl_start_path)
         # 打印成功消息
         print(foldername + "Tcl script created successfully.")
+def Add_atomsystem_test(foldername):
+    # Vivado安装目录和TCL脚本文件路径
+    vivado_path = "E:/Xilinx/Vivado/2021.1/bin/vivado.bat"
+    # 获取当前工作目录
+    cwd = os.getcwd()
+    cwd = cwd.replace("\\", "/")
+    # 要处理的文件夹名称
+    inputpath = "./AtomicSystemGeneration/AtomSystemTest/"
+    outpath="./AtomicSystemGeneration/AtomSystemProject"
+    # 先清理輸出目录
 
+    folderpath = os.path.join(inputpath, foldername.split(".")[0])
+    # 先清理该目录
+    # 打开tcl脚本文件以写入模式
+    tcl_script_path = "./AtomicSystemGeneration/AtomSystemGenerateTcl/" + foldername + "test.tcl"
+    tcl_file = open(tcl_script_path, "w")
+    # 写入tcl命令以创建新项目和设计文件
+    projectpath = outpath + "/" + foldername
+    projectdirpath = projectpath + "/" + foldername + ".srcs/sim_1/new"
+    tcl_file.write("open_project "+projectpath+"/"+foldername+".xpr\n")
+
+    tcl_file.write("file mkdir " + projectdirpath + "\n")
+    #
+    for filename in os.listdir(folderpath):
+
+        filepath = folderpath+"/"+filename
+        text_to_add = ""
+        with open(filepath, 'r', encoding='utf-8') as infile:
+            for line in infile:
+                text_to_add = text_to_add + str(line) + "\n"
+        filename = filename.split(".")[0]
+        tcl_file.write("close [ open " + projectdirpath + "/" + filename + ".vhd w ]\n")
+
+        tcl_file.write("add_files " + projectdirpath + "/" + filename + ".vhd\n")
+
+        # 将文本添加到设计文件中
+
+        tcl_file.write("set file [open \"" + projectdirpath + "/" + filename + ".vhd\" a]\n")
+        tcl_file.write("puts $file \"" + text_to_add + "\"\n")
+        tcl_file.write("close $file\n")
+    #
+    # tcl_file.write(
+    #     "ipx::package_project -root_dir " + projectpath + " xilinx.com -library user -taxonomy /UserIP \n")
+    # # 关闭tcl脚本文件
+    tcl_file.close()
+    # 使用os模块调用Vivado并运行创建的tcl脚本
+    os.system(vivado_path + " -mode batch -source " + tcl_script_path)
+    #         subprocess.run([vivado_path, "-mode", "batch", "-source", tcl_script_path])
+    #         tcl_start_path="tcl/atomtcl/"+foldername+"start.tcl"
+    #         tcl_start_file = open(tcl_start_path, "w")
+    #         tcl_start_file.write("start_gui\n")
+    #         tcl_start_file.write("open_project "+projectpath+"/"+foldername+".xpr\n")
+    #         tcl_start_file.write("ipx::package_project -root_dir "+projectpath+" xilinx.com -library user -taxonomy /UserIP \n")
+    #         tcl_start_file.write("catch {close_waves}\n")
+    #         tcl_start_file.write("catch {close_sim}\n")
+    #         tcl_start_file.write("catch {close_project}\n")
+    #         tcl_start_file.write("exit\n")
+    #         tcl_start_file.close()
+
+    #         os.system(vivado_path + " -mode batch -source "+tcl_start_path)
+    # 打印成功消息
+    print(foldername + "Tcl script created successfully.")
 
 def Generate_domain_project(inputpath,outpath):
     # Vivado安装目录和TCL脚本文件路径

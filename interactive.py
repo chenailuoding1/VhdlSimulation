@@ -143,8 +143,9 @@ def atomtest():
     filename=data.get('filename', '')
     testdata = data.get('testdata', '')
     AtomicSystemGeneration.atomtest.compelte_tb_vhdl(filename,testdata)
-    print(testdata)
-    return "Computer Component Vhdl Complete Successful!"
+    AtomicSystemGeneration.GenerateProject.Add_atomsystem_test(filename)
+    # print(testdata)
+    return "AtomSystem Test Successful!"
 @app.route('/api/complete_PL', methods=['POST'])
 def complete_PL():
     data = request.get_json()

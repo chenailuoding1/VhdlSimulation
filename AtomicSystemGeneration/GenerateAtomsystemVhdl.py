@@ -18,12 +18,16 @@ def Generate_atomsystem_vhdl(inputpath):
     print(insysdict_atomsys)
     # 先清理该目录
     rootdir = "./AtomicSystemGeneration/AtomSystemVhdl/"
+    testdir = "./AtomicSystemGeneration/AtomSystemTest/"
     for files in os.listdir(rootdir):
         path = os.path.join(rootdir, files)
+        path2 = os.path.join(testdir, files)
         try:
             shutil.rmtree(path)
+            shutil.rmtree(path2)
         except OSError:
             os.remove(path)
+            os.remove(path2)
     computerdict={}
     tbtestdict = []
     ###每个item为一个原子系统，key为原子系统名称简写，value为原子系统目录结构及端口信息的字典
@@ -34,6 +38,7 @@ def Generate_atomsystem_vhdl(inputpath):
 
         # 创建目录
         os.mkdir(rootdir + dirname)
+        os.mkdir(testdir + dirname)
         # 处理值
         # 每个item为原子系统目录下的一个文件端口、类型信息，subkey为文件名，subvalue为信息字典
         #
@@ -81,7 +86,7 @@ def Generate_atomsystem_vhdl(inputpath):
             ports["input"]=[]
             ports["output"] = []
 
-            for i in list(set(value[dirname]["in_port"]).union(set(["clk","rst","start"]))):
+            for i in list(set(value[dirname]["in_port"])):
                 port={}
                 port["name"]=i
                 if DataHandling.IsAccessIns(i):
@@ -93,7 +98,7 @@ def Generate_atomsystem_vhdl(inputpath):
                 # print(DataHandling.IsAccessIns(i))
                 ports["input"].append(port)
 
-            for i in list(set(value[dirname]["out_port"]).union(set(["done"]))):
+            for i in list(set(value[dirname]["out_port"])):
                 port={}
                 port["name"]=i
                 if DataHandling.IsAccessIns(i):
@@ -112,7 +117,7 @@ def Generate_atomsystem_vhdl(inputpath):
             ports["input"] = []
             ports["output"] = []
             ports["filename"] = dirname
-            for i in set(controler_port_in).union(set(["clk", "rst", "start"])):
+            for i in set(controler_port_in):
                 port = {}
                 port["name"] = i
                 if DataHandling.IsAccessIns(i):
@@ -124,7 +129,7 @@ def Generate_atomsystem_vhdl(inputpath):
             # print(ports)
             # print("set")
             # print(set(controler_port_out).union(set(["done"])))
-            for i in set(controler_port_out).union(set(["done"])):
+            for i in set(controler_port_out):
                 port = {}
                 port["name"] = i
                 if DataHandling.IsAccessIns(i):
@@ -149,7 +154,7 @@ def Generate_atomsystem_vhdl(inputpath):
 
 
 def Generate_tb_vhdl(dirname, componetname, topfile_port):
-    filepath = "./AtomicSystemGeneration/AtomSystemVhdl/"+ dirname + "/" + "tb_test.vhdl"
+    filepath = "./AtomicSystemGeneration/AtomSystemTest/"+ dirname + "/" + "tb_test.vhdl"
     with open(filepath, 'w', encoding='utf-8') as file:
         ####1.生成实体部分entity   --测试平台文件的空实体（不需要端口定义)
         with open("./AtomicSystemGeneration/Template/atomtbtesttemplate/part1.txt", 'r', encoding='utf-8') as infile:
@@ -180,13 +185,13 @@ def Generate_tb_vhdl(dirname, componetname, topfile_port):
 
 
             ###3.中间信号变量
-            file.write("signal t_clk:std_logic;\nsignal t_start: std_logic;\nsignal t_done: std_logic;\nsignal t_rst: std_logic;\n")
+            file.write("signal t_clk:std_logic:='1';\nsignal t_start: std_logic:='1';\nsignal t_done: std_logic;\nsignal t_rst: std_logic:='0';\n")
             midsignal_port = ["t_"+DataHandling.abbrportname(i) for i in topfile_port]
             for i in range(0,len(midsignal_port)):
                 if DataHandling.IsAccessIns(topfile_port[i]):
-                    file.write("signal "+midsignal_port[i]+ "STD_LOGIC"+";\n")
+                    file.write("signal "+midsignal_port[i]+ ":STD_LOGIC"+";\n")
                 else:
-                    file.write("signal " + midsignal_port[i] + "STD_LOGIC_VECTOR ( 31 downto 0 )" + ";\n")
+                    file.write("signal " + midsignal_port[i] + ":STD_LOGIC_VECTOR ( 31 downto 0 )" + ";\n")
             ###4.--产生时钟信号
             file.write("constant period : time := 2 us;\n")##--时钟周期的定义
             file.write("begin\n")
@@ -201,7 +206,7 @@ def Generate_tb_vhdl(dirname, componetname, topfile_port):
                 file.write(portstr)
                 file.write('\n')
 
-            file.write(");\nend component;\n")
+            file.write(");\n")
 
 
 
