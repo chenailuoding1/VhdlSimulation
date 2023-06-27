@@ -12,10 +12,7 @@ import json
 from xml.dom import minidom
 from . import SystemTree
 vivado_path = "E:/Xilinx/Vivado/2021.1/bin/vivado.bat"
-with open('./Extractionjson/abbrnamedict.json', 'r') as f:
-    data = f.read()
-# 将JSON字符串转换为Python字典
-abbrnamesdict = json.loads(data)
+
 def GenerateAssembleTcl():
 
 
@@ -30,7 +27,10 @@ def GenerateAssembleTcl():
 
 def Assemble_tcl(systemname: list):
     fensystemname=""
-
+    with open('./Extractionjson/abbrnamedict.json', 'r') as f:
+        data = f.read()
+    # 将JSON字符串转换为Python字典
+    abbrnamesdict = json.loads(data)
     # 原子系统存放路径
     atompath = "./AtomicSystemGeneration/AtomSystemProject/"
     # 分系统存放路径
@@ -178,6 +178,10 @@ def Assemble_tcl(systemname: list):
     print("Subsystem Assemble created successfully.")
 
 def ConnectSystem(systemname: list):
+    with open('./Extractionjson/abbrnamedict.json', 'r') as f:
+        data = f.read()
+    # 将JSON字符串转换为Python字典
+    abbrnamesdict = json.loads(data)
     print(systemname)
     #该系统包含的所有IP
     ipname=[]
@@ -419,6 +423,10 @@ def ConnectSystem(systemname: list):
     os.system(vivado_path + " -mode batch -source " + tclname)
 
 def Connectshebei(systemname: list):
+    with open('./Extractionjson/abbrnamedict.json', 'r') as f:
+        data = f.read()
+    # 将JSON字符串转换为Python字典
+    abbrnamesdict = json.loads(data)
     print(systemname)
     #该系统包含的所有IP
 

@@ -86,7 +86,7 @@ def escape_quotes(string):
 def IsAccessIns(portname):
     if ("calculate instruction" in portname) or ("load instruction" in portname) or (
             "storage instruction" in portname) or ("acquisition instruction" in portname) or (
-            "perception instruction" in portname):
+            "perception instruction" in portname)or("clk"==portname)or("rst"==portname)or("start"==portname)or("done"==portname):
         return True
     else:
         return False
