@@ -25,6 +25,7 @@ def Generate_atomsystem_vhdl(inputpath):
         except OSError:
             os.remove(path)
     computerdict={}
+    tbtestdict = {}
     ###每个item为一个原子系统，key为原子系统名称简写，value为原子系统目录结构及端口信息的字典
     # 'GDA15': {'GDA': {'type': 'controler', 'in_port': ['in_G_Pulse count', 'in_G_Gyro power state', 'in_GDACC_Angular velocity analog'], 'out_port': ['out_G_Pulse count acquisition instruction', 'out_G_Gyro power state perception instruction', 'out_GDACC_Pulse count', 'out_GD_Angular velocity analog', 'out_GD_Gyro power state', 'out_calculate instruction'], 'stacount': 5, 'stasprocess': [{'port': ['out_G_Pulse count acquisition instruction'], 'type': 0}, {'port': ['out_G_Gyro power state perception instruction'], 'type': 0}, {'port': ['out_GDACC_Pulse count', 'out_calculate instruction'], 'type': 1}, {'port': ['out_GD_Angular velocity analog'], 'type': 0}, {'port': ['out_GD_Gyro power state'], 'type': 0}]}
     for key, value in insysdict_atomsys.items():
@@ -38,6 +39,8 @@ def Generate_atomsystem_vhdl(inputpath):
         #
         hasccfalg = False
         controler_port = []
+        controler_port_in=[]
+        controler_port_out=[]
         controler_name = ""
         computer_port = []
         computer_name = ""
@@ -56,6 +59,9 @@ def Generate_atomsystem_vhdl(inputpath):
                 else:
                     Generate_controler_vhdl(dirname, dirname, subvalue)
                 controler_port = subvalue["in_port"] + subvalue["out_port"]
+                controler_port_in = subvalue["in_port"]
+
+                controler_port_out = subvalue["out_port"]
                 controler_name = filename
             elif filetype == "computer":
                 Generate_computer_vhdl(dirname, filename, subvalue)
@@ -64,18 +70,80 @@ def Generate_atomsystem_vhdl(inputpath):
                 computerdict[filename]=dirname
             else:
                 hasccfalg = True
+
         if hasccfalg == True:
             topfile_port = value[dirname]["in_port"] + value[dirname]["out_port"]
             Generate_topfile_vhdl(dirname, dirname, controler_port, computer_port, topfile_port, controler_name,
                                   computer_name)
             Generate_tb_vhdl(dirname, dirname, topfile_port)
+            ports={}
+            ports["input"]=[]
+            ports["output"] = []
+
+            for i in list(set(value[dirname]["in_port"]).union(set(["clk","rst","start"]))):
+                port={}
+                port["name"]=i
+                if DataHandling.IsAccessIns(i):
+
+                    port["type"] ="STD_LOGIC"
+                else:
+                    port["type"] ="STD_LOGIC_VECTOR ( 31 downto 0 )"
+                # print(i)
+                # print(DataHandling.IsAccessIns(i))
+                ports["input"].append(port)
+
+            for i in list(set(value[dirname]["out_port"]).union(set(["done"]))):
+                port={}
+                port["name"]=i
+                if DataHandling.IsAccessIns(i):
+                    port["type"] ="STD_LOGIC"
+                else:
+                    port["type"] ="STD_LOGIC_VECTOR ( 31 downto 0 )"
+                # print(i)
+                # print(DataHandling.IsAccessIns(i))
+                ports["output"].append(port)
+            tbtestdict[dirname]=ports
         else:
             Generate_tb_vhdl(dirname, controler_name , controler_port)
+            # print("print(controler_port_out)")
+            # print(controler_port_out)
+            ports = {}
+            ports["input"] = []
+            ports["output"] = []
+            for i in set(controler_port_in).union(set(["clk", "rst", "start"])):
+                port = {}
+                port["name"] = i
+                if DataHandling.IsAccessIns(i):
+                    port["type"] = "STD_LOGIC"
+                else:
+                    port["type"] = "STD_LOGIC_VECTOR ( 31 downto 0 )"
+                ports["input"].append(port)
+            #
+            # print(ports)
+            # print("set")
+            # print(set(controler_port_out).union(set(["done"])))
+            for i in set(controler_port_out).union(set(["done"])):
+                port = {}
+                port["name"] = i
+                if DataHandling.IsAccessIns(i):
+                    port["type"] = "STD_LOGIC"
+                else:
+                    port["type"] = "STD_LOGIC_VECTOR ( 31 downto 0 )"
+                # print("port")
+                # print(port)
+                ports["output"].append(port)
+            # print("ports")
+            # print(ports)
+            tbtestdict[dirname] = ports
 
     json_str = json.dumps(computerdict)
     # 将JSON格式的字符串写入文件
     with open("./Extractionjson/computerdict.json", "w") as f:
         f.write(json_str)
+    json_tb = json.dumps(tbtestdict)
+    # 将JSON格式的字符串写入文件
+    with open("./Extractionjson/tbtestdict.json", "w") as f:
+        f.write(json_tb)
 
 
 def Generate_tb_vhdl(dirname, componetname, topfile_port):
@@ -122,7 +190,6 @@ def Generate_tb_vhdl(dirname, componetname, topfile_port):
             file.write("begin\n")
             file.write("t_clk <= not t_clk after period/2;\n")
             ###5.
-            file.write("process\nbegin\n")
             file.write(componetname + "_process:" + componetname + " port map(\n")
             file.write("clk=>t_clk,\nstart=>t_start,\ndone=>t_done,\nrst=>t_rst,\n")
             for i in range(0,len(midsignal_port)):
