@@ -86,18 +86,6 @@ def Generate_atomsystem_project():
         # 打印成功消息
         print(foldername + "Tcl script created successfully.")
 def Add_atomsystem_test(foldername):
-    # 保存原始的 stdout 和 stderr
-    original_stdout = sys.__stdout__
-    original_stderr = sys.__stderr__
-
-    # 创建一个用于保存控制台输出的变量
-    console_output = ""
-
-    # 重定向 stdout 和 stderr 到变量
-    sys.stdout = io.StringIO()
-    sys.stderr = sys.stdout
-
-
 
 
     # Vivado安装目录和TCL脚本文件路径
@@ -148,19 +136,34 @@ def Add_atomsystem_test(foldername):
     #         tcl_start_file.close()
 
     #         os.system(vivado_path + " -mode batch -source "+tcl_start_path)
-
-    # 从变量中获取控制台输出
-    console_output = sys.stdout.getvalue()
-
-    # 还原原始的 stdout 和 stderr
-    sys.stdout = original_stdout
-    sys.stderr = original_stderr
-
-    # 打印控制台输出
-    print("Console output:")
-    print(console_output)
-
-    print(foldername + "testTcl script created successfully.")
+    simtext=""
+    vcdtext = ""
+    vcdpath=""
+    message =""
+    try:
+        name=foldername.split(".")[0]
+        simpath=outpath+"/"+name+"/"+name+".sim/sim_1/behav/xsim/simulate.log"
+        vcdpath = outpath + "/" + name + "/" + name + ".sim/sim_1/behav/xsim/dump.vcd"
+        # print(vcdpath)
+        # print(simpath)
+        with open(simpath,'r') as f:
+            simtext = f.read()
+        with open(vcdpath,'r') as f:
+            vcdtext = f.read()
+        print(simtext)
+        if "Error:" in simtext:
+            message="该原子系统数据流有问题！"
+        else:
+            message="该原子系统数据流没有问题！"
+    except Exception:
+        message="无文件"
+        simtext=""
+        vcdtext=""
+    data = {
+        'message': message,
+        'simtext': simtext
+    }
+    return data
 
 def Generate_domain_project(inputpath,outpath):
     # Vivado安装目录和TCL脚本文件路径

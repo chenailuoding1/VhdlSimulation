@@ -2,6 +2,7 @@ from flask import Flask, jsonify, render_template, request, send_file
 from zipfile import ZipFile
 import os
 import re
+from flask import Flask
 from collections import defaultdict
 import json
 import DealFile.DealFunction
@@ -143,9 +144,15 @@ def atomtest():
     filename=data.get('filename', '')
     testdata = data.get('testdata', '')
     AtomicSystemGeneration.atomtest.compelte_tb_vhdl(filename,testdata)
-    AtomicSystemGeneration.GenerateProject.Add_atomsystem_test(filename)
+    text = ""
+    vcdpath = ""
+    message = ""
+    data=AtomicSystemGeneration.GenerateProject.Add_atomsystem_test(filename)
+
+    print(data)
+
+    return jsonify(data)
     # print(testdata)
-    return "AtomSystem Test Successful!"
 @app.route('/api/complete_PL', methods=['POST'])
 def complete_PL():
     data = request.get_json()
