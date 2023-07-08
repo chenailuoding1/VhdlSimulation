@@ -12,6 +12,16 @@ def abbrportname(inputstring):#输入是一串字符,将out_GDACC Angular veloci
     strsplit=re.split(str1,inputstring)
     newlist=[]+strsplit[0:1]
     for i in strsplit[1:]:
+        if not i[0].isalpha():
+            i="a"+i
+        newlist.append("".join(i[0:4]))
+    return "_".join(newlist)
+def abbrramname(inputstring):#输入是一串字符,将out_GDACC Angular velocity analog转换成out_GDAC_Angu_velo_anal
+    strsplit=re.split(" ",inputstring)
+    newlist=[]
+    for i in strsplit:
+        if not i[0].isalpha():
+            i="a"+i
         newlist.append("".join(i[0:4]))
     return "_".join(newlist)
 def splitportname(inputstring):#输入是经过简写的端口名称（out_GDAC_Angu_velo_anal），除去前面的共享现象方向（in或者out）
@@ -57,12 +67,12 @@ def cleanwhitelist(oldlist:list):#除去列表中的空个字符串元素，以�
 
 
 def check_vhdl_entity_name(entityname, max_length=1024):
-    # 检查第一个字符是否是字母或下划线，如果不是，则添加下划线作为第一个字符
+    # 检查第一个字符是否是字母，如果不是，则添加"a"作为第一个字符
     name=""
-    for i in range(0,len(entityname)):
-        if entityname[i].isalpha():
-            name=entityname[i:]
-            break;
+    if not entityname[0].isalpha():
+        name="a"+entityname
+    else:
+        name = entityname
 
     # 检查每个字符是否是字母、数字或下划线，如果不是，则用下划线替换
     for i in range(len(name)):

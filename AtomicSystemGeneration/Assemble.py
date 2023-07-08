@@ -275,152 +275,155 @@ def ConnectSystem(systemname: list):
                                 port_in_name))
                         # print(ips[i]+'_0/'+port_name+ips[j]+'_0/'+port_name)
     print(net_connect)
+    if len(net_connect)>0:
+        # 原子系统存放路径
+        atompath = "./AtomicSystemGeneration/AtomSystemProject/"
+        # 分系统存放路径
+        subpath = "./AtomicSystemGeneration/SubSystemProject/"
+        print(systemname)
+        # 获取原子系统存放路径下所有原子系统名称
+        atomname = []
+        for filename in os.listdir(atompath):
+            atomname.append(filename)
+        # 该分系统所包含的原子系统或分系统项目IP核路径
+        ippath = []
 
-    # 原子系统存放路径
-    atompath = "./AtomicSystemGeneration/AtomSystemProject/"
-    # 分系统存放路径
-    subpath = "./AtomicSystemGeneration/SubSystemProject/"
-    print(systemname)
-    # 获取原子系统存放路径下所有原子系统名称
-    atomname = []
-    for filename in os.listdir(atompath):
-        atomname.append(filename)
-    # 该分系统所包含的原子系统或分系统项目IP核路径
-    ippath = []
+        for i in range(1, len(systemname)):
+            # 为原子系统
+            if abbrnamesdict.get(systemname[i]) in atomname:
+                ippath.append(atompath + abbrnamesdict.get(systemname[i]) + "/component.xml")
+            # 为分系统
+            else:
+                ippath.append(subpath + abbrnamesdict.get(systemname[i]) + "/component.xml")
+        print("ippath" + str(ippath))
+        ipsname = []
+        port_rst_name = []
+        port_clk_name = []
+        port_done_name = []
+        port_start_name = []
+        for path in ippath:
+            if os.path.exists(path):
+                doc = minidom.parse(path)
+                ip_name = doc.getElementsByTagName("spirit:name")[0]
+                ipsname.append(ip_name.firstChild.data)  # 记录每个分系统所包含的所有IP核的名称
+                # print("ip_name:%s" % (ip_name.firstChild.data))
+                ports = doc.getElementsByTagName("spirit:port")
+                # print(ports)
+                # 记录系统固定端口名称
+                for port in ports:
+                    name = port.getElementsByTagName("spirit:name")[0]  # 端口名称
+                    # print(" name:%s, direction:%s" %
+                    #       (name.firstChild.data, direction.firstChild.data))
+                    print(DataHandling.systemportclean(str(name.firstChild.data)))
+                    if DataHandling.systemportclean(str(name.firstChild.data)) == "rst":  # 根据端口的方向 判断是输入还是输出
+                        port_rst_name.append(ip_name.firstChild.data + "_0/" + str(name.firstChild.data))
+                    elif DataHandling.systemportclean(str(name.firstChild.data)) == "clk":
+                        port_clk_name.append(ip_name.firstChild.data + "_0/" + str(name.firstChild.data))
+                    elif DataHandling.systemportclean(str(name.firstChild.data)) == "done":
+                        port_done_name.append(ip_name.firstChild.data + "_0/" + str(name.firstChild.data))
+                    elif DataHandling.systemportclean(str(name.firstChild.data)) == "start":
+                        port_start_name.append(ip_name.firstChild.data + "_0/" + str(name.firstChild.data))
 
-    for i in range(1, len(systemname)):
-        # 为原子系统
-        if abbrnamesdict.get(systemname[i]) in atomname:
-            ippath.append(atompath + abbrnamesdict.get(systemname[i]) + "/component.xml")
-        # 为分系统
-        else:
-            ippath.append(subpath + abbrnamesdict.get(systemname[i]) + "/component.xml")
-    print("ippath" + str(ippath))
-    ipsname = []
-    port_rst_name = []
-    port_clk_name = []
-    port_done_name = []
-    port_start_name = []
-    for path in ippath:
-        if os.path.exists(path):
-            doc = minidom.parse(path)
-            ip_name = doc.getElementsByTagName("spirit:name")[0]
-            ipsname.append(ip_name.firstChild.data)  # 记录每个分系统所包含的所有IP核的名称
-            # print("ip_name:%s" % (ip_name.firstChild.data))
-            ports = doc.getElementsByTagName("spirit:port")
-            # print(ports)
-            # 记录系统固定端口名称
-            for port in ports:
-                name = port.getElementsByTagName("spirit:name")[0]  # 端口名称
-                # print(" name:%s, direction:%s" %
-                #       (name.firstChild.data, direction.firstChild.data))
-                print(DataHandling.systemportclean(str(name.firstChild.data)))
-                if DataHandling.systemportclean(str(name.firstChild.data)) == "rst":  # 根据端口的方向 判断是输入还是输出
-                    port_rst_name.append(ip_name.firstChild.data + "_0/" + str(name.firstChild.data))
-                elif DataHandling.systemportclean(str(name.firstChild.data)) == "clk":
-                    port_clk_name.append(ip_name.firstChild.data + "_0/" + str(name.firstChild.data))
-                elif DataHandling.systemportclean(str(name.firstChild.data)) == "done":
-                    port_done_name.append(ip_name.firstChild.data + "_0/" + str(name.firstChild.data))
-                elif DataHandling.systemportclean(str(name.firstChild.data)) == "start":
-                    port_start_name.append(ip_name.firstChild.data + "_0/" + str(name.firstChild.data))
+        print("ipname" + str(ipsname))
+        # 对应缩写的名称
+        fensystemname = abbrnamesdict.get(systemname[0])
+        # 0.分系统存放路径
+        rootippath = "./AtomicSystemGeneration/SubSystemProject/"
 
-    print("ipname" + str(ipsname))
-    # 对应缩写的名称
-    fensystemname = abbrnamesdict.get(systemname[0])
-    # 0.分系统存放路径
-    rootippath = "./AtomicSystemGeneration/SubSystemProject/"
+        # 1.生成分系统控制器名称列表的tcl命令
+        controlnametcl = "set f_sys_controlers" + " \"" + fensystemname + "Dependency\"" + "\n"
+        # 2.生成分系统bd文件名称列表的tcl命令
+        bdnametcl = "set f_sys_bdname" + " \"" + fensystemname + "\"" + "\n"
+        # 3.生成分系统bd文件打包路径列表的tcl命令
+        wrapper = rootippath + fensystemname + "/" + fensystemname + ".srcs/sources_1/bd/" + fensystemname + "/" + fensystemname + ".bd"
+        norecurse = rootippath + fensystemname + "/" + fensystemname + ".gen/sources_1/bd/" + fensystemname + "/hdl/" + fensystemname + "_wrapper.vhd"
+        ippackage = rootippath + fensystemname
+        wrappertcl = "set wrappers" + " \"" + wrapper + "\"" + "\n"
+        norecursetcl = "set norecurses" + " \"" + norecurse + "\"" + "\n"
+        ippackagetcl = "set ippackages" + " \"" + ippackage + "\"" + "\n"
+        # 4.生成最终分系统存放路径tcl命令
+        subsystempath = "set ip_parent_path \"" + rootippath + "\"\n"
+        # 5.生成系统端口tcl命令
 
-    # 1.生成分系统控制器名称列表的tcl命令
-    controlnametcl = "set f_sys_controlers" + " \"" + fensystemname + "Dependency\"" + "\n"
-    # 2.生成分系统bd文件名称列表的tcl命令
-    bdnametcl = "set f_sys_bdname" + " \"" + fensystemname + "\"" + "\n"
-    # 3.生成分系统bd文件打包路径列表的tcl命令
-    wrapper = rootippath + fensystemname + "/" + fensystemname + ".srcs/sources_1/bd/" + fensystemname + "/" + fensystemname + ".bd"
-    norecurse = rootippath + fensystemname + "/" + fensystemname + ".gen/sources_1/bd/" + fensystemname + "/hdl/" + fensystemname + "_wrapper.vhd"
-    ippackage = rootippath + fensystemname
-    wrappertcl = "set wrappers" + " \"" + wrapper + "\"" + "\n"
-    norecursetcl = "set norecurses" + " \"" + norecurse + "\"" + "\n"
-    ippackagetcl = "set ippackages" + " \"" + ippackage + "\"" + "\n"
-    # 4.生成最终分系统存放路径tcl命令
-    subsystempath = "set ip_parent_path \"" + rootippath + "\"\n"
-    # 5.生成系统端口tcl命令
+        portclktcl = "set f_clk_portname [split" + " \""
+        for i in range(0, len(port_clk_name)):
+            if i != len(port_clk_name) - 1:
+                portclktcl = portclktcl + port_clk_name[i] + ","
+            else:
+                portclktcl = portclktcl + port_clk_name[i]
+        portclktcl = portclktcl + "\" \",\"]" + "\n"
 
-    portclktcl = "set f_clk_portname [split" + " \""
-    for i in range(0, len(port_clk_name)):
-        if i != len(port_clk_name) - 1:
-            portclktcl = portclktcl + port_clk_name[i] + ","
-        else:
-            portclktcl = portclktcl + port_clk_name[i]
-    portclktcl = portclktcl + "\" \",\"]" + "\n"
+        portrsttcl = "set f_rst_portname [split" + " \""
+        for i in range(0, len(port_rst_name)):
+            if i != len(port_rst_name) - 1:
+                portrsttcl = portrsttcl + port_rst_name[i] + ","
+            else:
+                portrsttcl = portrsttcl + port_rst_name[i]
+        portrsttcl = portrsttcl + "\" \",\"]" + "\n"
 
-    portrsttcl = "set f_rst_portname [split" + " \""
-    for i in range(0, len(port_rst_name)):
-        if i != len(port_rst_name) - 1:
-            portrsttcl = portrsttcl + port_rst_name[i] + ","
-        else:
-            portrsttcl = portrsttcl + port_rst_name[i]
-    portrsttcl = portrsttcl + "\" \",\"]" + "\n"
+        portstarttcl = "set f_start_portname [split" + " \""
+        for i in range(0, len(port_start_name)):
+            if i != len(port_start_name) - 1:
+                portstarttcl = portstarttcl + port_start_name[i] + ","
+            else:
+                portstarttcl = portstarttcl + port_start_name[i]
+        portstarttcl = portstarttcl + "\" \",\"]" + "\n"
 
-    portstarttcl = "set f_start_portname [split" + " \""
-    for i in range(0, len(port_start_name)):
-        if i != len(port_start_name) - 1:
-            portstarttcl = portstarttcl + port_start_name[i] + ","
-        else:
-            portstarttcl = portstarttcl + port_start_name[i]
-    portstarttcl = portstarttcl + "\" \",\"]" + "\n"
-
-    portdonetcl = "set f_done_portname [split" + " \""
-    for i in range(0, len(port_done_name)):
-        if i != len(port_done_name) - 1:
-            portdonetcl = portdonetcl + port_done_name[i] + ","
-        else:
-            portdonetcl = portdonetcl + port_done_name[i]
-    portdonetcl = portdonetcl + "\" \",\"]" + "\n"
-    # 6.获取该分系统内的系统IP核名称并生成tcl命令
-    allsystempath = "set allsystempath \"" + "./AtomicSystemGeneration" + "\"\n"
-    ipnametcl = "set f_sys_ipname [split" + " \""
-    for i in range(0, len(ipsname)):
-        if i != len(ipsname) - 1:
-            ipnametcl = ipnametcl + ipsname[i] + ","
-        else:
-            ipnametcl = ipnametcl + ipsname[i]
-    ipnametcl = ipnametcl + "\" \",\"]" + "\n"
-    # 7.获取该分系统内的所有IP核（包括数据存储）名称并生成tcl命令
-    allipnametcl = "set f_all_ipname [split" + " \""
-    for i in range(0, len(ips)):
-        if i != len(ips) - 1:
-            allipnametcl = allipnametcl + ips[i] + ","
-        else:
-            allipnametcl = allipnametcl + ips[i]
-    allipnametcl = allipnametcl + "\" \",\"]" + "\n"
-    #8.需要连接的端口
-    net_connect_tcl = "set netconnect \""
-    for item in net_connect.items():
-        net_connect_tcl = net_connect_tcl + item[0] + " " + item[1] + " "
-    net_connect_tcl = net_connect_tcl + "\"" + "\n"
-    # 将上述tcl命令写入到test.tcl文件中
-    tclname = "./AtomicSystemGeneration/AssmbleTcl/" + fensystemname + ".tcl"
-    with open(tclname, 'w') as file_object:
-        file_object.write(net_connect_tcl)
-        file_object.write(ipnametcl)
-        file_object.write(allipnametcl)
-        file_object.write(portclktcl)
-        file_object.write(portrsttcl)
-        file_object.write(portdonetcl)
-        file_object.write(portstarttcl)
-        file_object.write(wrappertcl)
-        file_object.write(norecursetcl)
-        file_object.write(ippackagetcl)
-        file_object.write(bdnametcl)
-        file_object.write(controlnametcl)
-        file_object.write(subsystempath)
-        file_object.write(allsystempath)
-        with open("./AtomicSystemGeneration/Template/systemassembletemplate/connect.txt", 'r',
-                  encoding='utf-8') as infile:
-            for line in infile:
-                file_object.writelines(line)
-                file_object.write('\n')
-    os.system(vivado_path + " -mode batch -source " + tclname)
+        portdonetcl = "set f_done_portname [split" + " \""
+        for i in range(0, len(port_done_name)):
+            if i != len(port_done_name) - 1:
+                portdonetcl = portdonetcl + port_done_name[i] + ","
+            else:
+                portdonetcl = portdonetcl + port_done_name[i]
+        portdonetcl = portdonetcl + "\" \",\"]" + "\n"
+        # 6.获取该分系统内的系统IP核名称并生成tcl命令
+        allsystempath = "set allsystempath \"" + "./AtomicSystemGeneration" + "\"\n"
+        ipnametcl = "set f_sys_ipname [split" + " \""
+        for i in range(0, len(ipsname)):
+            if i != len(ipsname) - 1:
+                ipnametcl = ipnametcl + ipsname[i] + ","
+            else:
+                ipnametcl = ipnametcl + ipsname[i]
+        ipnametcl = ipnametcl + "\" \",\"]" + "\n"
+        # 7.获取该分系统内的所有IP核（包括数据存储）名称并生成tcl命令
+        allipnametcl = "set f_all_ipname [split" + " \""
+        for i in range(0, len(ips)):
+            if i != len(ips) - 1:
+                allipnametcl = allipnametcl + ips[i] + ","
+            else:
+                allipnametcl = allipnametcl + ips[i]
+        allipnametcl = allipnametcl + "\" \",\"]" + "\n"
+        #8.需要连接的端口
+        net_connect_tcl = "set netconnect \""
+        for item in net_connect.items():
+            net_connect_tcl = net_connect_tcl + item[0] + " " + item[1] + " "
+        net_connect_tcl = net_connect_tcl + "\"" + "\n"
+        # 将上述tcl命令写入到test.tcl文件中
+        tclname = "./AtomicSystemGeneration/AssmbleTcl/" + fensystemname + ".tcl"
+        with open(tclname, 'w') as file_object:
+            file_object.write(net_connect_tcl)
+            file_object.write(ipnametcl)
+            file_object.write(allipnametcl)
+            file_object.write(portclktcl)
+            file_object.write(portrsttcl)
+            file_object.write(portdonetcl)
+            file_object.write(portstarttcl)
+            file_object.write(wrappertcl)
+            file_object.write(norecursetcl)
+            file_object.write(ippackagetcl)
+            file_object.write(bdnametcl)
+            file_object.write(controlnametcl)
+            file_object.write(subsystempath)
+            file_object.write(allsystempath)
+            with open("./AtomicSystemGeneration/Template/systemassembletemplate/connect.txt", 'r',
+                      encoding='utf-8') as infile:
+                for line in infile:
+                    file_object.writelines(line)
+                    file_object.write('\n')
+        os.system(vivado_path + " -mode batch -source " + tclname)
+        return "数据存储连接成功！"
+    else:
+        return "数据存储连接失败！"
 
 def Connectshebei(systemname: list):
     with open('./Extractionjson/abbrnamedict.json', 'r') as f:
@@ -437,9 +440,9 @@ def Connectshebei(systemname: list):
     # 地面中心
     bidomainname = []
     bidomainpath = []
-    #分系统存放路径
+    #外设存放路径
     carootdomainpath = "./AtomicSystemGeneration/DomainProject/causal_domain/"
-    # 数据存储存放路径
+    # 地面计算机存放路径
     birootdomainpath = "./AtomicSystemGeneration/DomainProject/biddable_domain/"
     #转换为简写
     # 分系统
@@ -509,69 +512,80 @@ def Connectshebei(systemname: list):
                         #connectport函数能够清理掉端口带有的前缀和后缀
                         if ( DataHandling.connectport(port_out_name)== DataHandling.connectport(port_in_name)):
                             net_connect[ips[j] + '_0/' + port_in_name] = ips[i] + '_0/' + port_out_name
-                        else:
-                            print("输出："+DataHandling.connectport(port_out_name)+"输入"+DataHandling.connectport(port_in_name))
+                            # print("输出：" + DataHandling.connectport(port_out_name) + "输入" + DataHandling.connectport(
+                            #     port_in_name))
+                        # else:
+                        #     # print("输出："+DataHandling.connectport(port_out_name)+"输入"+DataHandling.connectport(port_in_name))
 
                         # print(ips[i]+'_0/'+port_name+ips[j]+'_0/'+port_name)
     print(net_connect)
-    # 原子系统存放路径
-    atompath = "./AtomicSystemGeneration/AtomSystemProject/"
-    # 分系统存放路径
-    subpath = "./AtomicSystemGeneration/SubSystemProject/"
+    if len(net_connect)>0:
+
+        # 原子系统存放路径
+        atompath = "./AtomicSystemGeneration/AtomSystemProject/"
+        # 分系统存放路径
+        subpath = "./AtomicSystemGeneration/SubSystemProject/"
 
 
-    # 该分系统所包含的原子系统或分系统项目IP核路径
+        # 该分系统所包含的原子系统或分系统项目IP核路径
 
-    # 对应缩写的名称
-    fensystemname = abbrnamesdict.get(systemname[0])+"all"
-    # 0.分系统存放路径
-    rootippath = "./AtomicSystemGeneration/SystemProject/"
+        # 系统对应缩写的名称
+        fensystemname = abbrnamesdict.get(systemname[0])+"all"
+        namedict={}
+        namedict["name"]=fensystemname
+        json_data = json.dumps(namedict)
+        with open("./Extractionjson/namedict.json", "w") as f:
+            f.write(json_data)
+        # 0.系统存放路径
+        rootippath = "./AtomicSystemGeneration/SystemProject/"
 
-    # 2.生成分系统bd文件名称列表的tcl命令
-    bdnametcl = "set f_sys_bdname" + " \"" + fensystemname + "\"" + "\n"
-    # 3.生成分系统bd文件打包路径列表的tcl命令
-    wrapper = rootippath + fensystemname + "/" + fensystemname + ".srcs/sources_1/bd/" + fensystemname + "/" + fensystemname + ".bd"
-    norecurse = rootippath + fensystemname + "/" + fensystemname + ".gen/sources_1/bd/" + fensystemname + "/hdl/" + fensystemname + "_wrapper.vhd"
-    ippackage = rootippath + fensystemname
-    wrappertcl = "set wrappers" + " \"" + wrapper + "\"" + "\n"
-    norecursetcl = "set norecurses" + " \"" + norecurse + "\"" + "\n"
-    ippackagetcl = "set ippackages" + " \"" + ippackage + "\"" + "\n"
-    # 4.生成最终分系统存放路径tcl命令
-    subsystempath = "set ip_parent_path \"" + rootippath + "\"\n"
-    # 5.生成系统端口tcl命令
-    # 6.获取该分系统内的系统IP核名称并生成tcl命令
-    allsystempath = "set allsystempath \"" + "./AtomicSystemGeneration" + "\"\n"
+        # 2.生成系统bd文件名称列表的tcl命令
+        bdnametcl = "set f_sys_bdname" + " \"" + fensystemname + "\"" + "\n"
+        # 3.生成分系统bd文件打包路径列表的tcl命令
+        wrapper = rootippath + fensystemname + "/" + fensystemname + ".srcs/sources_1/bd/" + fensystemname + "/" + fensystemname + ".bd"
+        norecurse = rootippath + fensystemname + "/" + fensystemname + ".gen/sources_1/bd/" + fensystemname + "/hdl/" + fensystemname + "_wrapper.vhd"
+        ippackage = rootippath + fensystemname
+        wrappertcl = "set wrappers" + " \"" + wrapper + "\"" + "\n"
+        norecursetcl = "set norecurses" + " \"" + norecurse + "\"" + "\n"
+        ippackagetcl = "set ippackages" + " \"" + ippackage + "\"" + "\n"
+        # 4.生成最终系统存放路径tcl命令
+        subsystempath = "set ip_parent_path \"" + rootippath + "\"\n"
+        # 5.生成系统端口tcl命令
+        allsystempath = "set allsystempath \"" + "./AtomicSystemGeneration" + "\"\n"
 
-    # 7.获取该分系统内的所有IP核（包括数据存储）名称并生成tcl命令
-    allipnametcl = "set f_all_ipname [split" + " \""
-    for i in range(0, len(ips)):
-        if i != len(ips) - 1:
-            allipnametcl = allipnametcl + ips[i] + ","
-        else:
-            allipnametcl = allipnametcl + ips[i]
-    allipnametcl = allipnametcl + "\" \",\"]" + "\n"
-    #8.需要连接的端口
-    net_connect_tcl = "set netconnect \""
-    for item in net_connect.items():
-        net_connect_tcl = net_connect_tcl + item[0] + " " + item[1] + " "
-    net_connect_tcl = net_connect_tcl + "\"" + "\n"
-    # 将上述tcl命令写入到test.tcl文件中
-    tclname = "./AtomicSystemGeneration/AssmbleTcl/" + fensystemname + ".tcl"
-    with open(tclname, 'w') as file_object:
-        file_object.write(net_connect_tcl)
+        # 7.获取该系统以及外设所有IP核名称并生成tcl命令
+        allipnametcl = "set f_all_ipname [split" + " \""
+        for i in range(0, len(ips)):
+            if i != len(ips) - 1:
+                allipnametcl = allipnametcl + ips[i] + ","
+            else:
+                allipnametcl = allipnametcl + ips[i]
+        allipnametcl = allipnametcl + "\" \",\"]" + "\n"
+        #8.需要连接的端口
+        net_connect_tcl = "set netconnect \""
+        for item in net_connect.items():
+            net_connect_tcl = net_connect_tcl + item[0] + " " + item[1] + " "
+        net_connect_tcl = net_connect_tcl + "\"" + "\n"
+        # 将上述tcl命令写入到test.tcl文件中
+        tclname = "./AtomicSystemGeneration/AssmbleTcl/" + fensystemname + ".tcl"
+        with open(tclname, 'w') as file_object:
+            file_object.write(net_connect_tcl)
 
-        file_object.write(allipnametcl)
+            file_object.write(allipnametcl)
 
-        file_object.write(wrappertcl)
-        file_object.write(norecursetcl)
-        file_object.write(ippackagetcl)
-        file_object.write(bdnametcl)
+            file_object.write(wrappertcl)
+            file_object.write(norecursetcl)
+            file_object.write(ippackagetcl)
+            file_object.write(bdnametcl)
 
-        file_object.write(subsystempath)
-        file_object.write(allsystempath)
-        with open("./AtomicSystemGeneration/Template/systemassembletemplate/shebei.txt", 'r',
-                  encoding='utf-8') as infile:
-            for line in infile:
-                file_object.writelines(line)
-                file_object.write('\n')
-    os.system(vivado_path + " -mode batch -source " + tclname)
+            file_object.write(subsystempath)
+            file_object.write(allsystempath)
+            with open("./AtomicSystemGeneration/Template/systemassembletemplate/shebei.txt", 'r',
+                      encoding='utf-8') as infile:
+                for line in infile:
+                    file_object.writelines(line)
+                    file_object.write('\n')
+        os.system(vivado_path + " -mode batch -source " + tclname)
+        return "设备连接成功！"
+    else:
+        return "设备连接失败！"

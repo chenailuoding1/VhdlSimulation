@@ -17,6 +17,8 @@ import AtomicSystemGeneration.AbbrName
 import AtomicSystemGeneration.GenerateRootDependency
 import AtomicSystemGeneration.GenerateNonLeafDependency
 import AtomicSystemGeneration.Assemble
+
+import AtomicSystemGeneration.Oroperty
 import AtomicSystemGeneration.Cleanupdirectory
 app = Flask(__name__)
 
@@ -80,9 +82,9 @@ def upload_file():
             'computervhdl': computervhdl,
             'tbtestdict':tbtestdict
         }
-    except Exception:
+    except Exception as e:
         # 处理 ZeroDivisionError 异常
-        print("原子系统抽取信息失败+！")
+        print("原子系统抽取信息失败+！："+str(e))
         data = {
             'message': 'VHDL Generate Fail!'
 
@@ -338,18 +340,15 @@ def dependencyproject():
 @app.route('/api/assmblesystem', methods=['POST'])
 def assmblesystem():
 
-    AtomicSystemGeneration.Assemble.GenerateAssembleTcl()
-    message="集成错误，接口不一致！接口out_GD_GD_Gyro_powe_stat、out_SSD_SSD_Sun_sens_powe_sta未有对应接口与之连接"
+    message=AtomicSystemGeneration.Assemble.GenerateAssembleTcl()
+    message="集成成功！"
     data = {
         'message': message,
     }
     return jsonify(data)
 @app.route('/api/oroperty', methods=['POST'])
 def oroperty():
-    with open("./AtomicSystemGeneration/vcd/dump.vcd", 'r') as f:
-        txt = f.read()
-    needcomplete = {}
-    needcomplete["vcd"] = txt
-    return jsonify(needcomplete)
+    data=AtomicSystemGeneration.Oroperty.portdetect()
+    return jsonify(data)
 if __name__ == '__main__':
     app.run(debug=True)

@@ -120,26 +120,36 @@ def extractatomspecification(inputpath1, inputpath2):
             atomcc = ""
             # 是否有计算机组件
             hasccfalg = False
+            initramlist=[]
             #             print(computer_components_domain)
             ###举例filestrsplit[0]为"GDA sends Pulse count acquisition instruction to G[instruction]",这即为一个共享现象的描述
             # 遍历该原子系统的共享现象描述，得到控制器文件名称以及确定是否有计算机组件
             for i in range(1, len(filestrsplit)):
-                phenomenonsplit = filestrsplit[i].split()
-                #                 print(phenomenonsplit)
-                ##得到controler文件名称GDA
-                atomsc = phenomenonsplit[0]
-                ##拆分出共享现象中的外设、计算机组件、数据存储名称
-                lastname = phenomenonsplit[-1].split("[")[0]
-                #                 print(lastname)
-                ##判断该原子系统中是否存在计算机组件
-                if lastname in computer_components_domain:
-                    atomcc = lastname
-                    hasccfalg = True
-                    break
+                if filestrsplit[i][0]!='*':
+                    phenomenonsplit = filestrsplit[i].split()
+                    #                 print(phenomenonsplit)
+                    ##得到controler文件名称GDA
+                    atomsc = phenomenonsplit[0]
+                    ##拆分出共享现象中的外设、计算机组件、数据存储名称
+                    lastname = phenomenonsplit[-1].split("[")[0]
+                    #                 print(lastname)
+                    ##判断该原子系统中是否存在计算机组件
+                    if lastname in computer_components_domain:
+                        atomcc = lastname
+                        hasccfalg = True
+                        break
+                else:
+                    strsplit = filestrsplit[i].split(',')
+                    dict={}
+                    dict["ramname"]=strsplit[1]
+                    dict["value"] =strsplit[2]
+                    initramlist.append(dict)
             atomsysdict[atomsc] = {"type": "controler", "in_port": [], "out_port": []}
             if hasccfalg == True:
                 atomsysdict[atomcc] = {"type": "computer", "in_port": [], "out_port": []}
                 atomsysdict[abbrname] = {"type": "topfile", "in_port": [], "out_port": []}
+            #原子系统控制器中的初始寄存器
+            atomsysdict[atomsc]["initramlist"] = initramlist
             #             print(atomsysdict)
             # 统计状态机的状态数量stacount
             ###规则为：1.共享现象只有sends时才会定义一个状态；
@@ -152,113 +162,36 @@ def extractatomspecification(inputpath1, inputpath2):
             ###状态机数组，记录每个状态要进行输出的端口信息
             stasprocess = []
             for i in range(1, len(filestrsplit)):
+                if filestrsplit[i][0]!='*':
                 ###举例filestrsplit[0]为"GDA sends Pulse count acquisition instruction to G[instruction]"
                 ##要除去前后两端不需要的信息
-                phenomenonsplit = filestrsplit[i].split()
-                ##得到共享现象名称："Pulse count acquisition instruction"
-                phenomenonstr = " ".join(phenomenonsplit[2:-2])
+                    phenomenonsplit = filestrsplit[i].split()
+                    ##得到共享现象名称："Pulse count acquisition instruction"
+                    phenomenonstr = " ".join(phenomenonsplit[2:-2])
 
-                if phenomenonsplit[1] == "sends":
-                    ##得到共享现象发送者名称
-                    sendername = phenomenonsplit[0]
-                    ##得到共享现象接收者名称
-                    receivername = phenomenonsplit[-1].split("[")[0]
-                    if ("acquisition instruction" in phenomenonstr) or ("perception instruction" in phenomenonstr):
-                        ##1.共享现象为采集指令
-                        ##得到"Pulse count"
-                        phenomenonstr2 = " ".join(phenomenonsplit[2:-4])
+                    if phenomenonsplit[1] == "sends":
+                        ##得到共享现象发送者名称
+                        sendername = phenomenonsplit[0]
+                        ##得到共享现象接收者名称
+                        receivername = phenomenonsplit[-1].split("[")[0]
+                        if ("acquisition instruction" in phenomenonstr) or ("perception instruction" in phenomenonstr):
+                            ##1.共享现象为采集指令
+                            ##得到"Pulse count"
+                            phenomenonstr2 = " ".join(phenomenonsplit[2:-4])
 
-                        #                         print(phenomenonstr)
-                        #                         print(phenomenonstr2)
-                        #                         print(DataHandling.abbrportname(phenomenonstr))
-                        atomsysdict[atomsc]["out_port"].append(
-                            "out" + "_" + sendername + "_" + receivername + "_" + phenomenonstr)
-                        atomsysdict[atomsc]["in_port"].append(
-                            "in" + "_" + sendername + "_" + receivername + "_" + phenomenonstr2)
-
-                        causal_domain_dict[receivername]["in_port"].append(
-                            "in" + "_" + sendername + "_" + receivername + "_" + phenomenonstr)
-                        causal_domain_dict[receivername]["out_port"].append(
-                            "out" + "_" + sendername + "_" + receivername + "_" + phenomenonstr2)
-                        ###情况2
-                        stacount = stacount + 1
-                        ###记录每个状态要进行输出的端口信息
-                        stainform = {}
-                        staport = []
-                        staport.append("out" + "_" + sendername + "_" + receivername + "_" + phenomenonstr)
-                        stainform["port"] = staport
-                        stainform["type"] = 0
-                        stasprocess.append(stainform)
-                    elif "storage instruction" in phenomenonstr:
-                        ##2.共享现象为存储指令
-                        stacount = stacount + 1
-                        phenomenonstr2 = " ".join(phenomenonsplit[2:-4])
-                        # 接收者为物理数据存储
-                        if receivername in physical_lexical_domain:
-
-                            atomsysdict[atomsc]["out_port"].append(
-                                "out" + "_" + sendername + "_" + receivername + "_" + phenomenonstr)
-                            atomsysdict[atomsc]["out_port"].append(
-                                "out" + "_" + sendername + "_" + receivername + "_" + phenomenonstr2)
-                            physical_lexical_domain_dict[receivername]["in_port"].append(
-                                "in" + "_" + sendername + "_" + receivername + "_" + phenomenonstr)
-                            physical_lexical_domain_dict[receivername]["in_port"].append(
-                                "in" + "_" + sendername + "_" + receivername + "_" + phenomenonstr2)
-
-                            ###记录每个状态要进行输出的端口信息
-                            stainform = {}
-                            staport = []
-                            staport.append("out" + "_" + sendername + "_" + receivername + "_" + phenomenonstr)
-                            staport.append("out" + "_" + sendername + "_" + receivername + "_" + phenomenonstr2)
-                            stainform["port"] = staport
-                            stainform["type"] = 0
-                            stasprocess.append(stainform)
-                        else:  # 接收者为逻辑数据存储
-
-                            atomsysdict[atomsc]["out_port"].append(
-                                "out" + "_" + receivername + "_" + receivername + "_" + phenomenonstr2)
-                            ###记录每个状态要进行输出的端口信息
-                            stainform = {}
-                            staport = []
-                            staport.append("out" + "_" + receivername + "_" + receivername + "_" + phenomenonstr2)
-                            stainform["port"] = staport
-                            stainform["type"] = 0
-                            stasprocess.append(stainform)
-                    elif "load instruction" in phenomenonstr:
-                        ##3.共享现象为读取指令
-                        phenomenonstr2 = " ".join(phenomenonsplit[2:-4])
-                        # 接收者为物理数据存储
-                        if receivername in physical_lexical_domain:
+                            #                         print(phenomenonstr)
+                            #                         print(phenomenonstr2)
+                            #                         print(DataHandling.abbrportname(phenomenonstr))
                             atomsysdict[atomsc]["out_port"].append(
                                 "out" + "_" + sendername + "_" + receivername + "_" + phenomenonstr)
                             atomsysdict[atomsc]["in_port"].append(
                                 "in" + "_" + sendername + "_" + receivername + "_" + phenomenonstr2)
-                            physical_lexical_domain_dict[receivername]["in_port"].append(
-                                "in" + "_" + sendername + "_" + receivername + "_" + phenomenonstr)
-                            physical_lexical_domain_dict[receivername]["out_port"].append(
-                                "out" + "_" + sendername + "_" + receivername + "_" + phenomenonstr2)
-                            ###情况4
-                            stacount = stacount + 1
-                            ###记录每个状态要进行输出的端口信息
-                            stainform = {}
-                            staport = []
-                            staport.append("out" + "_" + sendername + "_" + receivername + "_" + phenomenonstr)
-                            stainform["port"] = staport
-                            stainform["type"] = 0
-                            stasprocess.append(stainform)
-                        # 接收者为逻辑数据存储
-                        else:
-                            atomsysdict[atomsc]["in_port"].append(
-                                "in" + "_" + receivername + "_" + receivername + "_" + phenomenonstr2)
-                    else:
-                        ##4.共享现象为数据输出
-                        atomsysdict[atomsc]["out_port"].append(
-                            "out" + "_" + sendername + "_" + receivername + "_" + phenomenonstr)
-                        if receivername in causal_domain:
 
                             causal_domain_dict[receivername]["in_port"].append(
                                 "in" + "_" + sendername + "_" + receivername + "_" + phenomenonstr)
-                            ###情况5
+                            causal_domain_dict[receivername]["out_port"].append(
+                                "out" + "_" + sendername + "_" + receivername + "_" + phenomenonstr2)
+                            ###情况2
                             stacount = stacount + 1
                             ###记录每个状态要进行输出的端口信息
                             stainform = {}
@@ -267,52 +200,130 @@ def extractatomspecification(inputpath1, inputpath2):
                             stainform["port"] = staport
                             stainform["type"] = 0
                             stasprocess.append(stainform)
-                        elif receivername in biddable_domain:
+                        elif "storage instruction" in phenomenonstr:
+                            ##2.共享现象为存储指令
+                            stacount = stacount + 1
+                            phenomenonstr2 = " ".join(phenomenonsplit[2:-4])
+                            # 接收者为物理数据存储
+                            if receivername in physical_lexical_domain:
 
-                            biddable_domain_dict[receivername]["in_port"].append(
-                                "in" + "_" + sendername + "_" + receivername + "_" + phenomenonstr)
-                            ###情况5
-                            stacount = stacount + 1
-                            ###记录每个状态要进行输出的端口信息
-                            stainform = {}
-                            staport = []
-                            staport.append("out" + "_" + sendername + "_" + receivername + "_" + phenomenonstr)
-                            stainform["port"] = staport
-                            stainform["type"] = 0
-                            stasprocess.append(stainform)
-                        elif receivername in computer_components_domain:
-                            atomsysdict[atomcc]["in_port"].append(
-                                "in" + "_" + sendername + "_" + receivername + "_" + phenomenonstr)
-                            falg = False
-                            for i in range(0, len(stasprocess)):
-                                if stasprocess[i].get("type") == 1:
-                                    falg = True
-                                    stasprocess[i]["port"].append(
-                                        "out" + "_" + sendername + "_" + receivername + "_" + phenomenonstr)
-                            if falg == False:
+                                atomsysdict[atomsc]["out_port"].append(
+                                    "out" + "_" + sendername + "_" + receivername + "_" + phenomenonstr)
+                                atomsysdict[atomsc]["out_port"].append(
+                                    "out" + "_" + sendername + "_" + receivername + "_" + phenomenonstr2)
+                                physical_lexical_domain_dict[receivername]["in_port"].append(
+                                    "in" + "_" + sendername + "_" + receivername + "_" + phenomenonstr)
+                                physical_lexical_domain_dict[receivername]["in_port"].append(
+                                    "in" + "_" + sendername + "_" + receivername + "_" + phenomenonstr2)
+
                                 ###记录每个状态要进行输出的端口信息
                                 stainform = {}
                                 staport = []
                                 staport.append("out" + "_" + sendername + "_" + receivername + "_" + phenomenonstr)
-                                staport.append("out_calculate instruction")
+                                staport.append("out" + "_" + sendername + "_" + receivername + "_" + phenomenonstr2)
                                 stainform["port"] = staport
-                                stainform["type"] = 1
+                                stainform["type"] = 0
                                 stasprocess.append(stainform)
+                            else:  # 接收者为逻辑数据存储
 
-                else:
-                    ##得到共享现象接收者名称
-                    receivername = phenomenonsplit[0]
-                    ##得到共享现象发送者名称
-                    sendername = phenomenonsplit[-1].split("[")[0]
-                    #                     print(atomcc)
-                    atomsysdict[atomsc]["in_port"].append(
-                        "in" + "_" + sendername + "_" + receivername + "_" + phenomenonstr)
-                    if sendername in biddable_domain:
-                        biddable_domain_dict[sendername]["out_port"].append(
-                            "out" + "_" + sendername + "_" + receivername + "_" + phenomenonstr)
+                                atomsysdict[atomsc]["out_port"].append(
+                                    "out" + "_" + receivername + "_" + receivername + "_" + phenomenonstr2)
+                                ###记录每个状态要进行输出的端口信息
+                                stainform = {}
+                                staport = []
+                                staport.append("out" + "_" + receivername + "_" + receivername + "_" + phenomenonstr2)
+                                stainform["port"] = staport
+                                stainform["type"] = 0
+                                stasprocess.append(stainform)
+                        elif "load instruction" in phenomenonstr:
+                            ##3.共享现象为读取指令
+                            phenomenonstr2 = " ".join(phenomenonsplit[2:-4])
+                            # 接收者为物理数据存储
+                            if receivername in physical_lexical_domain:
+                                atomsysdict[atomsc]["out_port"].append(
+                                    "out" + "_" + sendername + "_" + receivername + "_" + phenomenonstr)
+                                atomsysdict[atomsc]["in_port"].append(
+                                    "in" + "_" + sendername + "_" + receivername + "_" + phenomenonstr2)
+                                physical_lexical_domain_dict[receivername]["in_port"].append(
+                                    "in" + "_" + sendername + "_" + receivername + "_" + phenomenonstr)
+                                physical_lexical_domain_dict[receivername]["out_port"].append(
+                                    "out" + "_" + sendername + "_" + receivername + "_" + phenomenonstr2)
+                                ###情况4
+                                stacount = stacount + 1
+                                ###记录每个状态要进行输出的端口信息
+                                stainform = {}
+                                staport = []
+                                staport.append("out" + "_" + sendername + "_" + receivername + "_" + phenomenonstr)
+                                stainform["port"] = staport
+                                stainform["type"] = 0
+                                stasprocess.append(stainform)
+                            # 接收者为逻辑数据存储
+                            else:
+                                atomsysdict[atomsc]["in_port"].append(
+                                    "in" + "_" + receivername + "_" + receivername + "_" + phenomenonstr2)
+                        else:
+                            ##4.共享现象为数据输出
+                            atomsysdict[atomsc]["out_port"].append(
+                                "out" + "_" + sendername + "_" + receivername + "_" + phenomenonstr)
+                            if receivername in causal_domain:
+
+                                causal_domain_dict[receivername]["in_port"].append(
+                                    "in" + "_" + sendername + "_" + receivername + "_" + phenomenonstr)
+                                ###情况5
+                                stacount = stacount + 1
+                                ###记录每个状态要进行输出的端口信息
+                                stainform = {}
+                                staport = []
+                                staport.append("out" + "_" + sendername + "_" + receivername + "_" + phenomenonstr)
+                                stainform["port"] = staport
+                                stainform["type"] = 0
+                                stasprocess.append(stainform)
+                            elif receivername in biddable_domain:
+
+                                biddable_domain_dict[receivername]["in_port"].append(
+                                    "in" + "_" + sendername + "_" + receivername + "_" + phenomenonstr)
+                                ###情况5
+                                stacount = stacount + 1
+                                ###记录每个状态要进行输出的端口信息
+                                stainform = {}
+                                staport = []
+                                staport.append("out" + "_" + sendername + "_" + receivername + "_" + phenomenonstr)
+                                stainform["port"] = staport
+                                stainform["type"] = 0
+                                stasprocess.append(stainform)
+                            elif receivername in computer_components_domain:
+                                atomsysdict[atomcc]["in_port"].append(
+                                    "in" + "_" + sendername + "_" + receivername + "_" + phenomenonstr)
+                                falg = False
+                                for i in range(0, len(stasprocess)):
+                                    if stasprocess[i].get("type") == 1:
+                                        falg = True
+                                        stasprocess[i]["port"].append(
+                                            "out" + "_" + sendername + "_" + receivername + "_" + phenomenonstr)
+                                if falg == False:
+                                    ###记录每个状态要进行输出的端口信息
+                                    stainform = {}
+                                    staport = []
+                                    staport.append("out" + "_" + sendername + "_" + receivername + "_" + phenomenonstr)
+                                    staport.append("out_calculate instruction")
+                                    stainform["port"] = staport
+                                    stainform["type"] = 1
+                                    stasprocess.append(stainform)
+
                     else:
-                        atomsysdict[atomcc]["out_port"].append(
-                            "out" + "_" + sendername + "_" + receivername + "_" + phenomenonstr)
+                        ##得到共享现象接收者名称
+                        receivername = phenomenonsplit[0]
+                        ##得到共享现象发送者名称
+                        sendername = phenomenonsplit[-1].split("[")[0]
+                        #                     print(atomcc)
+                        atomsysdict[atomsc]["in_port"].append(
+                            "in" + "_" + sendername + "_" + receivername + "_" + phenomenonstr)
+                        if sendername in biddable_domain:
+                            biddable_domain_dict[sendername]["out_port"].append(
+                                "out" + "_" + sendername + "_" + receivername + "_" + phenomenonstr)
+                        else:
+                            atomsysdict[atomcc]["out_port"].append(
+                                "out" + "_" + sendername + "_" + receivername + "_" + phenomenonstr)
 
             if hasccfalg == True:
                 atomsysdict[atomsc]["out_port"].append("out_calculate instruction")

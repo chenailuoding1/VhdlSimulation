@@ -126,15 +126,15 @@ class TreeNode(object):
                     systeam.append(str(child.val))
                 if root.val==treelist[0]:
                     # print(root.val)
+                    #将系统内的分系统、原子系统、数据存储相互连接起来
                     Assemble.ConnectSystem(systeam)
+                    # 将系统与外部设备相互连接起来
                     Assemble.Connectshebei(systeam)
-                    ##组装整个系统
-                # else:
-                #     Assemble.Assemble_tcl(systeam)
-                # if root.parent:
-                #     Assemble.Assemble_tcl(systeam)
-                # else:
-                #     print("根")
+
+                else:
+                    ##将有依赖的原子系统组装成分系统
+                    Assemble.Assemble_tcl(systeam)
+
 
     @classmethod
     def noleafnode(cls, root: "TreeNode", input_dict: dict):

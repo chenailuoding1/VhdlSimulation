@@ -216,7 +216,7 @@ def Generate_controler_vhdl(dirname, filename, filedict):
     out_port = filedict["out_port"]
     stacount = filedict["stacount"]
     stasprocess = filedict["stasprocess"]
-
+    initramlist= filedict["initramlist"]
     ###subvalue["in_port"]为文件输入端口名称数组，subvalue["out_port"]为文件输出端口名称数组
     filepath = "./AtomicSystemGeneration/AtomSystemVhdl/" + dirname + "/" + filename + ".vhdl"
     with open(filepath, 'w', encoding='utf-8') as file:
@@ -254,6 +254,7 @@ def Generate_controler_vhdl(dirname, filename, filedict):
 
         ####2.生成结构体部分architecture
         with open("./AtomicSystemGeneration/Template/atomcontrolertemplate/part2.txt", 'r', encoding='utf-8') as infile:
+            #生成中间信号变量，包括状态机、寄存器等
             for line in infile:
                 file.writelines(line)
                 file.write('\n')
@@ -264,17 +265,41 @@ def Generate_controler_vhdl(dirname, filename, filedict):
             file.write("shared variable Count: integer:=0;\n")
             #统计寄存器名称数组
             ramlist=[]
+            raminfodict={}
             for i in range(0, len(in_port)):
-                if DataHandling.renewname(DataHandling.abbrportname(in_port[i])) not in ramlist:
-                    ramlist.append(DataHandling.renewname(DataHandling.abbrportname(in_port[i])))
-            for i in range(0, len(ramlist)):
-                str1 = "type ram_type" + str(i) + " is array (1 downto 0) of STD_LOGIC_VECTOR ( 31 downto 0 );\n"
-                str2 = "signal RAM_" + filename + "_" + ramlist[i] + ": ram_type" + str(
+                ramname=DataHandling.renewname(DataHandling.abbrportname(in_port[i]))
+                if ramname not in ramlist:
+                    ramlist.append(ramname)
+                    raminfodict[ramname]=[]
+                    raminfodict[ramname].append(DataHandling.abbrportname(in_port[i]))
+                else:
+                    raminfodict[ramname].append(DataHandling.abbrportname(in_port[i]))
+            #生成原子系统初始化寄存器数组
+            for i in range(0,len(initramlist)):
+                ramname = DataHandling.abbrramname(initramlist[i]["ramname"])
+
+                str1 = "type ram_type_init" + str(i) + " is array (1 downto 0) of STD_LOGIC_VECTOR ( 31 downto 0 );\n"
+                str2 = "signal RAM_" + filename + "_" + ramname + ": ram_type_init" + str(
                     i) + ";\n"
-                str3 = "signal " +ramlist[i] + "_addr: integer:=1;\n"
+
+                str3 = "signal " + ramname + "_addr: integer:=1;\n"
                 file.write(str1)
                 file.write(str2)
                 file.write(str3)
+            # 生成原子系统运行寄存器数组
+
+            i=0
+            for ramname,ramport in raminfodict.items():
+
+                str1 = "type ram_type" + str(i) + " is array ("+len(ramport)+" downto 0) of STD_LOGIC_VECTOR ( 31 downto 0 );\n"
+                str2 = "signal RAM_" + filename + "_" + ramname + ": ram_type" + str(
+                    i) + ";\n"
+                file.write(str1)
+                file.write(str2)
+                for j in range(0,len(ramport)):
+                    str3 = "signal " +ramport[j] + "_addr: integer:="+str(j)+";\n"
+                    file.write(str3)
+                i=i+1
             stastr = "Type states is ("
             for i in range(0, stacount + 1):
                 stastr = stastr + "sta" + str(i)
@@ -286,6 +311,7 @@ def Generate_controler_vhdl(dirname, filename, filedict):
             file.writelines("signal sta:states;\n")
 
         with open("./AtomicSystemGeneration/Template/atomcontrolertemplate/part3.txt", 'r', encoding='utf-8') as infile:
+            #生成状态机切换进程
             for line in infile:
                 file.writelines(line)
                 file.write('\n')
@@ -296,23 +322,34 @@ def Generate_controler_vhdl(dirname, filename, filedict):
                 else:
                     file.write("\t\t\t\t\tsta<=sta" + str(0) + ";\n")
 
+
         with open("./AtomicSystemGeneration/Template/atomcontrolertemplate/part4.txt", 'r', encoding='utf-8') as infile:
             for line in infile:
                 file.writelines(line)
                 file.write('\n')
+            for i in range(0, len(initramlist)):
+                ramname = DataHandling.abbrramname(initramlist[i]["ramname"])
+                value = initramlist[i]["value"]
+                file.write(
+                    "\t\tRAM_" + filename + "_" + ramname + "(" + ramname + "_addr)<=" + "std_logic_vector(to_signed(" + value + ",32));\n")
+            file.write("\t\t\t\tprocess(sta)\nbegin\ncase\nsta is\n")
+
+            ###生成状态机的vhdl代码
             for i in range(0, stacount + 1):
                 file.write("\t\t\t\twhen sta" + str(i) + "=> \n")
 
                 if i == 0:
+                #第一个状态要特殊处理，需要实现原子系统运行情况重置，done='0'
                     file.write("\t\t\t\t\tdone<='0';\n")
+                    #第一个状态需要重置最后一个状态的输出的控制类指令
                     proport = stasprocess[-1]["port"]
                     for port in proport:
-                        if DataHandling.IsAccessIns(port):
+                        if DataHandling.IsAccessIns(port): #判断端口是否是控制类指令
                             file.write("\t\t\t\t\t" + DataHandling.abbrportname(port) + "<='0';\n")
                 else:
-
-                    curport = stasprocess[i - 1]["port"]
-
+                #其余状态
+                    curport = stasprocess[i - 1]["port"]#得到当前状态要输出的端口信息
+                    #将每个状态需要输出的端口信息添加上
                     for port in curport:
                         if DataHandling.IsAccessIns(port):
                             file.write("\t\t\t\t\t" + DataHandling.abbrportname(port) + "<='1';\n")
@@ -322,10 +359,12 @@ def Generate_controler_vhdl(dirname, filename, filedict):
                                 DataHandling.renewname(DataHandling.abbrportname(port))) + "(" + str(DataHandling.renewname(DataHandling.abbrportname(port))) + "_addr);\n"
                             file.write("\t\t\t\t\t" + valuestr)
                     if i == stacount:
+                        #最后一个状态需要返回该原子系统的完成情况
                         file.write("\t\t\t\t\tCount:=0;\n")
                         file.write("\t\t\t\t\tdone<='1';\n")
                     if i != 1:
-                        proport = stasprocess[i - 2]["port"]
+                        #每个状态需要将前一个状态的控制类指令清除，由于第一个状态是用于状态机重置的，故第二个状态无需清除前一个状态的控制类指令
+                        proport = stasprocess[i - 2]["port"]#得到前一个状态要输出的端口信息
                         for port in proport:
                             if DataHandling.IsAccessIns(port):
                                 file.write("\t\t\t\t\t" + DataHandling.abbrportname(port) + "<='0';\n")
@@ -341,6 +380,9 @@ def Generate_controler_vhdl(dirname, filename, filedict):
                 DataHandling.abbrportname(in_port[i])) + "_addr)<=" + DataHandling.abbrportname(in_port[i]) + ";\n")
             file.write("\tend process;\n")
         file.write("end Behavioral;")
+
+
+
 
 
 def Generate_computer_vhdl(dirname, filename, filedict):
