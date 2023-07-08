@@ -18,16 +18,16 @@ def Generate_atomsystem_vhdl(inputpath):
     print(insysdict_atomsys)
     # 先清理该目录
     rootdir = "./AtomicSystemGeneration/AtomSystemVhdl/"
-    testdir = "./AtomicSystemGeneration/AtomSystemTest/"
+    # testdir = "./AtomicSystemGeneration/AtomSystemTest/"
     for files in os.listdir(rootdir):
         path = os.path.join(rootdir, files)
-        path2 = os.path.join(testdir, files)
+        # path2 = os.path.join(testdir, files)
         try:
             shutil.rmtree(path)
-            shutil.rmtree(path2)
+            # shutil.rmtree(path2)
         except OSError:
             os.remove(path)
-            os.remove(path2)
+            # os.remove(path2)
     computerdict={}
     tbtestdict = []
     ###每个item为一个原子系统，key为原子系统名称简写，value为原子系统目录结构及端口信息的字典
@@ -38,7 +38,7 @@ def Generate_atomsystem_vhdl(inputpath):
 
         # 创建目录
         os.mkdir(rootdir + dirname)
-        os.mkdir(testdir + dirname)
+        # os.mkdir(testdir + dirname)
         # 处理值
         # 每个item为原子系统目录下的一个文件端口、类型信息，subkey为文件名，subvalue为信息字典
         #
@@ -80,7 +80,7 @@ def Generate_atomsystem_vhdl(inputpath):
             topfile_port = value[dirname]["in_port"] + value[dirname]["out_port"]
             Generate_topfile_vhdl(dirname, dirname, controler_port, computer_port, topfile_port, controler_name,
                                   computer_name)
-            Generate_tb_vhdl(dirname, dirname, topfile_port)
+            # Generate_tb_vhdl(dirname, dirname, topfile_port)
             ports={}
             ports["filename"] = dirname
             ports["input"]=[]
@@ -110,7 +110,7 @@ def Generate_atomsystem_vhdl(inputpath):
                 ports["output"].append(port)
             tbtestdict.append(ports)
         else:
-            Generate_tb_vhdl(dirname, controler_name , controler_port)
+            # Generate_tb_vhdl(dirname, controler_name , controler_port)
             # print("print(controler_port_out)")
             # print(controler_port_out)
             ports = {}
