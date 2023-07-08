@@ -288,18 +288,14 @@ def Generate_controler_vhdl(dirname, filename, filedict):
                 file.write(str3)
             # 生成原子系统运行寄存器数组
 
-            i=0
-            for ramname,ramport in raminfodict.items():
-
-                str1 = "type ram_type" + str(i) + " is array ("+len(ramport)+" downto 0) of STD_LOGIC_VECTOR ( 31 downto 0 );\n"
-                str2 = "signal RAM_" + filename + "_" + ramname + ": ram_type" + str(
+            for i in range(0, len(ramlist)):
+                str1 = "type ram_type" + str(i) + " is array (1 downto 0) of STD_LOGIC_VECTOR ( 31 downto 0 );\n"
+                str2 = "signal RAM_" + filename + "_" + ramlist[i] + ": ram_type" + str(
                     i) + ";\n"
+                str3 = "signal " + ramlist[i] + "_addr: integer:=1;\n"
                 file.write(str1)
                 file.write(str2)
-                for j in range(0,len(ramport)):
-                    str3 = "signal " +ramport[j] + "_addr: integer:="+str(j)+";\n"
-                    file.write(str3)
-                i=i+1
+                file.write(str3)
             stastr = "Type states is ("
             for i in range(0, stacount + 1):
                 stastr = stastr + "sta" + str(i)
