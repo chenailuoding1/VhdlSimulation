@@ -274,6 +274,8 @@ def Generate_controler_vhdl(dirname, filename, filedict):
                     raminfodict[ramname].append(DataHandling.abbrportname(in_port[i]))
                 else:
                     raminfodict[ramname].append(DataHandling.abbrportname(in_port[i]))
+            print("raminfodict")
+            print(raminfodict)
             #生成原子系统初始化寄存器数组
             for i in range(0,len(initramlist)):
                 ramname = DataHandling.abbrramname(initramlist[i]["ramname"])
@@ -287,15 +289,20 @@ def Generate_controler_vhdl(dirname, filename, filedict):
                 file.write(str2)
                 file.write(str3)
             # 生成原子系统运行寄存器数组
+            sum=0
+            for ramname,ports in raminfodict.items():
+                str1 = "type ram_type" + str(sum) + " is array (1 downto 0) of STD_LOGIC_VECTOR ( 31 downto 0 );\n"
+                str2 = "signal RAM_" + filename + "_" + ramname + ": ram_type" + str(
+                    sum) + ";\n"
+                str3 = "signal " + ramname + "_addr: integer:=1;\n"
+                if len(ports)>1:
+                    str4= "signal " + ramname + "_signal: STD_LOGIC_VECTOR ( 31 downto 0 );\n"
+                    file.write(str4)
 
-            for i in range(0, len(ramlist)):
-                str1 = "type ram_type" + str(i) + " is array (1 downto 0) of STD_LOGIC_VECTOR ( 31 downto 0 );\n"
-                str2 = "signal RAM_" + filename + "_" + ramlist[i] + ": ram_type" + str(
-                    i) + ";\n"
-                str3 = "signal " + ramlist[i] + "_addr: integer:=1;\n"
                 file.write(str1)
                 file.write(str2)
                 file.write(str3)
+                sum=sum+1
             stastr = "Type states is ("
             for i in range(0, stacount + 1):
                 stastr = stastr + "sta" + str(i)
@@ -366,19 +373,43 @@ def Generate_controler_vhdl(dirname, filename, filedict):
                                 file.write("\t\t\t\t\t" + DataHandling.abbrportname(port) + "<='0';\n")
         file.write("\t\t\t\tend case;\n")
         file.write("\tend process;\n")
-        for i in range(0, len(in_port)):
-            inportstr = "\tprocess(" + DataHandling.abbrportname(in_port[i]) + ")\n"
+        for ramname, ports in raminfodict.items():
+            inportstr = "\tprocess("
+            for i in range(0,len(ports)):
+                inportstr =inportstr +ports[i]
+                if i !=len(ports)-1:
+                    inportstr = inportstr + ","
+            inportstr = inportstr  + ")\n"
             file.write(inportstr)
             file.write("\tbegin\n")
             # DataHandling.splitportname()作用为将in_xx_xxx变成xx_xxx，或者out_xx_xxx变成xx_xxx,及去除前面的in out
             # DataHandling.abbrportname()作用为简写名称及将in_DataHandling.splitportname_name变成in_spl_nam
-            file.write("\t\tRAM_" + filename + "_" + DataHandling.renewname(DataHandling.abbrportname(in_port[i])) + "(" + DataHandling.renewname(
-                DataHandling.abbrportname(in_port[i])) + "_addr)<=" + DataHandling.abbrportname(in_port[i]) + ";\n")
+            if len(ports)>1:
+                for i in range(0,len(ports)):
+                    if i ==0:
+                        ramstr = "if "
+                    else:
+                        ramstr = "elsif "
+                    ramstr=ramstr+ports[i]+" /= "+ramname+"_signal"+" then\n\t"
+                    ramstr=ramstr+ramname+"_signal"+" <= "+ports[i]+";\n"
+                    file.write(ramstr)
+                file.write("\tend if;\n")
+            else:
+                file.write("\t\tRAM_" + filename + "_" + ramname + "(" + ramname + "_addr)<=" + ports[0] + ";\n")
             file.write("\tend process;\n")
-        file.write("end Behavioral;")
 
+        for ramname, ports in raminfodict.items():
+            if len(ports) > 1:
+                inportstr = "\tprocess(" + ramname+"_signal"+")\n"
 
-
+                file.write(inportstr)
+                file.write("\tbegin\n")
+                # DataHandling.splitportname()作用为将in_xx_xxx变成xx_xxx，或者out_xx_xxx变成xx_xxx,及去除前面的in out
+                # DataHandling.abbrportname()作用为简写名称及将in_DataHandling.splitportname_name变成in_spl_nam
+                if len(ports) > 1:
+                    file.write("\t\tRAM_" + filename + "_" + ramname + "(" + ramname + "_addr)<=" + ramname+"_signal" +";\n")
+                file.write("\tend process;\n")
+        file.write("\nend Behavioral;")
 
 
 def Generate_computer_vhdl(dirname, filename, filedict):
