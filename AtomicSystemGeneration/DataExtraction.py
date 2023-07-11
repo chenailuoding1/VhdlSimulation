@@ -334,7 +334,6 @@ def extractatomspecification(inputpath1, inputpath2):
                 cc_in = [DataHandling.splitportname(i) for i in atomsysdict[atomcc]["in_port"]]
                 #                 print(sc_out)
                 #                 print(cc_out)
-
                 outdiff = [("out_" + i) for i in list(set(sc_out) - set(cc_in))]
 
                 indiff = [("in_" + i) for i in list(set(sc_in) - set(cc_out))]
