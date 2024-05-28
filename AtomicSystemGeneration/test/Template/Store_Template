@@ -1,0 +1,4 @@
+process(<<inport>>)
+	begin
+		<<ram>><=<<inport>>;
+	end process;

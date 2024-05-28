@@ -1,19 +1,19 @@
+import matplotlib.pyplot as plt
 
-from vunit import VUnit
+# 提供的数据
+data = [(0, 'x'), (1600000, '0'), (40000800000, '1'), (40001600000, '0'), (80000800000, '1'), (80001600000, '0'), (120000800000, '1'), (120001600000, '0'), (160000800000, '1'), (160001600000, '0'), (200000800000, '1'), (200001600000, '0'), (240000800000, '1'), (240001600000, '0'), (280000800000, '1')]
 
-# 创建 VUnit 对象
-vu = VUnit.from_argv(compile_builtins=False)
-vu.add_vhdl_builtins()
+# 提取时间点和状态，并将 'x' 替换为 -1
+time_points = [t for t, _ in data]
+statuses = [-1 if status == 'x' else int(status) for _, status in data]
 
-# 添加 VHDL 文件到 VUnit 项目中
-library = vu.add_library("IEEE")
-library.add_source_files("/AtomSystemVhdl/AD18/AD18.vhdl")
+# 绘制高低电平图
+plt.figure(figsize=(10, 4))
+plt.step(time_points, statuses, where='post', color='blue')
+plt.xlabel('Time (ps)')
+plt.ylabel('High/Low')
+plt.title('High/Low Level over Time')
+plt.grid(True)
+plt.show()
 
-# 获取顶层模块
-top_module = library.get_entity("AD18")
 
-# 生成仿真激励文件
-stimulus_file = "stimulus_file.txt"
-vu.main(post_run=[lambda: top_module.generate_simulator_input(stimulus_file)])
-
-print("仿真激励文件已生成！")

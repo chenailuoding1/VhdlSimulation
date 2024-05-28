@@ -36,7 +36,7 @@ def renewname(inputstring):#输入是经过简写的端口名称（out_GDAC_Angu
     if len(newlist)>1:
         return "_".join(newlist)
     else:
-        return newlist
+        return newlist[0]
 def connectport(inputstring):#输入是经过IP封装后的端口名称（out_GDAC_Angu_velo_anal）除去前面的共享现象方向（in或者out）以及共享现象接收方或输出方（GDAC）
     strsplit=re.split("_",inputstring)
     newlist =[]
@@ -93,7 +93,10 @@ def escape_quotes(string):
     return string
 
 
-def IsAccessIns(portname):
+def IsAccessIns(port):
+    restr=r"[_ ]"
+    namelist=re.split(restr,port)
+    portname=" ".join(namelist)
     if ("calculate instruction" in portname) or ("load instruction" in portname) or (
             "storage instruction" in portname) or ("acquisition instruction" in portname) or (
             "perception instruction" in portname)or("clk"==portname)or("rst"==portname)or("start"==portname)or("done"==portname):

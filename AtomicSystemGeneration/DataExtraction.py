@@ -70,6 +70,32 @@ def extractatomspecification(inputpath1, inputpath2):
     print("Physical Lexical Domain:", physical_lexical_domain)
     print("Logical Lexical Domain:", logical_lexical_domain)
     print("Computer Components Domain:", computer_components_domain)
+    domainpath = "./AtomicSystemGeneration/DomainProject"
+    devices = []
+    biddable_domain_b=[]
+    causal_domain_b=[]
+    for folder in os.listdir(domainpath):
+        if folder == "biddable_domain" :
+            path = domainpath+ "/" + folder
+            for file in os.listdir(path):
+                if os.path.isdir(path + "/" + file):
+                    biddable_domain_b.append(file)
+        if folder == "causal_domain":
+            path = domainpath + "/" + folder
+            for file in os.listdir(path):
+                if os.path.isdir(path+"/"+file):
+                    causal_domain_b.append(file)
+
+    if set(biddable_domain).issubset(set(biddable_domain_b) ):
+        isconform_b=True
+    else:
+        isconform_b=False
+    if set(causal_domain).issubset(set(causal_domain_b)):
+        isconform_c = True
+    else:
+        isconform_c=False
+    if isconform_c ==False or isconform_b==False:
+        return False
     abbrnamesdict = {}
     with open('./Extractionjson/abbrnamedict.json', 'r') as f:
         data = f.read()
@@ -364,6 +390,7 @@ def extractatomspecification(inputpath1, inputpath2):
         f.write(json_biddable_domain_dict)
     with open("./Extractionjson/physical_lexical_domain_dict.json", "w") as f:
         f.write(json_physical_lexical_domain_dict)
+    return True
 # print(DataHandling.splitportname("out_GDAC_Angu_velo_anal"))
 # print(extractdomains("../Domain/domain.txt"))
 # print(extractatomspecification("../Domain/domain.txt","../AtomSpecification"))

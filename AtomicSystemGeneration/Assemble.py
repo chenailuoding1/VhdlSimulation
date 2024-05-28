@@ -24,7 +24,8 @@ def GenerateAssembleTcl():
     tree = SystemTree.TreeNode.build_tree(treedict)
     print("tree:")
     SystemTree.TreeNode.post_tree(tree,list(treedict.keys()))
-
+    print(SystemTree.TreeNode.assemblemessage)
+    return SystemTree.TreeNode.assemblemessage
 def Assemble_tcl(systemname: list):
     fensystemname=""
     with open('./Extractionjson/abbrnamedict.json', 'r') as f:
@@ -217,6 +218,7 @@ def ConnectSystem(systemname: list):
     print(pldomainpath)
     ips=[]
     pldomainips=[]
+    atomsystemips = []
     ips_portlist={}
     for path in list((set(subsystempath).union(set(atomsystempath))).union(set(pldomainpath))):
 
@@ -227,6 +229,8 @@ def ConnectSystem(systemname: list):
             ips.append(ip_name.firstChild.data)  # 记录每个分系统所包含的所有IP核的名称
             if path in pldomainpath:
                 pldomainips.append(ip_name.firstChild.data)
+            if path in atomsystempath:
+                    atomsystemips.append(ip_name.firstChild.data)
             ports = doc.getElementsByTagName("spirit:port")
             # print(ports)
             port_in = []  # 记录IP核所有的输入端口名称
@@ -255,7 +259,7 @@ def ConnectSystem(systemname: list):
         for port_out_name in port_out:  # 遍历输出端口列表找该分系统中同名的输入端口
 
             for j in range(0, len(ips)):  # 遍历分系统IP得到输入端口列表
-                if ips[i] in pldomainips:#如果时数据存储的IP,其不能进行自连
+                if (ips[i] in pldomainips) or (ips[i] in atomsystemips):#如果是数据存储的IP 或者原子系统的IP,其不能进行自连
                     if j!=i:
                         port_in = ips_portlist.get(ips[j]).get('port_in')
                         for port_in_name in port_in:
@@ -421,15 +425,23 @@ def ConnectSystem(systemname: list):
                     file_object.writelines(line)
                     file_object.write('\n')
         os.system(vivado_path + " -mode batch -source " + tclname)
-        return "数据存储连接成功！"
+        return "数据依赖连接成功！"
     else:
-        return "数据存储连接失败！"
+        return "数据依赖连接失败！"
 
 def Connectshebei(systemname: list):
     with open('./Extractionjson/abbrnamedict.json', 'r') as f:
         data = f.read()
     # 将JSON字符串转换为Python字典
     abbrnamesdict = json.loads(data)
+    with open('./Extractionjson/biddable_domain_dict.json', 'r') as f:
+        data = f.read()
+    # 将JSON字符串转换为Python字典
+    biddable_domain_dict = json.loads(data)
+    with open('./Extractionjson/causal_domain_dict.json', 'r') as f:
+        data = f.read()
+    # 将JSON字符串转换为Python字典
+    causal_domain_dict = json.loads(data)
     print(systemname)
     #该系统包含的所有IP
 
@@ -450,7 +462,7 @@ def Connectshebei(systemname: list):
     subsystempath = []
     # 分系统存放路径
     subpath = "./AtomicSystemGeneration/SubSystemProject/"
-
+    ##确定整个系统IP compoent文件地址
     for filename in os.listdir(subpath):
 
         if filename == rootname:
@@ -459,16 +471,28 @@ def Connectshebei(systemname: list):
             subsystempath.append(subpath+filename+"/component.xml")
         else:
             print("失败filename " + filename+rootname)
+    ##确定因果域IP compoent文件地址
     for filename in os.listdir(carootdomainpath):
-        cadomainname.append(filename)
-        cadomainpath.append(carootdomainpath+filename+"/component.xml")
+        if filename in causal_domain_dict.keys():
+            cadomainname.append(filename)
+            cadomainpath.append(carootdomainpath+filename+"/component.xml")
+    ##确定自主域IP compoent文件地址
     for filename in os.listdir(birootdomainpath):
-        bidomainname.append(filename)
-        bidomainpath.append(birootdomainpath+filename+"/component.xml")
+        if filename in biddable_domain_dict.keys():
+            bidomainname.append(filename)
+            bidomainpath.append(birootdomainpath+filename+"/component.xml")
     print(bidomainpath)
     ips=[]
     pldomainips=[]
     ips_portlist={}
+    port_rst_name=[]
+    port_clk_name=[]
+    ###确定系统名称
+    sysname =''
+    if os.path.exists(subsystempath[0]):
+        doc = minidom.parse(subsystempath[0])
+        sysname= doc.getElementsByTagName("spirit:name")[0].firstChild.data
+
     for path in list((set(bidomainpath).union(set(cadomainpath).union(set(subsystempath))))):
 
         if os.path.exists(path):
@@ -490,34 +514,105 @@ def Connectshebei(systemname: list):
                     port_in.append(name.firstChild.data)
                 else:
                     port_out.append(name.firstChild.data)
+
+
             portlist = {}
             portlist["port_in"] = port_in
             portlist["port_out"] = port_out
             # print(portlist)
             ips_portlist[ip_name.firstChild.data] = portlist
+    ##确定哪些设备需要连接ret和clk
+    domain_ips=[]
+    for path in list((set(bidomainpath).union(set(cadomainpath)))):
+
+        if os.path.exists(path):
+            doc = minidom.parse(path)
+            ip_name = doc.getElementsByTagName("spirit:name")[0]
+            # print("ip_name:%s" % (ip_name.firstChild.data))
+
+            domain_ips.append(ip_name.firstChild.data)
+            ports = doc.getElementsByTagName("spirit:port")
+            # print(ports)
+            port_in = []  # 记录IP核所有的输入端口名称
+            port_out = []  # 记录IP核所有的输出端口名称
+            for port in ports:
+                name = port.getElementsByTagName("spirit:name")[0]  # 端口名称
+                # print(" name:%s, direction:%s" %
+                #       (name.firstChild.data, direction.firstChild.data))
+                # print(" name:%s, direction:%s" %
+                #       (name.firstChild.data, direction.firstChild.data))
+                print(DataHandling.systemportclean(str(name.firstChild.data)))
+                if DataHandling.systemportclean(str(name.firstChild.data)) == "rst":  # 根据端口的方向 判断是输入还是输出
+                    port_rst_name.append(ip_name.firstChild.data + "_0/" + str(name.firstChild.data))
+                elif DataHandling.systemportclean(str(name.firstChild.data)) == "clk":
+                    port_clk_name.append(ip_name.firstChild.data + "_0/" + str(name.firstChild.data))
     # print(ips_portlist)
     print(ips)
     net_connect = {}  # 记录分系统内哪些端口需要相连，key代表输入端口，value代表输出端口
-    for i in range(0, len(ips)):  # 遍历分系统内所有的IP核
-        port_out = ips_portlist.get(ips[i]).get('port_out')  # 获得IP核的输出端口数组
-        # print(port_out)
-        # print(ips_portlist.get(ips[i]))
-        for port_out_name in port_out:  # 遍历输出端口列表找该分系统中同名的输入端口
+    # for i in range(0, len(ips)):  # 遍历分系统内所有的IP核
+    #     port_out = ips_portlist.get(ips[i]).get('port_out')  # 获得IP核的输出端口数组
+    #     # print(port_out)
+    #     # print(ips_portlist.get(ips[i]))
+    #     for port_out_name in port_out:  # 遍历输出端口列表找该分系统中同名的输入端口
+    #
+    #         for j in range(0, len(ips)):  # 遍历分系统IP得到输入端口列表
+    #
+    #             if j!=i:
+    #                 port_in = ips_portlist.get(ips[j]).get('port_in')
+    #                 for port_in_name in port_in:
+    #                     #connectport函数能够清理掉端口带有的前缀和后缀
+    #                     if ( DataHandling.connectport(port_out_name)== DataHandling.connectport(port_in_name)):
+    #                         net_connect[ips[j] + '_0/' + port_in_name] = ips[i] + '_0/' + port_out_name
+    #                         # print("输出：" + DataHandling.connectport(port_out_name) + "输入" + DataHandling.connectport(
+    #                         #     port_in_name))
+    #                     # else:
+    #                     #     # print("输出："+DataHandling.connectport(port_out_name)+"输入"+DataHandling.connectport(port_in_name))
+    #
+    #                     # print(ips[i]+'_0/'+port_name+ips[j]+'_0/'+port_name)
 
-            for j in range(0, len(ips)):  # 遍历分系统IP得到输入端口列表
 
-                if j!=i:
-                    port_in = ips_portlist.get(ips[j]).get('port_in')
-                    for port_in_name in port_in:
-                        #connectport函数能够清理掉端口带有的前缀和后缀
-                        if ( DataHandling.connectport(port_out_name)== DataHandling.connectport(port_in_name)):
-                            net_connect[ips[j] + '_0/' + port_in_name] = ips[i] + '_0/' + port_out_name
-                            # print("输出：" + DataHandling.connectport(port_out_name) + "输入" + DataHandling.connectport(
-                            #     port_in_name))
-                        # else:
-                        #     # print("输出："+DataHandling.connectport(port_out_name)+"输入"+DataHandling.connectport(port_in_name))
+    sys_port_out = ips_portlist.get(sysname).get('port_out')  # 获得IP核的输出端口数组
+    sys_port_in = ips_portlist.get(sysname).get('port_in')
+    error_name=[]
+    for sys_port_out_name in sys_port_out:  # 遍历输出端口列表找该分系统中同名的输入端口
+        flag=False
+        for j in range(0, len(domain_ips)):
+            print(domain_ips[j])
+            port_in = ips_portlist.get(domain_ips[j]).get('port_in')
+            for port_in_name in port_in:
+                #connectport函数能够清理掉端口带有的前缀和后缀
+                if ( DataHandling.connectport(sys_port_out_name)== DataHandling.connectport(port_in_name)):
+                    net_connect[domain_ips[j] + '_0/' + port_in_name] =sysname+ '_0/' + sys_port_out_name
+                    flag =True
+                    # print("输出：" + DataHandling.connectport(port_out_name) + "输入" + DataHandling.connectport(
+                    #     port_in_name))
+                # else:
+                #     # print("输出："+DataHandling.connectport(port_out_name)+"输入"+DataHandling.connectport(port_in_name))
 
-                        # print(ips[i]+'_0/'+port_name+ips[j]+'_0/'+port_name)
+                # print(ips[i]+'_0/'+port_name+ips[j]+'_0/'+port_name)
+        if not flag:
+            error_name.append(sys_port_out_name)
+    for sys_port_in_name in sys_port_in:  # 遍历输出端口列表找该分系统中同名的输入端口
+        flag = False
+        for j in range(0, len(domain_ips)):
+            port_out= ips_portlist.get(domain_ips[j]).get('port_out')
+            for port_out_name in port_out:
+                # connectport函数能够清理掉端口带有的前缀和后缀
+                if (DataHandling.connectport(sys_port_in_name) == DataHandling.connectport(port_out_name)):
+                    net_connect[domain_ips[j] + '_0/' + port_out_name] = sysname + '_0/' + sys_port_in_name
+                    flag = True
+                    # print("输出：" + DataHandling.connectport(port_out_name) + "输入" + DataHandling.connectport(
+                    #     port_in_name))
+                # else:
+                #     # print("输出："+DataHandling.connectport(port_out_name)+"输入"+DataHandling.connectport(port_in_name))
+
+                # print(ips[i]+'_0/'+port_name+ips[j]+'_0/'+port_name)
+        if not flag and DataHandling.systemportclean(str(sys_port_in_name)) != "rst" and DataHandling.systemportclean(str(sys_port_in_name)) != "clk":
+            error_name.append(sys_port_in_name)
+
+    error_name_json=json.dumps(error_name)
+    with open("./Extractionjson/error_name.json", "w") as f:
+        f.write(error_name_json)
     print(net_connect)
     if len(net_connect)>0:
 
@@ -538,7 +633,8 @@ def Connectshebei(systemname: list):
             f.write(json_data)
         # 0.系统存放路径
         rootippath = "./AtomicSystemGeneration/SystemProject/"
-
+        # 1.生成系统bd文件名称列表的tcl命令
+        sysnametcl = "set sys_name" + " \"" + sysname+ "\"" + "\n"
         # 2.生成系统bd文件名称列表的tcl命令
         bdnametcl = "set f_sys_bdname" + " \"" + fensystemname + "\"" + "\n"
         # 3.生成分系统bd文件打包路径列表的tcl命令
@@ -566,6 +662,22 @@ def Connectshebei(systemname: list):
         for item in net_connect.items():
             net_connect_tcl = net_connect_tcl + item[0] + " " + item[1] + " "
         net_connect_tcl = net_connect_tcl + "\"" + "\n"
+        # 9.需要连接的端口
+        portclktcl = "set f_clk_portname [split" + " \""
+        for i in range(0, len(port_clk_name)):
+            if i != len(port_clk_name) - 1:
+                portclktcl = portclktcl + port_clk_name[i] + ","
+            else:
+                portclktcl = portclktcl + port_clk_name[i]
+        portclktcl = portclktcl + "\" \",\"]" + "\n"
+
+        portrsttcl = "set f_rst_portname [split" + " \""
+        for i in range(0, len(port_rst_name)):
+            if i != len(port_rst_name) - 1:
+                portrsttcl = portrsttcl + port_rst_name[i] + ","
+            else:
+                portrsttcl = portrsttcl + port_rst_name[i]
+        portrsttcl = portrsttcl + "\" \",\"]" + "\n"
         # 将上述tcl命令写入到test.tcl文件中
         tclname = "./AtomicSystemGeneration/AssmbleTcl/" + fensystemname + ".tcl"
         with open(tclname, 'w') as file_object:
@@ -577,15 +689,52 @@ def Connectshebei(systemname: list):
             file_object.write(norecursetcl)
             file_object.write(ippackagetcl)
             file_object.write(bdnametcl)
-
+            file_object.write(sysnametcl)
             file_object.write(subsystempath)
             file_object.write(allsystempath)
+            file_object.write(portrsttcl)
+            file_object.write(portclktcl)
             with open("./AtomicSystemGeneration/Template/systemassembletemplate/shebei.txt", 'r',
                       encoding='utf-8') as infile:
                 for line in infile:
                     file_object.writelines(line)
                     file_object.write('\n')
         os.system(vivado_path + " -mode batch -source " + tclname)
+
         return "设备连接成功！"
     else:
         return "设备连接失败！"
+def get_system_project():
+    inputpath = "./AtomicSystemGeneration/SystemProject/"
+    devices = []
+    for folder in os.listdir(inputpath):
+        path = inputpath + "/" + folder
+        if os.path.exists(path):
+            filepath = path + "/component.xml"
+            # print(filepath)
+            doc = minidom.parse(filepath)
+            ip_name = doc.getElementsByTagName("spirit:name")[0]
+            # print("ip_name:%s" % (ip_name.firstChild.data))
+            # ips.append(ip_name.firstChild.data)  # 记录每个分系统所包含的所有IP核的名称
+
+            ports = doc.getElementsByTagName("spirit:port")
+            # print(ports)
+            port_in = []  # 记录IP核所有的输入端口名称
+            port_out = []  # 记录IP核所有的输出端口名称
+            for port in ports:
+                name = port.getElementsByTagName("spirit:name")[0]  # 端口名称
+                direction = port.getElementsByTagName("spirit:direction")[0]  # 端口方向
+                # print(" name:%s, direction:%s" %
+                #       (name.firstChild.data, direction.firstChild.data))
+                if direction.firstChild.data == "in":  # 根据端口的方向 判断是输入还是输出
+                    port_in.append(name.firstChild.data)
+                else:
+                    port_out.append(name.firstChild.data)
+            portlist = {}
+            portlist["port_in"] = port_in
+            portlist["port_out"] = port_out
+            # portlist["name"] = file
+            portlist["device_type"] = folder
+            # print(portlist)
+            devices.append(portlist)
+    return devices

@@ -8,7 +8,7 @@ import re
 from collections import defaultdict
 import json
 import subprocess
-from . import  DataHandling
+from AtomicSystemGeneration import  DataHandling
 def Generate_atomsystem_vhdl(inputpath):
     insysdict_atomsys = {}
     with open(inputpath, 'r') as f:
@@ -17,7 +17,7 @@ def Generate_atomsystem_vhdl(inputpath):
     insysdict_atomsys = json.loads(data)
     print(insysdict_atomsys)
     # 先清理该目录
-    rootdir = "./AtomicSystemGeneration/AtomSystemVhdl/"
+    rootdir = "Data/AtomSystemVhdl/"
     # testdir = "./AtomicSystemGeneration/AtomSystemTest/"
     for files in os.listdir(rootdir):
         path = os.path.join(rootdir, files)
@@ -73,84 +73,21 @@ def Generate_atomsystem_vhdl(inputpath):
                 computer_port = subvalue["in_port"] + subvalue["out_port"]
                 computer_name = filename
                 computerdict[filename]=dirname
-            else:
-                hasccfalg = True
+            elif filetype == "topfile":
+                Generate_topfile_vhdl(dirname, dirname, subvalue)
 
-        if hasccfalg == True:
-            topfile_port = value[dirname]["in_port"] + value[dirname]["out_port"]
-            Generate_topfile_vhdl(dirname, dirname, controler_port, computer_port, topfile_port, controler_name,
-                                  computer_name)
-            # Generate_tb_vhdl(dirname, dirname, topfile_port)
-            ports={}
-            ports["filename"] = dirname
-            ports["input"]=[]
-            ports["output"] = []
 
-            for i in list(set(value[dirname]["in_port"])):
-                port={}
-                port["name"]=i
-                if DataHandling.IsAccessIns(i):
 
-                    port["type"] ="STD_LOGIC"
-                else:
-                    port["type"] ="STD_LOGIC_VECTOR ( 31 downto 0 )"
-                # print(i)
-                # print(DataHandling.IsAccessIns(i))
-                ports["input"].append(port)
 
-            for i in list(set(value[dirname]["out_port"])):
-                port={}
-                port["name"]=i
-                if DataHandling.IsAccessIns(i):
-                    port["type"] ="STD_LOGIC"
-                else:
-                    port["type"] ="STD_LOGIC_VECTOR ( 31 downto 0 )"
-                # print(i)
-                # print(DataHandling.IsAccessIns(i))
-                ports["output"].append(port)
-            tbtestdict.append(ports)
-        else:
-            # Generate_tb_vhdl(dirname, controler_name , controler_port)
-            # print("print(controler_port_out)")
-            # print(controler_port_out)
-            ports = {}
-            ports["input"] = []
-            ports["output"] = []
-            ports["filename"] = dirname
-            for i in set(controler_port_in):
-                port = {}
-                port["name"] = i
-                if DataHandling.IsAccessIns(i):
-                    port["type"] = "STD_LOGIC"
-                else:
-                    port["type"] = "STD_LOGIC_VECTOR ( 31 downto 0 )"
-                ports["input"].append(port)
-            #
-            # print(ports)
-            # print("set")
-            # print(set(controler_port_out).union(set(["done"])))
-            for i in set(controler_port_out):
-                port = {}
-                port["name"] = i
-                if DataHandling.IsAccessIns(i):
-                    port["type"] = "STD_LOGIC"
-                else:
-                    port["type"] = "STD_LOGIC_VECTOR ( 31 downto 0 )"
-                # print("port")
-                # print(port)
-                ports["output"].append(port)
-            # print("ports")
-            # print(ports)
-            tbtestdict.append(ports)
 
-    json_str = json.dumps(computerdict)
+    # json_str = json.dumps(computerdict)
+    # # 将JSON格式的字符串写入文件
+    # with open("./Extractionjson/computerdict.json", "w") as f:
+    #     f.write(json_str)
+    # json_tb = json.dumps(tbtestdict)
     # 将JSON格式的字符串写入文件
-    with open("./Extractionjson/computerdict.json", "w") as f:
-        f.write(json_str)
-    json_tb = json.dumps(tbtestdict)
-    # 将JSON格式的字符串写入文件
-    with open("./Extractionjson/tbtestdict.json", "w") as f:
-        f.write(json_tb)
+    # with open("./Extractionjson/tbtestdict.json", "w") as f:
+    #     f.write(json_tb)
 
 
 def Generate_tb_vhdl(dirname, componetname, topfile_port):
@@ -212,15 +149,16 @@ def Generate_tb_vhdl(dirname, componetname, topfile_port):
 
 def Generate_controler_vhdl(dirname, filename, filedict):
     in_port = filedict["in_port"]
+    ramprocess=filedict["ramprocesses"]
     out_port = filedict["out_port"]
-    stacount = filedict["stacount"]
-    stasprocess = filedict["stasprocess"]
+    states= filedict["states"]
+    signals = filedict["signals"]
     initramlist= filedict["initramlist"]
     ###subvalue["in_port"]为文件输入端口名称数组，subvalue["out_port"]为文件输出端口名称数组
-    filepath = "./AtomicSystemGeneration/AtomSystemVhdl/" + dirname + "/" + filename + ".vhdl"
+    filepath = "Data/AtomSystemVhdl/" + dirname + "/" + filename + ".vhdl"
     with open(filepath, 'w', encoding='utf-8') as file:
         ####1.生成实体部分entity
-        with open("./AtomicSystemGeneration/Template/atomcontrolertemplate/part1.txt", 'r', encoding='utf-8') as infile:
+        with open("Template/atomcontrolertemplate/part1.txt", 'r', encoding='utf-8') as infile:
             for line in infile:
                 file.writelines(line)
                 file.write('\n')
@@ -241,10 +179,8 @@ def Generate_controler_vhdl(dirname, filename, filedict):
                     portstr = portstr + ":in "
                 else:
                     portstr = portstr + ":out "
-                if DataHandling.IsAccessIns(keys[i]):
-                    portstr = portstr + "STD_LOGIC;"
-                else:
-                    portstr = portstr + "STD_LOGIC_VECTOR ( 31 downto 0 );"
+
+                portstr = portstr + "STD_LOGIC_VECTOR ( 31 downto 0 );"
                 # if i != len(keys) - 1:
                 #     portstr = portstr + ";"
                 portstr = portstr + "--" + keys[i]
@@ -252,7 +188,7 @@ def Generate_controler_vhdl(dirname, filename, filedict):
                 file.write('\n')
 
         ####2.生成结构体部分architecture
-        with open("./AtomicSystemGeneration/Template/atomcontrolertemplate/part2.txt", 'r', encoding='utf-8') as infile:
+        with open("Template/atomcontrolertemplate/part2.txt", 'r', encoding='utf-8') as infile:
             #生成中间信号变量，包括状态机、寄存器等
             for line in infile:
                 file.writelines(line)
@@ -263,162 +199,96 @@ def Generate_controler_vhdl(dirname, filename, filedict):
             file.write(Behavioralstr)
             file.write("shared variable Count: integer:=0;\n")
             #统计寄存器名称数组
-            ramlist=[]
-            raminfodict={}
-            for i in range(0, len(in_port)):
-                ramname=DataHandling.renewname(DataHandling.abbrportname(in_port[i]))
-                if ramname not in ramlist:
-                    ramlist.append(ramname)
-                    raminfodict[ramname]=[]
-                    raminfodict[ramname].append(DataHandling.abbrportname(in_port[i]))
-                else:
-                    raminfodict[ramname].append(DataHandling.abbrportname(in_port[i]))
-            print("raminfodict")
-            print(raminfodict)
-            #生成原子系统初始化寄存器数组
-            for i in range(0,len(initramlist)):
-                ramname = DataHandling.abbrramname(initramlist[i]["ramname"])
+            for signal in signals:
 
-                str1 = "type ram_type_init" + str(i) + " is array (1 downto 0) of STD_LOGIC_VECTOR ( 31 downto 0 );\n"
-                str2 = "signal RAM_" + filename + "_" + ramname + ": ram_type_init" + str(
-                    i) + ";\n"
-
-                str3 = "signal " + ramname + "_addr: integer:=1;\n"
-                file.write(str1)
-                file.write(str2)
+                str3 = "signal " + signal.get("name") + ": "+signal.get("type")+":=std_logic_vector(to_signed("+signal.get("value")+", 32));\n"
                 file.write(str3)
-            # 生成原子系统运行寄存器数组
-            sum=0
-            for ramname,ports in raminfodict.items():
-                str1 = "type ram_type" + str(sum) + " is array (1 downto 0) of STD_LOGIC_VECTOR ( 31 downto 0 );\n"
-                str2 = "signal RAM_" + filename + "_" + ramname + ": ram_type" + str(
-                    sum) + ";\n"
-                str3 = "signal " + ramname + "_addr: integer:=1;\n"
-                if len(ports)>1:
-                    str4= "signal " + ramname + "_signal: STD_LOGIC_VECTOR ( 31 downto 0 );\n"
-                    file.write(str4)
+            for ramsignal in initramlist:
 
-                file.write(str1)
-                file.write(str2)
+                str3 = "signal " + ramsignal.get("name") + ":STD_LOGIC_VECTOR ( 31 downto 0 ) "+":=std_logic_vector(to_signed("+ramsignal.get("value")+", 32));\n"
                 file.write(str3)
-                sum=sum+1
             stastr = "Type states is ("
-            for i in range(0, stacount + 1):
+            for i in range(0, len(states) + 1):
                 stastr = stastr + "sta" + str(i)
-                if i != stacount:
+                if i != len(states):
                     stastr = stastr + ","
                 else:
                     stastr = stastr + ");\n"
             file.writelines(stastr)
             file.writelines("signal sta:states;\n")
 
-        with open("./AtomicSystemGeneration/Template/atomcontrolertemplate/part3.txt", 'r', encoding='utf-8') as infile:
+        with open("Template/atomcontrolertemplate/part3.txt", 'r', encoding='utf-8') as infile:
             #生成状态机切换进程
             for line in infile:
                 file.writelines(line)
                 file.write('\n')
-            for i in range(1, stacount + 1):
+            for i in range(1, len(states) + 1):
                 file.write("\t\t\t\twhen sta" + str(i) + "=> \n")
-                if i != stacount:
+                if i != len(states):
                     file.write("\t\t\t\t\tsta<=sta" + str(i + 1) + ";\n")
                 else:
                     file.write("\t\t\t\t\tsta<=sta" + str(0) + ";\n")
 
 
-        with open("./AtomicSystemGeneration/Template/atomcontrolertemplate/part4.txt", 'r', encoding='utf-8') as infile:
+        with open("Template/atomcontrolertemplate/part4.txt", 'r', encoding='utf-8') as infile:
             for line in infile:
                 file.writelines(line)
                 file.write('\n')
-            for i in range(0, len(initramlist)):
-                ramname = DataHandling.abbrramname(initramlist[i]["ramname"])
-                value = initramlist[i]["value"]
-                file.write(
-                    "\t\tRAM_" + filename + "_" + ramname + "(" + ramname + "_addr)<=" + "std_logic_vector(to_signed(" + value + ",32));\n")
-            file.write("\t\t\t\tprocess(sta)\nbegin\ncase\nsta is\n")
+
 
             ###生成状态机的vhdl代码
-            for i in range(0, stacount + 1):
+            for i in range(0, len(states) + 1):
                 file.write("\t\t\t\twhen sta" + str(i) + "=> \n")
 
                 if i == 0:
                 #第一个状态要特殊处理，需要实现原子系统运行情况重置，done='0'
                     file.write("\t\t\t\t\tdone<='0';\n")
                     #第一个状态需要重置最后一个状态的输出的控制类指令
-                    proport = stasprocess[-1]["port"]
+                    proport = states[-1]["ports"]
                     for port in proport:
-                        if DataHandling.IsAccessIns(port): #判断端口是否是控制类指令
-                            file.write("\t\t\t\t\t" + DataHandling.abbrportname(port) + "<='0';\n")
+                        if port.get("value")=='1': #判断端口是否是控制类指令
+                            file.write("\t\t\t\t\t" + DataHandling.abbrportname(port.get("name")) + "<=std_logic_vector(to_signed(0, 32));\n")
                 else:
                 #其余状态
-                    curport = stasprocess[i - 1]["port"]#得到当前状态要输出的端口信息
+                    curport = states[i-1]["ports"]#得到当前状态要输出的端口信息
                     #将每个状态需要输出的端口信息添加上
                     for port in curport:
-                        if DataHandling.IsAccessIns(port):
-                            file.write("\t\t\t\t\t" + DataHandling.abbrportname(port) + "<='1';\n")
-                        else:
+                        str4="\t\t\t\t\t" + DataHandling.abbrportname(port.get("name")) + "<=std_logic_vector(to_signed("+port.get("value")+", 32));\n"
+                        file.write(str4)
 
-                            valuestr = DataHandling.abbrportname(port) + "<=RAM_" + filename + "_" + str(
-                                DataHandling.renewname(DataHandling.abbrportname(port))) + "(" + str(DataHandling.renewname(DataHandling.abbrportname(port))) + "_addr);\n"
-                            file.write("\t\t\t\t\t" + valuestr)
-                    if i == stacount:
+                    if i == len(states):
                         #最后一个状态需要返回该原子系统的完成情况
                         file.write("\t\t\t\t\tCount:=0;\n")
                         file.write("\t\t\t\t\tdone<='1';\n")
                     if i != 1:
                         #每个状态需要将前一个状态的控制类指令清除，由于第一个状态是用于状态机重置的，故第二个状态无需清除前一个状态的控制类指令
-                        proport = stasprocess[i - 2]["port"]#得到前一个状态要输出的端口信息
+                        proport = states[i - 2]["ports"]#得到前一个状态要输出的端口信息
                         for port in proport:
-                            if DataHandling.IsAccessIns(port):
-                                file.write("\t\t\t\t\t" + DataHandling.abbrportname(port) + "<='0';\n")
+                            if port.get("value") == '1':  # 判断端口是否是控制类指令
+                                file.write("\t\t\t\t\t" + DataHandling.abbrportname(port.get("name")) + "<=std_logic_vector(to_signed(0, 32));\n")
         file.write("\t\t\t\tend case;\n")
         file.write("\tend process;\n")
-        for ramname, ports in raminfodict.items():
-            inportstr = "\tprocess("
-            for i in range(0,len(ports)):
-                inportstr =inportstr +ports[i]
-                if i !=len(ports)-1:
-                    inportstr = inportstr + ","
-            inportstr = inportstr  + ")\n"
+
+        for port in  in_port:
+            inportstr = "\tprocess(" + DataHandling.abbrportname(port) + ")\n"
             file.write(inportstr)
             file.write("\tbegin\n")
-            # DataHandling.splitportname()作用为将in_xx_xxx变成xx_xxx，或者out_xx_xxx变成xx_xxx,及去除前面的in out
-            # DataHandling.abbrportname()作用为简写名称及将in_DataHandling.splitportname_name变成in_spl_nam
-            if len(ports)>1:
-                for i in range(0,len(ports)):
-                    if i ==0:
-                        ramstr = "if "
-                    else:
-                        ramstr = "elsif "
-                    ramstr=ramstr+ports[i]+" /= "+ramname+"_signal"+" then\n\t"
-                    ramstr=ramstr+ramname+"_signal"+" <= "+ports[i]+";\n"
-                    file.write(ramstr)
-                file.write("\tend if;\n")
-            else:
-                file.write("\t\tRAM_" + filename + "_" + ramname + "(" + ramname + "_addr)<=" + ports[0] + ";\n")
+            ramname = DataHandling.renewname(port)
+            file.write("\t\t" + ramname +"_ram"+  "<=" + DataHandling.abbrportname(port) + ";\n")
             file.write("\tend process;\n")
 
-        for ramname, ports in raminfodict.items():
-            if len(ports) > 1:
-                inportstr = "\tprocess(" + ramname+"_signal"+")\n"
-
-                file.write(inportstr)
-                file.write("\tbegin\n")
-                # DataHandling.splitportname()作用为将in_xx_xxx变成xx_xxx，或者out_xx_xxx变成xx_xxx,及去除前面的in out
-                # DataHandling.abbrportname()作用为简写名称及将in_DataHandling.splitportname_name变成in_spl_nam
-                if len(ports) > 1:
-                    file.write("\t\tRAM_" + filename + "_" + ramname + "(" + ramname + "_addr)<=" + ramname+"_signal" +";\n")
-                file.write("\tend process;\n")
         file.write("\nend Behavioral;")
 
 
 def Generate_computer_vhdl(dirname, filename, filedict):
     in_port = filedict["in_port"]
     out_port = filedict["out_port"]
+    ComputingFormula=filedict["ComputingFormula"]
     ###subvalue["in_port"]为文件输入端口名称数组，subvalue["out_port"]为文件输出端口名称数组
-    filepath = "./AtomicSystemGeneration/ComputerVhdl/" + filename + ".vhdl"
+    filepath = "Data/ComputerVhdl/" + filename + ".vhdl"
     with open(filepath, 'w', encoding='utf-8') as file:
         ####1.生成实体部分entity
-        with open("./AtomicSystemGeneration/Template/atomcomputertemplate/part1.txt", 'r', encoding='utf-8') as infile:
+        with open("Template/atomcomputertemplate/part1.txt", 'r', encoding='utf-8') as infile:
             for line in infile:
                 file.writelines(line)
                 file.write('\n')
@@ -438,10 +308,7 @@ def Generate_computer_vhdl(dirname, filename, filedict):
                     portstr = portstr + ":in "
                 else:
                     portstr = portstr + ":out "
-                if DataHandling.IsAccessIns(keys[i]):
-                    portstr = portstr + "STD_LOGIC"
-                else:
-                    portstr = portstr + "STD_LOGIC_VECTOR ( 31 downto 0 )"
+                portstr = portstr + "STD_LOGIC_VECTOR ( 31 downto 0 )"
                 if i != len(keys) - 1:
                     portstr = portstr + ";"
                 portstr = portstr + "--" + keys[i]
@@ -452,7 +319,7 @@ def Generate_computer_vhdl(dirname, filename, filedict):
             file.write("begin\n")
         ####2.生成结构体部分architecture
 
-        with open("./AtomicSystemGeneration/Template/atomcomputertemplate/part2.txt", 'r', encoding='utf-8') as infile:
+        with open("Template/atomcomputertemplate/part2.txt", 'r', encoding='utf-8') as infile:
             for line in infile:
                 file.writelines(line)
                 file.write('\n')
@@ -465,126 +332,107 @@ def Generate_computer_vhdl(dirname, filename, filedict):
                 if not DataHandling.IsAccessIns(i):
                     file.write(DataHandling.abbrportname(i) + "、")
             file.write('\n')
-        with open("./AtomicSystemGeneration/Template/atomcomputertemplate/part3.txt", 'r', encoding='utf-8') as infile:
+        with open("Template/atomcomputertemplate/part3.txt", 'r', encoding='utf-8') as infile:
             for line in infile:
                 file.writelines(line)
                 file.write('\n')
 
 
-def Generate_topfile_vhdl(dirname, filename, controler_port, computer_port, topfile_port, controler_name,
-                          computer_name):
-    filepath = "./AtomicSystemGeneration/AtomSystemVhdl/" + dirname + "/" + filename + ".vhdl"
+def Generate_topfile_vhdl(dirname, filename, topdict):
+
+    in_port = topdict["in_port"]
+    out_port = topdict["out_port"]
+    signals = topdict["signals"]
+    controler= topdict["controler"]
+    computing = topdict["computing"]
+    filepath = "Data/AtomSystemVhdl/" + dirname + "/" + filename + ".vhdl"
     with open(filepath, 'w', encoding='utf-8') as file:
         ####1.生成实体部分entity
-        with open("./AtomicSystemGeneration/Template/atomtopfiletemplate/part1.txt", 'r', encoding='utf-8') as infile:
+        with open("Template/atomtopfiletemplate/part1.txt", 'r', encoding='utf-8') as infile:
             for line in infile:
                 file.writelines(line)
                 file.write('\n')
             entitystr = "entity " + DataHandling.check_vhdl_entity_name(filename) + " is\n"
             file.write(entitystr)
             file.write("port(\n")
+
+            ##生成实体端口部分，并带有注释
+            for i in range(0, len(in_port)):
+                portstr = "\t" + DataHandling.abbrportname(in_port[i])+ ":in "+ "STD_LOGIC_VECTOR ( 31 downto 0 );"
+                portstr = portstr + "--" + in_port[i]
+                file.write(portstr)
+                file.write('\n')
+            for i in range(0, len(out_port)):
+                portstr = "\t" + DataHandling.abbrportname(out_port[i])+ ":in "+ "STD_LOGIC_VECTOR ( 31 downto 0 );"
+                portstr = portstr + "--" + out_port[i]
+                file.write(portstr)
+                file.write('\n')
             file.write("clk:in STD_LOGIC;\n")
             file.write("rst:in STD_LOGIC;\n")
             file.write("done:out STD_LOGIC;\n")
-            file.write("start:in STD_LOGIC;\n")
-            ##生成实体端口部分，并带有注释
-            for i in range(0, len(topfile_port)):
-
-                portstr = "\t" + DataHandling.abbrportname(topfile_port[i])
-                if topfile_port[i].split('_')[0] == "in":
-                    portstr = portstr + ":in "
-                else:
-                    portstr = portstr + ":out "
-                if DataHandling.IsAccessIns(topfile_port[i]):
-                    portstr = portstr + "STD_LOGIC"
-                else:
-                    portstr = portstr + "STD_LOGIC_VECTOR ( 31 downto 0 )"
-                if i != len(topfile_port) - 1:
-                    portstr = portstr + ";"
-                portstr = portstr + "--" + topfile_port[i]
-                file.write(portstr)
-                file.write('\n')
-
+            file.write("start:in STD_LOGIC\n")
             file.write(");\nend " + DataHandling.check_vhdl_entity_name(filename) + ";\n")
             file.write("architecture Behavioral of " + DataHandling.check_vhdl_entity_name(filename) + " is\n")
             ####2.生成结构体部分architecture
             ####controler
-            file.write("component " + controler_name + " is\nport(\n")
-            file.write("clk:in std_logic;\nstart:in std_logic;\ndone:out std_logic;\nrst:in std_logic;\n")
-            for i in range(0, len(controler_port)):
+            file.write("component " + controler["name"]+ " is\nport(\n")
 
-                portstr = "\t" + DataHandling.abbrportname(controler_port[i])
-                if controler_port[i].split('_')[0] == "in":
-                    portstr = portstr + ":in "
-                else:
-                    portstr = portstr + ":out "
-                if DataHandling.IsAccessIns(controler_port[i]):
-                    portstr = portstr + "STD_LOGIC"
-                else:
-                    portstr = portstr + "STD_LOGIC_VECTOR ( 31 downto 0 )"
-                if i != len(controler_port) - 1:
-                    portstr = portstr + ";"
+            for i in range(0, len(controler["in_port"])):
+                portstr = "\t" + DataHandling.abbrportname(controler["in_port"][i])+":in "+ "STD_LOGIC_VECTOR ( 31 downto 0 );"
                 file.write(portstr)
                 file.write('\n')
-
+            for i in range(0, len(controler["out_port"])):
+                portstr = "\t" + DataHandling.abbrportname(controler["out_port"][i])+":out "+ "STD_LOGIC_VECTOR ( 31 downto 0 );"
+                file.write(portstr)
+                file.write('\n')
+            file.write("clk:in std_logic;\nstart:in std_logic;\ndone:out std_logic;\nrst:in std_logic\n")
             file.write(");\nend component;\n")
             ####computer
-            file.write("component " + computer_name + " is\nport(\n")
-            for i in range(0, len(computer_port)):
-
-                portstr = "\t" + DataHandling.abbrportname(computer_port[i])
-                if computer_port[i].split('_')[0] == "in":
-                    portstr = portstr + ":in "
-                else:
-                    portstr = portstr + ":out "
-                if DataHandling.IsAccessIns(computer_port[i]):
-                    portstr = portstr + "STD_LOGIC"
-                else:
-                    portstr = portstr + "STD_LOGIC_VECTOR ( 31 downto 0 )"
-                if i != len(computer_port) - 1:
-                    portstr = portstr + ";"
+            file.write("component " + computing["name"] + " is\nport(\n")
+            for i in range(0, len(computing["in_port"])):
+                portstr = "\t" + DataHandling.abbrportname(
+                    computing["in_port"][i]) + ":in " + "STD_LOGIC_VECTOR ( 31 downto 0 );"
                 file.write(portstr)
                 file.write('\n')
+            for i in range(0, len(computing["out_port"])):
+                portstr = "\t" + DataHandling.abbrportname(
+                    computing["out_port"][i]) + ":out " + "STD_LOGIC_VECTOR ( 31 downto 0 );"
+                file.write(portstr)
+                file.write('\n')
+
             file.write(");\nend component;\n")
             ####signal
-            for i in computer_port:
+            for i in signals:
+                portstr = "\tsignal " + DataHandling.abbrportname(i["name"])+i["type"]+";"
 
-                portstr = "\tsignal " + DataHandling.abbrportname("m_" + DataHandling.splitportname(i))
-
-                if DataHandling.IsAccessIns(i):
-                    portstr = portstr + ":STD_LOGIC;--"
-                else:
-                    portstr = portstr + ":STD_LOGIC_VECTOR ( 31 downto 0 );--"
                 file.write(portstr)
                 file.write('\n')
             file.write("begin\n")
             ###端口连接
             ###controler
-            ccabbr_port = [DataHandling.splitportname(i) for i in computer_port]
-            file.write(controler_name + "_process:" + controler_name + " port map(\n")
+            ccabbr_port = [DataHandling.splitportname(i) for i in list(set(computing["in_port"]) | set(computing["out_port"]))]
+            file.write(controler["name"] + "_process:" + controler["name"] + " port map(\n")
             file.write("clk=>clk,\nstart=>start,\ndone=>done,\nrst=>rst,\n")
-            for i in range(0, len(controler_port)):
-
-                if DataHandling.splitportname(controler_port[i]) in ccabbr_port:
-                    portstr = DataHandling.abbrportname(controler_port[i]) + "=> " + DataHandling.abbrportname(
-                        "m_" + DataHandling.splitportname(controler_port[i]))
+            controlerlist=list(set(controler["in_port"]) | set(controler["out_port"]))
+            for i in range(0, len(controlerlist)):
+                if DataHandling.splitportname(controlerlist[i]) in ccabbr_port:
+                    portstr = DataHandling.abbrportname(controlerlist[i]) + "=> " + DataHandling.abbrportname(
+                        "m_" + DataHandling.splitportname(controlerlist[i]))
                 else:
-                    portstr = DataHandling.abbrportname(controler_port[i]) + "=> " + DataHandling.abbrportname(controler_port[i])
-
-                if i != len(controler_port) - 1:
+                    portstr = DataHandling.abbrportname(controlerlist[i]) + "=> " + DataHandling.abbrportname(controlerlist[i])
+                if i != len(controlerlist) - 1:
                     portstr = portstr + ","
                 file.write(portstr)
                 file.write('\n')
             file.write(");\n")
             ###computer
-            file.write(computer_name + "_process:" + computer_name + " port map(\n")
-
-            for i in range(0, len(computer_port)):
-
-                portstr = DataHandling.abbrportname(computer_port[i]) + "=> " + DataHandling.abbrportname("m_" + DataHandling.splitportname(computer_port[i]))
-                if i != len(computer_port) - 1:
+            file.write(computing["name"]+ "_process:" + computing["name"] + " port map(\n")
+            computinglist=list(set(computing["in_port"]) | set(computing["out_port"]))
+            for i in range(0, len(computinglist)):
+                portstr = DataHandling.abbrportname(computinglist[i]) + "=> " + DataHandling.abbrportname("m_" + DataHandling.splitportname(computinglist[i]))
+                if i != len(computinglist) - 1:
                     portstr = portstr + ","
                 file.write(portstr)
                 file.write('\n')
             file.write(");\nend Behavioral;")
-# Generate_atomsystem_vhdl("../Extractionjson/insysdict_atomsys.json")
+Generate_atomsystem_vhdl("Data/Extractionjson/insysdict_atomsys.json")

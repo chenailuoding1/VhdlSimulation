@@ -17,10 +17,11 @@ def cleanwhite(inputstring):#输入是一串字符
             strstring=strstring+i[0]
     return strstring
 class TreeNode(object):
-
+    assemblemessage=""
     def __init__(self, val=None) -> None:
         self.val = val
         self.childs = []
+
 
     def add_childs(self, child: "TreeNode"):
         self.childs.append(child)
@@ -127,10 +128,11 @@ class TreeNode(object):
                 if root.val==treelist[0]:
                     # print(root.val)
                     #将系统内的分系统、原子系统、数据存储相互连接起来
-                    Assemble.ConnectSystem(systeam)
+                    message1=Assemble.ConnectSystem(systeam)
                     # 将系统与外部设备相互连接起来
-                    Assemble.Connectshebei(systeam)
-
+                    message2=Assemble.Connectshebei(systeam)
+                    cls.assemblemessage=message1+","+message2
+                    print(cls.assemblemessage+"assemblemessage")
                 else:
                     ##将有依赖的原子系统组装成分系统
                     Assemble.Assemble_tcl(systeam)

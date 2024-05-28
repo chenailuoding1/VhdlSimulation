@@ -1,0 +1,109 @@
+-- VHDL Skeleton
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.std_logic_unsigned.All;
+USE ieee.numeric_std.ALL;
+
+-- VHDL Port declaration
+entity <<s.atomicControlerName>> is
+port(
+    «FOR port : s.ports»
+        «port.name»:«port.direction» «port.type»;
+    «ENDFOR»
+    clk:in std_logic;
+    start:in std_logic;
+    done:out std_logic;
+    rst:in std_logic
+);
+end <<s.atomicControlerName>>;
+
+--VHDL architecture declaration
+architecture Behavioral of MSM is
+
+--VHDL signal declaration
+    shared variable Count: integer:=0;
+    Type states is («FOR i: Int | 0..s.states.size - 1 SEPARATOR ’,’»sta«i»«ENDFOR»);
+    signal sta:states;
+    «FOR signal : s.signals»
+    signal «signal.name»:«signal.type»:= «signal.value»
+    «ENDFOR»
+begin
+
+--VHDL process declaration
+    process(start)
+    begin
+            if start='1' then
+                Count:=1;
+            else
+                Count:=0;
+            end if;
+    end process;
+    process(clk,rst)
+    begin
+        if rst = '1' then
+            sta <= sta0;
+        elsif clk'event and clk = '1' then
+            case sta is
+                when sta0 =>
+                if Count=1 then
+                    sta<=sta1;
+                else
+                    sta<=sta0;
+                end if;
+                «FOR i: Int | 0..s.states.size - 1»
+                when sta«i+1»=>
+                    «IF i != s.states.size - 1»
+                        sta<=sta«i+1»;
+                    «ELSE»
+                        sta<=sta«0»;
+                    «ENDIF»
+                «ENDFOR»
+            end case;
+        end if;
+    end process;
+	process(sta)
+    begin
+                case
+                sta is
+                        --VHDL First State Logic Implementation
+                        when sta«i»=>
+                        done<='0';
+                        «FOR port : s.laststate.ports»
+                            «IF port.name in s.controlinstruction»
+                                «port.name»<= '0';
+                            «ENDIF»
+                        «ENDFOR»
+
+                        --VHDL Last State Logic Implementation
+                        when sta«i»=>
+                        «FOR port : s.curstate.ports»
+                            «port.name»<= «port.value»;
+                        «ENDFOR»
+                        «FOR port : s.prestate.ports»
+                            «IF port.name in s.controlinstruction»
+                                «port.name»<= '0';
+                            «ENDIF»
+                        «ENDFOR»
+                        done<='0';
+                        Count:=0;
+                        --VHDL Other State Logic Implementation
+                        «FOR port : s.prestate.ports»
+                            «IF port.name in s.controlinstruction»
+                                «port.name»<= '0';
+                            «ENDIF»
+                        «ENDFOR»
+				end case;
+	end process;
+
+	--VHDL storge process declaration
+	«FOR storgeport : s.storgeports»
+        process(«storgeport»)
+        begin
+            RAM_«storgeport»<=«storgeport»;
+        end process;
+    «ENDFOR»
+
+
+
+
+end Behavioral;

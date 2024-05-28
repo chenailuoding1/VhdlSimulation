@@ -1,21 +1,52 @@
-from vunit import VUnit
+def viterbi(N, A, B, initial_probs, observations):
+    M = len(observations)
+    dp = [[0.0] * N for _ in range(M)]
+    path = [[0] * N for _ in range(M)]
 
-# 创建VUnit对象
-vu = VUnit.from_argv(compile_builtins=False)
-vu.add_vhdl_builtins()
+    # 初始化第一天的概率
+    for i in range(N):
+        dp[0][i] = initial_probs[i] * A[i][observations[0] - 1]
+        path[0][i] = 0
 
-# 添加IP核文件到VUnit项目中
-ip_lib = vu.add_library("ip_lib")
-ip_lib.add_source_files("your_ip_core.vhd")
+    # 动态规划填充dp表
+    for t in range(1, M):
+        for j in range(N):
+            max_prob = -1.0
+            max_state = 0
+            for i in range(N):
+                prob = dp[t - 1][i] * B[i][j] * A[j][observations[t] - 1]
+                if prob > max_prob:
+                    max_prob = prob
+                    max_state = i
+            dp[t][j] = max_prob
+            path[t][j] = max_state
 
-# 添加测试文件到VUnit项目中
-test_lib = vu.add_library("test_lib")
-test_lib.add_source_files("test_dataflow.vhd")
+    # 回溯找到最可能的状态序列
+    max_prob = -1.0
+    last_state = 0
+    for i in range(N):
+        if dp[M - 1][i] > max_prob:
+            max_prob = dp[M - 1][i]
+            last_state = i
 
-# # 添加约束文件到VUnit项目中
-# vu.set_compile_option("ghdl.flags", ["-fexplicit"])  # 如果使用GHDL编译器，请添加此行
-# vu.set_sim_option("ghdl.elab_flags", ["-fexplicit"])  # 如果使用GHDL编译器，请添加此行
-# vu.add_file("constraints.xdc")
+    best_path = [0] * M
+    best_path[-1] = last_state
+    for t in range(M - 2, -1, -1):
+        best_path[t] = path[t + 1][best_path[t + 1]]
 
-# 运行测试
-vu.main()
+    # 输出结果，调整为1索引
+    print(" ".join(str(state + 1) for state in best_path))
+
+while True:
+    N = int(input())
+    if N == 0:
+        break
+
+    A = [list(map(float, input().split())) for _ in range(N)]
+    B = [list(map(float, input().split())) for _ in range(N)]
+    initial_probs = list(map(float, input().split()))
+
+    M = int(input())
+    observations = list(map(int, input().split()))
+
+    viterbi(N, A, B, initial_probs, observations)
