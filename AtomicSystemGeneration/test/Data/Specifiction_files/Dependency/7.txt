@@ -1,0 +1,6 @@
+Data Acquisition
+{
+Gyro Data Acquisition 2;
+Sun Sensor Data Acquisition 2;
+Thruster Data Acquisition 2;
+}

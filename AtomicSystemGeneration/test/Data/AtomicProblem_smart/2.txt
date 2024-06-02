@@ -1,0 +1,18 @@
+AtomicProblem:
+    Name:
+        Monitor_temperature(MT)
+    ProblemPattern:
+        Data Acquisition Pattern
+    ProblemDomains:
+        Device:
+            Temperature(TEM), Thermostat[i](TH)
+        Storage:
+            HomeDatabase(HD)
+    Phenomena:
+        temperature acquisition instruction, current temperature, temperature value storage instruction
+    Behaviors:
+    {
+        <MT,  temperature acquisition instruction,TH, instruction>;
+        <TEM, current temperature, TH, value>;
+        <MT,  temperature value storage instruction, HD,instruction>;
+    }

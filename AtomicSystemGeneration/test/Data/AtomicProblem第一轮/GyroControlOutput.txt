@@ -1,0 +1,47 @@
+entity GyroControlOutput is
+    Port (
+        -- Input signals
+        gyro_power_on_instruction_load_instruction : in std_logic;
+        gyro_power_on_instruction : in std_logic;
+        gyro_power_on_pulse : in std_logic;
+        
+        -- Output signals
+        gyro_power_on_instruction_load : out std_logic;
+        gyro_power_on_instruction_internal : out std_logic;
+        gyro_power_on_pulse_internal : out std_logic
+    );
+end GyroControlOutput;
+
+architecture Behavioral of GyroControlOutput is
+    signal gyro_power_on_instruction_load_internal : std_logic := '0';
+    signal gyro_power_on_instruction_internal_internal : std_logic := '0';
+    signal gyro_power_on_pulse_internal_internal : std_logic := '0';
+
+begin
+    process(gyro_power_on_instruction_load_instruction, gyro_power_on_instruction, gyro_power_on_pulse)
+    begin
+        -- Implement your Gyro Control Output logic here
+
+        -- Sample load instruction
+        gyro_power_on_instruction_load_internal <= gyro_power_on_instruction_load_instruction;
+
+        -- Sample data based on conditions
+        if gyro_power_on_instruction = '1' then
+            gyro_power_on_instruction_internal_internal <= '1';
+        else
+            gyro_power_on_instruction_internal_internal <= '0';
+        end if;
+
+        if gyro_power_on_pulse = '1' then
+            gyro_power_on_pulse_internal_internal <= '1';
+        else
+            gyro_power_on_pulse_internal_internal <= '0';
+        end if;
+
+        -- Output sampled data
+        gyro_power_on_instruction_load <= gyro_power_on_instruction_load_internal;
+        gyro_power_on_instruction_internal <= gyro_power_on_instruction_internal_internal;
+        gyro_power_on_pulse_internal <= gyro_power_on_pulse_internal_internal;
+    end process;
+
+end Behavioral;

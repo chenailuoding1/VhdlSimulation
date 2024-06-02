@@ -1,0 +1,47 @@
+entity TelemetryProcessing3 is
+    Port (
+        -- Input signals
+        current_mode_load_instruction : in std_logic;
+        triaxial_attitude_angle_load_instruction : in std_logic;
+        triaxial_angular_velocity_load_instruction : in std_logic;
+        current_mode : in std_logic_vector(7 downto 0);
+        triaxial_attitude_angle : in std_logic_vector(7 downto 0);
+        triaxial_angular_velocity : in std_logic_vector(7 downto 0);
+        telemetry_data : in std_logic_vector(7 downto 0);
+        telemetry_data_transmission_instruction : in std_logic;
+        
+        -- Output signals
+        telemetry_data_output : out std_logic_vector(7 downto 0);
+        telemetry_data_transmission_instruction_output : out std_logic
+    );
+end TelemetryProcessing3;
+
+architecture Behavioral of TelemetryProcessing3 is
+begin
+    process(current_mode_load_instruction, triaxial_attitude_angle_load_instruction, triaxial_angular_velocity_load_instruction,
+            current_mode, triaxial_attitude_angle, triaxial_angular_velocity, telemetry_data, telemetry_data_transmission_instruction)
+    begin
+        -- Implement your Telemetry Processing 3 logic here
+
+        -- Sample data based on conditions
+        if current_mode_load_instruction = '1' then
+            -- Process current_mode load instruction
+            -- Set telemetry_data_output based on your requirements
+        end if;
+
+        if triaxial_attitude_angle_load_instruction = '1' then
+            -- Process triaxial_attitude_angle load instruction
+            -- Set telemetry_data_output based on your requirements
+        end if;
+
+        if triaxial_angular_velocity_load_instruction = '1' then
+            -- Process triaxial_angular_velocity load instruction
+            -- Set telemetry_data_output based on your requirements
+        end if;
+
+        -- Output sampled data
+        telemetry_data_output <= telemetry_data_output_internal;
+        telemetry_data_transmission_instruction_output <= telemetry_data_transmission_instruction_output_internal;
+    end process;
+
+end Behavioral;

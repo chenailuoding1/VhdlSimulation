@@ -1,0 +1,26 @@
+AtomicProblem:
+    Name:
+        Thruster Triaxial Control 2(TTC)
+    ProblemPattern:
+        Data based Control Pattern
+    ProblemDomains:
+        Storage:
+            Triaxial control_Instruction(TTI)
+            Thruster Distribution Computing_Result(TDCR)
+        Self-designedComponent:
+            Thruster Triaxial Control_Computing_Component(TTCCC)
+    Phenomena:
+        Gyro_power_on_instruction_load_instruction,Gyro_power_on_instruction, Gyro_power_on_pulse, Gyro_power_on_pulse
+    Behaviors:
+    {
+        <TTC,Thruster combination logic load instruction,TDCR,instruction>;
+        if(time){
+            <TTC,Thruster combination logic,TTCCC,value>;
+        }
+        elif(time1){
+            <TTCCC,Triaxial control instruction,TTC,instruction>;
+        }
+        else(time2){
+            <TTC,Triaxial control instruction storage instruction,TTI,instruction>;
+        }
+    }

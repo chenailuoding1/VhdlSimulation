@@ -1,0 +1,17 @@
+AtomicProblem:
+    Name:
+        Reporting(RT)
+    ProblemPattern:
+        Data Transmission Pattern
+    ProblemDomains:
+        Device:
+            WebReadyDevice(WRD)
+        Storage:
+            HomeDatabase(HD)
+    Phenomena:
+        report load instruction, send report
+    Behaviors:
+    {
+        <RT,  report load instruction,HD, instruction>;
+        <RT,  report,WRD, instruction>;
+    }

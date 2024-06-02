@@ -1,0 +1,19 @@
+AtomicProblem:
+    Name:
+        User Change appliance state(UCAS)
+    ProblemPattern:
+        Commanded Behavior Pattern
+    ProblemDomains:
+        Device:
+        Humidistat[i](HU), Thermostat[i](TH), PowerSwitch[i](PS), User(US), Light[i](LI), Audio[i](AD), LightAlarmSubsystem(LAS), SoundAlarmSubsystem(SAS)
+    Phenomena:
+        read temperature, read humidity, turn power switch on, turn power switch off
+    Behaviors:
+    {
+        <US,  read temperature, TH,instruction>;
+        <US,  read humidity,HU, instruction>;
+        <US, turn power switch on,  PS,instruction>;
+        <UCAS,  turn power switch on, PS,instruction>;
+        <US,  turn power switch off, PS,instruction>;
+        <UCAS,  turn power switch off,PS, instruction>;
+    }

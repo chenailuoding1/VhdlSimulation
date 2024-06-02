@@ -1,0 +1,22 @@
+AtomicProblem:
+    Name:
+    Control security(CS)
+    ProblemPattern:
+        Data Based Control Pattern
+    ProblemDomains:
+        Device:
+            Light[i](LI), Audio[i](AD), LightAlarmSubsystem(LAS), SoundAlarmSubsystem(SAS), DoorContactSensor[i](DCS), WindowContactSensor[i](WCS), Door[i](DR), Window[i](WD)
+        Storage:
+            HomeDatabase(HD)
+    Phenomena:
+        door entry value acquisition instruction, window entry value acquisition instruction,  activate sound alarm, turn on audio, activate light alarm, turn on light, security breach value storage
+    Behaviors:
+    {
+        <CS, door entry value acquisition instruction,DCS,  instruction>;
+        <CS, window entry value acquisition instruction, WCS, instruction>;
+        <CS, activate sound alarm, SAS, instruction>;
+        <SAS, turn on audio,AD,  instruction>;
+        <CS,  activate light alarm,LAS, instruction>;
+        <LAS,  turn on light, LI,instruction>;
+        <CS,  security breach value storage instruction,HD, instruction>;
+    }

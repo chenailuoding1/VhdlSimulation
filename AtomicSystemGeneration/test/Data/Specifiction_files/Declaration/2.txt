@@ -1,0 +1,24 @@
+Declaration:
+    Devices:
+        PassiveDevices:
+            Gyro(G): Three_Volts, Serial_Port, 0x881A
+            Sun_Sensor(SS): Digital, AD, 0xA000, 0xA001, 0xA003, 0xA100, 0xC000, 0xE000
+            Triaxial Control Thruster(TCT): 10N, AD, 0xE000
+        ActiveDevices:
+            Data_Management_Computer(DMC): Serial_Port, 0x88DA
+    DataStorages:
+        Physical DataStorages:
+            Gyro_Instruction(GI): Gyro_power_on_instruction
+            Mode_Register(MR): Current_mode, Target_angle, Target_angular_velocity,Next_cycle_mode, Current_mode_working_time
+            Sun_Sensor_Instruction(SSI): Sun_sensor_power_on_instruction
+            Thruster_Power_Instruction(TPI): Thruster_power_on_instruction
+        Logical DataStorages:
+            Sun_Sensor_Data(SSD): Sun_visible_sign, Sun_measurement_angle, Sun_sensor_power_state
+            Thruster_Data(TD): Thruster_power_state
+            Attitude_Determination_Result(ADR): Triaxial_attitude_angle, Triaxial_angular_velocity
+            Control_Computing_Result(CCR): Triaxial_control_quantity
+            Thruster_Distribution_Computing_Result(TDCR): Thruster_combination_logic
+            Thruster_Triaxial_Instruction(TTI): Triaxial_control_instruction
+            Gyro_Data(GD): Angular_velocity_analog, Gyro_power_state
+    Timer:
+        32ms_Interrupt_Timer(32IT)

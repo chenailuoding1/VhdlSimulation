@@ -1,0 +1,21 @@
+AtomicProblem:
+    Name:
+        Sun Sensor Control Output(SSCO)
+    ProblemPattern:
+        Data based Control Pattern
+    ProblemDomains:
+        Device:
+            Sun_Sensor(SS)
+        Storage:
+            Sun_Sensor_Instruction(SSI)
+        Self-designedComponent:
+           Sun_Sensor_Control_Output_Computing_Component(SSCOCC)
+    Phenomena:
+        Gyro_power_on_instruction_load_instruction,Gyro_power_on_instruction, Gyro_power_on_pulse, Gyro_power_on_pulse
+    Behaviors:
+    {
+        <SSCO,Sun sensor power on instruction load instruction,SSI,instruction>;
+        <SSCO,Sun sensor power on instruction,SSCOCC,instruction>;
+        <SSCOCC,Sun sensor power on pulse,SSCO,signal>;
+        <SSCO,Sun sensor power on pulse,SS,signal>;
+    }

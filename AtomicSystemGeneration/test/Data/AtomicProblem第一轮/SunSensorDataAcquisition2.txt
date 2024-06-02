@@ -1,0 +1,41 @@
+entity SunSensorDataAcquisition2 is
+    Port (
+        -- Input signals
+        sun_visible_sign_acquisition_instruction : in std_logic;
+        angle_analog_acquisition_instruction : in std_logic;
+        sun_sensor_power_state_perception_instruction : in std_logic;
+        
+        -- Output signals
+        angle_analog : out std_logic_vector(7 downto 0);
+        sun_sensor_power_state : out std_logic
+    );
+end SunSensorDataAcquisition2;
+
+architecture Behavioral of SunSensorDataAcquisition2 is
+begin
+    process(sun_visible_sign_acquisition_instruction, angle_analog_acquisition_instruction, sun_sensor_power_state_perception_instruction)
+    begin
+        -- Implement your Sun Sensor Data Acquisition 2 logic here
+
+        -- Sample data based on conditions
+        if sun_visible_sign_acquisition_instruction = '1' then
+            -- Load sun visible sign
+            -- Set angle_analog based on your requirements
+        end if;
+
+        if angle_analog_acquisition_instruction = '1' then
+            -- Load angle analog
+            -- Set angle_analog based on your requirements
+        end if;
+
+        if sun_sensor_power_state_perception_instruction = '1' then
+            -- Perception of sun sensor power state
+            -- Set sun_sensor_power_state based on your requirements
+        end if;
+
+        -- Output sampled data
+        angle_analog <= std_logic_vector(to_unsigned(angle_analog_internal, 8));
+        sun_sensor_power_state <= sun_sensor_power_state_internal;
+    end process;
+
+end Behavioral;

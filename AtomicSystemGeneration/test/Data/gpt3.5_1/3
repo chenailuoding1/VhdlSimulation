@@ -1,0 +1,17 @@
+typedef struct {
+    int current_mode;
+    int target_angle;
+    int target_angular_velocity;
+    int next_cycle_mode;
+    int current_mode_working_time;
+} ModeRegister;
+
+ModeRegister mode_register;
+
+void store_mode_data(int current_mode, int target_angle, int target_angular_velocity, int next_cycle_mode, int current_mode_working_time) {
+    mode_register.current_mode = current_mode;
+    mode_register.target_angle = target_angle;
+    mode_register.target_angular_velocity = target_angular_velocity;
+    mode_register.next_cycle_mode = next_cycle_mode;
+    mode_register.current_mode_working_time = current_mode_working_time;
+}

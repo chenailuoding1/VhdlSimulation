@@ -1,0 +1,5 @@
+Gyro Initialization
+{
+Store Gyro Power on Instruction;
+ Gyro Control Output;
+ }

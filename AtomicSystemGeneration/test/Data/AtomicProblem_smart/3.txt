@@ -1,0 +1,17 @@
+AtomicProblem:
+    Name:
+        Control_temperature(CT)
+    ProblemPattern:
+        Data Based Control Pattern
+    ProblemDomains:
+        Device:
+            Thermostat[i](TH)
+        Storage:
+            HomeDatabase(HD)
+    Phenomena:
+        temperature value load instruction, temperature regulation
+    Behaviors:
+    {
+        <CT, temperature value load instruction,HD,  instruction>;
+        <CT,  temperature regulation, TH,instruction>;
+    }

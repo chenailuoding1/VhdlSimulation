@@ -1,0 +1,31 @@
+AtomicProblem:
+    Name:
+        Thruster Control Computing 2(TCC)
+    ProblemPattern:
+        Data based Control Pattern
+    ProblemDomains:
+        Storage:
+            Mode_Register(MR)
+            Attitude_Determination_Result(ADR)
+            Thruster_Control_Computing_Result(CCR)
+        Self-designedComponent:
+            Thruster_Control_Computing_Component(CCC)
+    Phenomena:
+        Gyro_power_on_instruction_load_instruction,Gyro_power_on_instruction, Gyro_power_on_pulse, Gyro_power_on_pulse
+    Behaviors:
+    {
+        <TCC,Triaxial attitude angle load instruction,ADR,instruction>;
+        <TCC,Triaxial angular velocity load instruction,ADR,instruction>;
+        <TCC,Target angle load instruction,MR,instruction>;
+        <TCC,Target angular velocity load instruction,MR,instruction>;
+        if(time){
+            <TCC,Triaxial attitude angle,CCC,value>;
+            <TCC,Triaxial angular velocity,CCC,value>;
+        }
+        else{
+            <TCC,Target angle,CCC,value>;
+            <TCC,Target angular velocity,CCC,value>;
+        }
+        <CCC,Triaxial control quantity,TCC,value>;
+        <TCC,Triaxial control quantity storage instruction,CCR,instruction>;
+    }

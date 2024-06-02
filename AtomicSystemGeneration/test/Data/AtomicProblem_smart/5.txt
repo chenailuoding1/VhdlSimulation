@@ -1,0 +1,21 @@
+AtomicProblem:
+    Name:
+        Set plan(SP)
+    ProblemPattern:
+        Commanded Data Storage Pattern
+    ProblemDomains:
+        Device:
+            User(US), WebReadyDevice(WRD)
+        Storage:
+            HomeDatabase(HD)
+    Phenomena:
+        set temperature plan, set humidity plan, temperature plan, humidity plan, temperature plan storage, humidity plan storage
+    Behaviors:
+    {
+        <US,  set temperature plan, WRD,instruction>;
+        <US, set humidity plan, WRD, instruction>;
+        <WRD,  temperature plan, SP,value>;
+        <WRD,humidity plan,  SP, value>;
+        <SP, temperature plan storage instruction, HD, instruction>;
+        <SP, humidity plan storage instruction, HD, instruction>;
+    }

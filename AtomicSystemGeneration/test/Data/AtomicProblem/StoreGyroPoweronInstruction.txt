@@ -1,0 +1,16 @@
+AtomicProblem:
+    Name:
+        Store Gyro Power on Instruction(SGPOI)
+    ProblemPattern:
+        Data based Control Pattern
+    ProblemDomains:
+        Storage:
+            Gyro_Instruction(GI)
+    Parameter:
+        Gyro_power_on_instruction=1
+    Phenomena:
+        Gyro_power_on_instruction_load_instruction,Gyro_power_on_instruction, Gyro_power_on_pulse, Gyro_power_on_pulse
+    Behaviors:
+    {
+       <SGPonI,Gyro power on instruction storage instruction,GI,instruction>;
+    }

@@ -1,0 +1,12 @@
+// 示例设备操作
+void gyro_power_on() {
+    // 启动陀螺仪的操作
+}
+
+void sun_sensor_power_on() {
+    // 启动太阳传感器的操作
+}
+
+void thruster_power_on() {
+    // 启动推进器的操作
+}

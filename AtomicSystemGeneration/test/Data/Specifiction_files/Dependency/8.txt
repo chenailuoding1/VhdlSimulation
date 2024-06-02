@@ -1,0 +1,5 @@
+Thruster Triaxial Control
+ {
+Thruster Triaxial Control 2;
+Thruster Triaxial Control Output;
+}

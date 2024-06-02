@@ -1,0 +1,5 @@
+Sun Sensor Initialization
+{
+Store Sun Sensor Power on Instruction;
+Sun Sensor Control Output;
+}

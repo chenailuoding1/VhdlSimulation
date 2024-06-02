@@ -1,0 +1,37 @@
+AtomicProblem:
+    Name:
+       Mode Switching Management 3(MSM)
+    ProblemPattern:
+        Data based Control Pattern
+    ProblemDomains:
+        Storage:
+            Gyro_Data(GD)
+            Sun_Sensor_Data(SSD)
+            Mode_Result(MR)
+            Attitude_Determination_Result(ADR)
+        Self-designedComponent:
+            Mode_Switching_Management_Computing_Component(MSMCC)
+    Phenomena:
+        Gyro_power_on_instruction_load_instruction,Gyro_power_on_instruction, Gyro_power_on_pulse, Gyro_power_on_pulse
+    Behaviors:
+    {
+        <MSM,Triaxial attitude angle load instruction,ADR,instruction>;
+        <MSM,Triaxial angular velocity load instruction,ADR,instruction>;
+        <MSM,Sun visible sign load instruction,SSD,instruction>;
+        <MSM,Current mode load instruction,MR,instruction>;
+        <MSM,Current mode working time load instruction,MR,instruction>;
+        <MSM,Triaxial attitude angle,MSMCC,value>;
+        <MSM,Triaxial angular velocity,MSMCC,value>;
+        <MSM,Sun visible sign,MSMCC,value>;
+        <MSM,Current mode,MSMCC,value>;
+        <MSM,Current mode working time,MSMCC,value>;
+        <MSMCC,Next cycle mode,MSM,value>;
+        <MSMCC,Current mode working time,MSM,value>;
+        <MSMCC,Target angle,MSM,value>;
+        <MSMCC,Target angular velocity,MSM,value>;
+        <MSM,Next cycle mode storage instruction,MR,instruction>;
+        <MSM,Current mode working time storage instruction,MR,instruction>;
+        <MSM,Target angle storage instruction,MR,instruction>;
+        <MSM,Target angular velocity storage instruction,MR,instruction>;
+    }
+

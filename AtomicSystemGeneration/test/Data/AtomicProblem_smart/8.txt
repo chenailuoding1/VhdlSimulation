@@ -1,0 +1,19 @@
+AtomicProblem:
+    Name:
+        Monitor appliance state(MAS)
+    ProblemPattern:
+        Data Acquisition Pattern
+    ProblemDomains:
+        Device:
+            PowerSwitch[i](PS), Light[i](LI), Audio[i](AD)
+        Storage:
+            HomeDatabase(HD)
+    Phenomena:
+        power state acquisition instruction, light_power_acquisition_instruction, audio_power_acquisition_instruction, appliance status storage
+    Behaviors:
+    {
+        <MAS,  power state acquisition instruction, PS,instruction>;
+        <PS,light power_acquisition instruction, LI, instruction>;
+        <PS,audio power_acquisition instruction, AD, instruction>;
+        <MAS,  appliance status storage instruction,HD, instruction>;
+    }

@@ -1,0 +1,26 @@
+AtomicProblem:
+    Name:
+        Telemetry Processing 3(TP)
+    ProblemPattern:
+        Data Transmission Pattern
+    ProblemDomains:
+        Device:
+            Data_Management_Computer(DMC)
+        Storage:
+            Mode_Register(MR)
+            Attitude_Determination_Result(ADR)
+        Self-designedComponent:
+            Telemetry_Processing_Computing_Component(TPCC)
+    Phenomena:
+        Current_mode_load_instruction, Triaxial_attitude_angle_load_instruction,Triaxial_angular_velocity_load_instruction, Current_mode, Triaxial_attitude_angle,Triaxial_angular_velocity, Telemetry_data, Telemetry_data_transmission_instruction
+    Behaviors:
+    {
+        <TP,Current mode load instruction,MR,instruction>;
+        <TP,Triaxial attitude angle load instruction,ADR,instruction>;
+        <TP,Triaxial angular velocity load instruction,ADR,instruction>;
+        <TP,Current mode,TPCC,value>;
+        <TP,Triaxial attitude angle,TPCC,value>;
+        <TP,Triaxial angular velocity,TPCC,value>;
+        <TPCC,Telemetry data,TP,value>;
+        <TP,Telemetry data transmission instruction,DMC,instruction>;
+    }

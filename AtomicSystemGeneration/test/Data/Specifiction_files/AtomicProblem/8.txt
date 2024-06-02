@@ -1,0 +1,16 @@
+AtomicProblem:
+    Name:
+        Store Sun Sensor Power on Instruction(SSSPOI)
+    ProblemPattern:
+        Data based Control Pattern
+    ProblemDomains:
+        Storage:
+            Sun_Sensor_Instruction(SSI)
+    Parameter:
+        Sun_Sensor_power_on_instruction=1
+    Phenomena:
+        Gyro_power_on_instruction_load_instruction,Gyro_power_on_instruction, Gyro_power_on_pulse, Gyro_power_on_pulse
+    Behaviors:
+    {
+        <SSSPonI,Sun sensor power on instruction storage instruction,SSI,instruction>;
+    }

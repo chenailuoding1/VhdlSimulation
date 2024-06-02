@@ -1,0 +1,31 @@
+void telecontrol_instruction_processing();
+void data_acquisition();
+void attitude_determination();
+void mode_switching_management();
+void thruster_control_computing();
+void thruster_distribution_computing();
+void telemetry_processing();
+void thruster_triaxial_control();
+
+void sun_search_subsystem() {
+    // 初始化步骤
+    init_32ms_interrupt_timer();
+    // 其他初始化
+
+    // 进入主要循环
+    while (1) {
+        telecontrol_instruction_processing();
+        data_acquisition();
+        attitude_determination();
+        mode_switching_management();
+        thruster_control_computing();
+        thruster_distribution_computing();
+        telemetry_processing();
+
+        static int counter = 0;
+        if (counter % 8 == 0) { // 每128ms调用一次
+            thruster_triaxial_control();
+        }
+        counter++;
+    }
+}

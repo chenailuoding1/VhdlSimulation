@@ -1,0 +1,30 @@
+AtomicProblem:
+    Name:
+        Attitude Determination(AD)
+    ProblemPattern:
+        Data based Control Pattern
+    ProblemDomains:
+        Storage:
+            Gyro_Data(GD)
+            Sun_Sensor_Data(SSD)
+            Mode_Result(MR)
+            Attitude_Determination_Result(ADR)
+        Self-designedComponent:
+            Attitude_Determination_Computing_Component(ADCC)
+    Phenomena:
+        Angular_velocity_analog_load_instruction,Sun_visible_sign_load_instruction
+    Behaviors:
+    {
+        <AD,Angular velocity analog load instruction,GD,instruction>;
+        <AD,Sun visible sign load instruction,SSD,instruction>;
+        <AD,Sun measurement angle load instruction,SSD,instruction>;
+        <AD,Current mode load instruction,MR,instruction>;
+        <AD,Angular velocity analog,ADCC,value>;
+        <AD,Sun visible sign,ADCC,value>;
+        <AD,Sun measurement angle,ADCC,value>;
+        <AD,Current mode,ADCC,value>;
+        <ADCC,Triaxial attitude angle,AD,value>;
+        <ADCC,Triaxial angular velocity,AD,value>;
+        <AD,Triaxial attitude angle storage instruction,ADR,instruction>;
+        <AD,Triaxial angular velocity storage instruction,ADR,instruction>;
+    }

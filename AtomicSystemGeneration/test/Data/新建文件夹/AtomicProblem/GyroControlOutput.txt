@@ -1,0 +1,22 @@
+AtomicProblem:
+    Name:
+        Gyro_Control_Output(GCO)
+    ProblemPattern:
+        Data based Control Pattern
+    ProblemDomains:
+        Device:
+            Gyro(G)
+        Storage:
+            Gyro_Instruction(GI)
+        Self-designedComponent:
+            Gyro_Control_Output_Computing_Component(GCOCC)
+    Phenomena:
+        Gyro_power_on_instruction_load_instruction,Gyro_power_on_instruction, Gyro_power_on_pulse, Gyro_power_on_pulse
+    Behaviors:
+    {
+        <GCO, Gyro_power_on_instruction_load_instruction, GI, instruction>;
+        <GCO, Gyro_power_on_instruction, GCOCC, instruction>;
+        <GCOCC, Gyro_power_on_pulse, GCO, signal>;
+        <GCO, Gyro_power_on_pulse, G, signal>;
+    }
+

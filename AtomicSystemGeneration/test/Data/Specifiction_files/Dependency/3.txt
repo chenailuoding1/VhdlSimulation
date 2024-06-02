@@ -1,0 +1,8 @@
+Initialization
+{
+    32ms Interrupt Timer Initialization;
+    Gyro Initialization;
+    Sun Sensor Initialization;
+    Thruster Initialization;
+    Mode Initialization;
+}

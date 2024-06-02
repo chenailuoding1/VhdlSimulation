@@ -1,0 +1,16 @@
+AtomicProblem:
+    Name:
+        Mode_Initialization(MI)
+    ProblemPattern:
+        Data based Control Pattern
+    ProblemDomains:
+        Storage:
+            Mode_Reslut(MR)
+    Parameter:
+        Current mode=1
+    Phenomena:
+        Gyro_power_on_instruction_load_instruction,Gyro_power_on_instruction, Gyro_power_on_pulse, Gyro_power_on_pulse
+    Behaviors:
+    {
+        <MI,Current mode storage instruction,MR,instruction>;
+    }

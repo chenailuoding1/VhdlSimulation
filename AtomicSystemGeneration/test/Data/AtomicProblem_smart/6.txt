@@ -1,0 +1,19 @@
+AtomicProblem:
+    Name:
+        Execute plan(EP)
+    ProblemPattern:
+        Data Based Control Pattern
+    ProblemDomains:
+        Device:
+            Humidistat[i](HU), Thermostat[i](TH)
+        Storage:
+            HomeDatabase(HD)
+    Phenomena:
+        temperature plan load instruction , load humidity plan load instruction, temperature regulation, humidity regulation
+    Behaviors:
+    {
+        <EP,  temperature plan load instruction,HD, instruction>;
+        <EP,  humidity plan load instruction, HD,instruction>;
+        <EP, temperature regulation, TH, instruction>;
+        <EP,  humidity regulation, HU,instruction>;
+    }

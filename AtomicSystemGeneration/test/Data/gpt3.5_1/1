@@ -1,0 +1,164 @@
+#include <stdio.h>
+#include <stdint.h>
+
+#define TIMER_REG 0x20
+#define ENABLE_TIMER_INTERRUPT() // 使能定时器中断的宏定义
+#define START_TIMER() // 启动定时器的宏定义
+
+// 32ms Interrupt Timer Initialization 组件
+void init_32ms_interrupt_timer() {
+    // 初始化定时器，假设使用硬件寄存器进行设置
+    // 例如，设置定时器寄存器
+    *(volatile uint8_t *)TIMER_REG = 0x20; // 示例值
+    ENABLE_TIMER_INTERRUPT();
+}
+
+void start_32ms_timer() {
+    START_TIMER();
+}
+void telecontrol_instruction_processing();
+void data_acquisition();
+void attitude_determination();
+void mode_switching_management();
+void thruster_control_computing();
+void thruster_distribution_computing();
+void telemetry_processing();
+void thruster_triaxial_control();
+
+void sun_search_subsystem() {
+    // 初始化步骤
+    init_32ms_interrupt_timer();
+    // 其他初始化
+
+    // 进入主要循环
+    while (1) {
+        telecontrol_instruction_processing();
+        data_acquisition();
+        attitude_determination();
+        mode_switching_management();
+        thruster_control_computing();
+        thruster_distribution_computing();
+        telemetry_processing();
+
+        static int counter = 0;
+        if (counter % 8 == 0) { // 每128ms调用一次
+            thruster_triaxial_control();
+        }
+        counter++;
+    }
+}
+typedef struct {
+    int current_mode;
+    int target_angle;
+    int target_angular_velocity;
+    int next_cycle_mode;
+    int current_mode_working_time;
+} ModeRegister;
+
+ModeRegister mode_register;
+
+void store_mode_data(int current_mode, int target_angle, int target_angular_velocity, int next_cycle_mode, int current_mode_working_time) {
+    mode_register.current_mode = current_mode;
+    mode_register.target_angle = target_angle;
+    mode_register.target_angular_velocity = target_angular_velocity;
+    mode_register.next_cycle_mode = next_cycle_mode;
+    mode_register.current_mode_working_time = current_mode_working_time;
+}
+// 示例设备操作
+void gyro_power_on() {
+    // 启动陀螺仪的操作
+}
+
+void sun_sensor_power_on() {
+    // 启动太阳传感器的操作
+}
+
+void thruster_power_on() {
+    // 启动推进器的操作
+}
+void gyro_initialization() {
+    store_gyro_power_on_instruction();
+    gyro_control_output();
+}
+
+void sun_sensor_initialization() {
+    store_sun_sensor_power_on_instruction();
+    sun_sensor_control_output();
+}
+
+void thruster_initialization() {
+    store_thruster_power_on_instruction();
+    thruster_power_control_output();
+}
+
+void initialization() {
+    init_32ms_interrupt_timer();
+    gyro_initialization();
+    sun_sensor_initialization();
+    thruster_initialization();
+    mode_initialization();
+}
+void store_gyro_power_on_instruction() {
+    // 存储陀螺仪启动指令
+}
+
+void gyro_control_output() {
+    // 控制陀螺仪输出
+}
+
+void store_sun_sensor_power_on_instruction() {
+    // 存储太阳传感器启动指令
+}
+
+void sun_sensor_control_output() {
+    // 控制太阳传感器输出
+}
+
+void store_thruster_power_on_instruction() {
+    // 存储推进器启动指令
+}
+
+void thruster_power_control_output() {
+    // 控制推进器输出
+}
+
+void mode_initialization() {
+    // 模式初始化
+}
+
+void telecontrol_instruction_processing() {
+    // 遥控指令处理
+}
+
+void data_acquisition() {
+    // 数据采集
+}
+
+void attitude_determination() {
+    // 姿态确定
+}
+
+void mode_switching_management() {
+    // 模式切换管理
+}
+
+void thruster_control_computing() {
+    // 推进器控制计算
+}
+
+void thruster_distribution_computing() {
+    // 推进器分配计算
+}
+
+void telemetry_processing() {
+    // 遥测处理
+}
+
+void thruster_triaxial_control() {
+    // 三轴控制
+}
+int main() {
+    initialization();
+    sun_search_subsystem();
+    return 0;
+}

@@ -1,0 +1,21 @@
+AtomicProblem:
+    Name:
+        Thruster Triaxial Control Output(TTCO)
+    ProblemPattern:
+        Data based Control Pattern
+    ProblemDomains:
+        Device:
+            Thruster(TCT)
+        Storage:
+            riaxial control_Instruction(TTI)
+        Self-designedComponent:
+            Thruster Triaxial_Control_Output_Computing_Component(TTCOCC)
+    Phenomena:
+        Gyro_power_on_instruction_load_instruction,Gyro_power_on_instruction, Gyro_power_on_pulse, Gyro_power_on_pulse
+    Behaviors:
+    {
+        <TTCO,Triaxial control instruction load instruction,TTI,instruction>;
+        <TTCO,Triaxial control instruction,TTCOCC,instruction>;
+        <TTCOCC,Triaxial control signal,TTCO,signal>;
+        <TTCO,Triaxial control signal,TCT,signal>;
+    }

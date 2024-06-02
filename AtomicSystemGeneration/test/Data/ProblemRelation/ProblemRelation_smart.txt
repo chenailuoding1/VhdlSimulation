@@ -1,0 +1,52 @@
+ProcessControlProblem:
+    Name:
+        DigitalHome System(DS)
+    SubProblems:
+        Monitor temperature, Control humidity, Control temperature, Monitor humidity, Reporting, Set plan, Execute plan, User Change appliance state, Monitor appliance state, Control appliance state, Control security;
+    ControlFlows:
+    {
+        {Monitor temperature; Control temperature;} || {Monitor humidity; Control humidity;} || {Monitor appliance state; Control appliance state;} || {Reporting;} || {Set plan; Execute plan;} || {User Change appliance state;} || {Control security;};
+    }
+ProcessControlProblem:
+    Name:
+        temperature Sub System(TSS)
+    SubProblems:
+        Monitor temperature, Control temperature
+    ControlFlows:
+    {
+        Monitor temperature;
+        Control temperature;
+    }
+ProcessControlProblem:
+    Name:
+        humidity Sub System(HSS)
+    SubProblems:
+        Monitor humidity(MH)
+        Control humidity(CH)
+    ControlFlows:
+    {
+        Monitor humidity(MH);
+        Control humidity(CH);
+    }
+ProcessControlProblem:
+    Name:
+        appliance state Sub System(ASSS)
+    SubProblems:
+        Monitor  appliance state(MAS)
+        Control  appliance state(CAS)
+    ControlFlows:
+    {
+        Monitor  appliance state(MAS);
+        Control  appliance state(CAS);
+    }
+ProcessControlProblem:
+    Name:
+        plan Sub System(PSS)
+    SubProblems:
+        Set plan(SP)
+        Execute plan(EP)
+    ControlFlows:
+    {
+        Set plan(SP);
+        Execute plan(EP);
+    }

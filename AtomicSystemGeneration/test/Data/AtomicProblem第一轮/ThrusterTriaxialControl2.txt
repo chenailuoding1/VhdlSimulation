@@ -1,0 +1,37 @@
+entity ThrusterTriaxialControl2 is
+    Port (
+        -- Input signals
+        thruster_combination_logic_load_instruction : in std_logic;
+        thruster_combination_logic : in std_logic_vector(2 downto 0);
+        
+        -- Output signals
+        triaxial_control_instruction : out std_logic_vector(2 downto 0);
+        triaxial_control_instruction_storage_instruction : out std_logic
+    );
+end ThrusterTriaxialControl2;
+
+architecture Behavioral of ThrusterTriaxialControl2 is
+    signal internal_triaxial_control_instruction : std_logic_vector(2 downto 0);
+begin
+    process(thruster_combination_logic_load_instruction, thruster_combination_logic)
+    begin
+        -- Implement your Thruster Triaxial Control 2 logic here
+
+        -- Sample data based on conditions
+        if thruster_combination_logic_load_instruction = '1' then
+            -- Process thruster_combination_logic load instruction
+            -- Set internal_triaxial_control_instruction based on your requirements
+        end if;
+
+        -- Output sampled data
+        triaxial_control_instruction <= internal_triaxial_control_instruction;
+
+        -- Set storage instruction based on conditions
+        if thruster_combination_logic_load_instruction = '1' then
+            triaxial_control_instruction_storage_instruction <= '1';
+        else
+            triaxial_control_instruction_storage_instruction <= '0';
+        end if;
+    end process;
+
+end Behavioral;

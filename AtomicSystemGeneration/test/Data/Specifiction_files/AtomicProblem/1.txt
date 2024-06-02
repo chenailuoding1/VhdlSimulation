@@ -1,0 +1,16 @@
+AtomicProblem:
+    Name:
+        32ms Interrupt Timer Initialization(32ITI)
+    ProblemPattern:
+        Data based Control Pattern
+    ProblemDomains:
+        Device:
+            32ms interrupt timer(32IT)
+    Parameter:
+        32ms interrupt timer start instruction=1
+    Phenomena:
+        32ms_interrupt_timer_start_instruction
+    Behaviors:
+    {
+        <32ITI,32ms interrupt timer start instruction,32IT,instruction>;
+    }

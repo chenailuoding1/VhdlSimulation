@@ -1,0 +1,53 @@
+entity ThrusterControlComputing2 is
+    Port (
+        -- Input signals
+        triaxial_attitude_angle_load_instruction : in std_logic;
+        triaxial_angular_velocity_load_instruction : in std_logic;
+        target_angle_load_instruction : in std_logic;
+        target_angular_velocity_load_instruction : in std_logic;
+        triaxial_attitude_angle : in std_logic_vector(7 downto 0);
+        triaxial_angular_velocity : in std_logic_vector(7 downto 0);
+        target_angle : in std_logic_vector(7 downto 0);
+        target_angular_velocity : in std_logic_vector(7 downto 0);
+        
+        -- Output signals
+        triaxial_control_quantity : out std_logic_vector(7 downto 0);
+        triaxial_control_quantity_storage_instruction : out std_logic
+    );
+end ThrusterControlComputing2;
+
+architecture Behavioral of ThrusterControlComputing2 is
+begin
+    process(triaxial_attitude_angle_load_instruction, triaxial_angular_velocity_load_instruction,
+            target_angle_load_instruction, target_angular_velocity_load_instruction,
+            triaxial_attitude_angle, triaxial_angular_velocity, target_angle, target_angular_velocity)
+    begin
+        -- Implement your Thruster Control Computing 2 logic here
+
+        -- Sample data based on conditions
+        if triaxial_attitude_angle_load_instruction = '1' then
+            -- Process triaxial_attitude_angle load instruction
+            -- Set triaxial_control_quantity based on your requirements
+        end if;
+
+        if triaxial_angular_velocity_load_instruction = '1' then
+            -- Process triaxial_angular_velocity load instruction
+            -- Set triaxial_control_quantity based on your requirements
+        end if;
+
+        if target_angle_load_instruction = '1' then
+            -- Process target_angle load instruction
+            -- Set triaxial_control_quantity based on your requirements
+        end if;
+
+        if target_angular_velocity_load_instruction = '1' then
+            -- Process target_angular_velocity load instruction
+            -- Set triaxial_control_quantity based on your requirements
+        end if;
+
+        -- Output sampled data
+        triaxial_control_quantity <= triaxial_control_quantity_internal;
+        triaxial_control_quantity_storage_instruction <= triaxial_control_quantity_storage_instruction_internal;
+    end process;
+
+end Behavioral;

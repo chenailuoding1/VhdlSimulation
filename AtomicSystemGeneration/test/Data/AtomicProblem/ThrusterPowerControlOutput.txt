@@ -1,0 +1,29 @@
+AtomicProblem:
+    Name:
+        Thruster Power Control Output(TPCO)
+    ProblemPattern:
+        Data based Control Pattern
+    ProblemDomains:
+        Device:
+            Thruster(TCT)
+        Storage:
+            Thruster_Instruction(TPI)
+        Self-designedComponent:
+            Gyro_Control_Output_Computing_Component(TPCOCC)
+    Phenomena:
+        Gyro_power_on_instruction_load_instruction,Gyro_power_on_instruction, Gyro_power_on_pulse, Gyro_power_on_pulse
+    Behaviors:
+    {
+        while(time){
+            <TPCO,Thruster power on instruction load instruction,TPI,instruction>;
+            if(time1){
+            <TPCO,Thruster power on instruction,TPCOCC,instruction>;
+            }
+            else{
+            <TPCOCC,Thruster power on pulse,TPCO,signal>;
+
+            <TPCO,Thruster power on pulse,TCT,signal>;
+            }
+        }
+    }
+

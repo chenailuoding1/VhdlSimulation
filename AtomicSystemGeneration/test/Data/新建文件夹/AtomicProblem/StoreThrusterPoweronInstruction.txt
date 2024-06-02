@@ -1,0 +1,16 @@
+AtomicProblem:
+    Name:
+        Store Thruster Power on Instruction(STPOI)
+    ProblemPattern:
+        Data based Control Pattern
+    ProblemDomains:
+        Storage:
+            Thruster_Instruction(TPI)
+    Parameter:
+        Thruster_power_on_instruction=1
+    Phenomena:
+        Gyro_power_on_instruction_load_instruction,Gyro_power_on_instruction, Gyro_power_on_pulse, Gyro_power_on_pulse
+    Behaviors:
+    {
+        <STPonI,Thruster power on instruction storage instruction,TPI,instruction>;
+    }

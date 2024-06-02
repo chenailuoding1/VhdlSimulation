@@ -1,0 +1,127 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_ARITH.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
+
+entity SunSearchControl is
+  port (
+    clk : in std_logic;
+    -- Add other input and output ports as needed
+  );
+end entity SunSearchControl;
+
+architecture Behavioral of SunSearchControl is
+  -- Component Declarations
+  component Initialization
+    port (
+      clk : in std_logic;
+      -- Add other input and output ports as needed
+    );
+  end component Initialization;
+
+  component RemoteControlManagement
+    port (
+      clk : in std_logic;
+      -- Add other input and output ports as needed
+    );
+  end component RemoteControlManagement;
+
+  component DataAcquisition
+    port (
+      clk : in std_logic;
+      -- Add other input and output ports as needed
+    );
+  end component DataAcquisition;
+
+  component AttitudeDetermination
+    port (
+      clk : in std_logic;
+      -- Add other input and output ports as needed
+    );
+  end component AttitudeDetermination;
+
+  component ModeSwitchManagement
+    port (
+      clk : in std_logic;
+      -- Add other input and output ports as needed
+    );
+  end component ModeSwitchManagement;
+
+  component ControlCalculation
+    port (
+      clk : in std_logic;
+      -- Add other input and output ports as needed
+    );
+  end component ControlCalculation;
+
+  component ControlOutput
+    port (
+      clk : in std_logic;
+      -- Add other input and output ports as needed
+    );
+  end component ControlOutput;
+
+  component TelemetryProcessing
+    port (
+      clk : in std_logic;
+      -- Add other input and output ports as needed
+    );
+  end component TelemetryProcessing;
+
+  -- Internal Signals Declaration
+  -- ...
+
+begin
+  -- Instantiate Components
+  InitializationModule: Initialization
+    port map (
+      clk => clk,
+      -- Map other ports accordingly
+    );
+
+  RemoteControlModule: RemoteControlManagement
+    port map (
+      clk => clk,
+      -- Map other ports accordingly
+    );
+
+  DataAcquisitionModule: DataAcquisition
+    port map (
+      clk => clk,
+      -- Map other ports accordingly
+    );
+
+  AttitudeModule: AttitudeDetermination
+    port map (
+      clk => clk,
+      -- Map other ports accordingly
+    );
+
+  ModeSwitchModule: ModeSwitchManagement
+    port map (
+      clk => clk,
+      -- Map other ports accordingly
+    );
+
+  ControlCalcModule: ControlCalculation
+    port map (
+      clk => clk,
+      -- Map other ports accordingly
+    );
+
+  ControlOutputModule: ControlOutput
+    port map (
+      clk => clk,
+      -- Map other ports accordingly
+    );
+
+  TelemetryModule: TelemetryProcessing
+    port map (
+      clk => clk,
+      -- Map other ports accordingly
+    );
+
+  -- Connect Modules
+  -- ...
+
+end Behavioral;

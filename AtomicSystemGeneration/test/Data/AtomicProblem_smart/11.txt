@@ -1,0 +1,17 @@
+AtomicProblem:
+    Name:
+        Control humidity(CH)
+    ProblemPattern:
+        Data Based Control Pattern
+    ProblemDomains:
+        Device:
+            Humidistat[i](HU)
+        Storage:
+            HomeDatabase(HD)
+    Phenomena:
+        humidity value acquisition, humidity regulation
+    Behaviors:
+    {
+        <CH, humidity value load instruction,  HD,instruction>;
+        <CH, humidity regulation,  HU,instruction>;
+    }

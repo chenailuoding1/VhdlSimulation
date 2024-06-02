@@ -1,0 +1,17 @@
+AtomicProblem:
+    Name:
+        32ms Interrupt Timer Initialization(32ITI)
+    ProblemPattern:
+        Data based Control Pattern
+    ProblemDomains:
+        Device:
+            32ms interrupt timer(32IT)
+    Parameter:
+        32ms interrupt timer start instruction=1
+    Phenomena:
+        Gyro_power_on_instruction_load_instruction,Gyro_power_on_instruction, Gyro_power_on_pulse, Gyro_power_on_pulse
+    Behaviors:
+    {
+        <32ITI,32ms interrupt timer start instruction,32IT,instruction>;
+    }
+

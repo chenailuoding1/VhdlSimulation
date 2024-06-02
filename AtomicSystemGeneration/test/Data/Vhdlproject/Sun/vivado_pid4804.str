@@ -1,0 +1,132 @@
+/*
+
+Xilinx Vivado v2021.1 (64-bit) [Major: 2021, Minor: 1]
+SW Build: 3247384 on Thu Jun 10 19:36:33 MDT 2021
+IP Build: 3246043 on Fri Jun 11 00:30:35 MDT 2021
+
+Process ID (PID): 4804
+License: Customer
+Mode: GUI Mode
+
+Current time: 	Thu May 30 21:26:01 CST 2024
+Time zone: 	China Standard Time (Asia/Shanghai)
+
+OS: Windows 10
+OS Version: 10.0
+OS Architecture: amd64
+Available processors (cores): 8
+
+Screen size: 1920x1080
+Screen resolution (DPI): 100
+Available screens: 1
+Default font: family=Dialog,name=Dialog,style=plain,size=12
+Scale size: 12
+
+Java version: 	11.0.2 64-bit
+Java home: 	E:/xilinx/Vivado/2021.1/tps/win64/jre11.0.2
+Java executable: 	E:/xilinx/Vivado/2021.1/tps/win64/jre11.0.2/bin/java.exe
+Java initial memory (-Xms): 	256 MB
+Java maximum memory (-Xmx):	 3 GB
+
+
+User name: 	chenqi
+User home directory: C:/Users/chenqi
+User working directory: E:/Pycharmworkplace/VhdlSimulation/AtomicSystemGeneration/test/Data/Vhdlproject/Sun
+User country: 	CN
+User language: 	zh
+User locale: 	zh_CN
+
+RDI_BASEROOT: E:/xilinx/Vivado
+HDI_APPROOT: E:/xilinx/Vivado/2021.1
+RDI_DATADIR: E:/xilinx/Vivado/2021.1/data
+RDI_BINDIR: E:/xilinx/Vivado/2021.1/bin
+
+Vivado preferences file: C:/Users/chenqi/AppData/Roaming/Xilinx/Vivado/2021.1/vivado.xml
+Vivado preferences directory: C:/Users/chenqi/AppData/Roaming/Xilinx/Vivado/2021.1/
+Vivado layouts directory: C:/Users/chenqi/AppData/Roaming/Xilinx/Vivado/2021.1/data/layouts
+PlanAhead jar file: 	E:/xilinx/Vivado/2021.1/lib/classes/planAhead.jar
+Vivado log file: 	E:/Pycharmworkplace/VhdlSimulation/AtomicSystemGeneration/test/Data/Vhdlproject/Sun/vivado.log
+Vivado journal file: 	E:/Pycharmworkplace/VhdlSimulation/AtomicSystemGeneration/test/Data/Vhdlproject/Sun/vivado.jou
+Engine tmp dir: 	E:/Pycharmworkplace/VhdlSimulation/AtomicSystemGeneration/test/Data/Vhdlproject/Sun/.Xil/Vivado-4804-LAPTOP-3BUPBFF6
+
+Xilinx Environment Variables
+----------------------------
+XILINX: E:/xilinx/Vivado/2021.1/ids_lite/ISE
+XILINX_DSP: E:/xilinx/Vivado/2021.1/ids_lite/ISE
+XILINX_HLS: E:/xilinx/Vitis_HLS/2021.1
+XILINX_PLANAHEAD: E:/xilinx/Vivado/2021.1
+XILINX_VIVADO: E:/xilinx/Vivado/2021.1
+XILINX_VIVADO_HLS: E:/xilinx/Vivado/2021.1
+
+
+GUI allocated memory:	256 MB
+GUI max memory:		3,072 MB
+Engine allocated memory: 1,153 MB
+
+Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+
+*/
+
+// TclEventType: START_GUI
+// Tcl Message: start_gui 
+// TclEventType: PROJECT_OPEN_DIALOG
+// bz (cs):  Open Project : addNotify
+// Opening Vivado Project: E:\Pycharmworkplace\VhdlSimulation\AtomicSystemGeneration\test\Data\Vhdlproject\Sun\Sun.xpr. Version: Vivado v2021.1 
+// TclEventType: DEBUG_PROBE_SET_CHANGE
+// TclEventType: FLOW_ADDED
+// Tcl Message: open_project E:/Pycharmworkplace/VhdlSimulation/AtomicSystemGeneration/test/Data/Vhdlproject/Sun/Sun.xpr 
+// Tcl Message: INFO: [ProjectBase 1-489] The host OS only allows 260 characters in a normal path. The project is stored in a path with more than 80 characters. If you experience issues with IP, Block Designs, or files not being found, please consider moving the project to a location with a shorter path. Alternately consider using the OS subst command to map part of the path to a drive letter. Current project path is 'E:/Pycharmworkplace/VhdlSimulation/AtomicSystemGeneration/test/Data/Vhdlproject/Sun' 
+// TclEventType: MSGMGR_MOVEMSG
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: FILE_SET_NEW
+// TclEventType: RUN_CURRENT
+// TclEventType: PROJECT_DASHBOARD_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_NEW
+// [GUI Memory]: 90 MB (+91503kb) [00:00:19]
+// [Engine Memory]: 1,153 MB (+1057024kb) [00:00:19]
+// [GUI Memory]: 111 MB (+17294kb) [00:00:19]
+// [GUI Memory]: 124 MB (+8716kb) [00:00:21]
+// WARNING: HEventQueue.dispatchEvent() is taking  4355 ms.
+// Tcl Message: open_project E:/Pycharmworkplace/VhdlSimulation/AtomicSystemGeneration/test/Data/Vhdlproject/Sun/Sun.xpr 
+// Tcl Message: INFO: [ProjectBase 1-489] The host OS only allows 260 characters in a normal path. The project is stored in a path with more than 80 characters. If you experience issues with IP, Block Designs, or files not being found, please consider moving the project to a location with a shorter path. Alternately consider using the OS subst command to map part of the path to a drive letter. Current project path is 'E:/Pycharmworkplace/VhdlSimulation/AtomicSystemGeneration/test/Data/Vhdlproject/Sun' 
+// Tcl Message: Scanning sources... Finished scanning sources 
+// Tcl Message: INFO: [IP_Flow 19-234] Refreshing IP repositories INFO: [IP_Flow 19-1704] No user IP repositories specified INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'E:/xilinx/Vivado/2021.1/data/ip'. 
+// HMemoryUtils.trashcanNow. Engine heap size: 1,153 MB. GUI used memory: 66 MB. Current time: 5/30/24, 9:26:01 PM CST
+// Tcl Message: open_project: Time (s): cpu = 00:00:15 ; elapsed = 00:00:08 . Memory (MB): peak = 1138.094 ; gain = 0.000 
+// Project name: Sun; location: E:/Pycharmworkplace/VhdlSimulation/AtomicSystemGeneration/test/Data/Vhdlproject/Sun; part: xc7k70tfbv676-1
+dismissDialog("Open Project"); // bz
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: update_compile_order -fileset sources_1 
+// [GUI Memory]: 143 MB (+13169kb) [00:00:33]
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// HMemoryUtils.trashcanNow. Engine heap size: 1,153 MB. GUI used memory: 80 MB. Current time: 5/30/24, 9:56:03 PM CST
+// HMemoryUtils.trashcanNow. Engine heap size: 1,153 MB. GUI used memory: 72 MB. Current time: 5/30/24, 10:26:03 PM CST
+// PAPropertyPanels.initPanels (a32ITI.vhd) elapsed time: 0.3s
+// Elapsed time: 3714 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, a32ITI(Behavioral) (a32ITI.vhd)]", 37, false); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, a32ITI(Behavioral) (a32ITI.vhd)]", 37, false, false, false, false, false, true); // D - Double Click
+// bz (cs):  Opening Editor : addNotify
+// HMemoryUtils.trashcanNow. Engine heap size: 1,153 MB. GUI used memory: 73 MB. Current time: 5/30/24, 10:28:27 PM CST
+// HMemoryUtils.trashcanNow. Engine heap size: 1,153 MB. GUI used memory: 73 MB. Current time: 5/30/24, 10:28:57 PM CST
+// HMemoryUtils.trashcanNow. Engine heap size: 1,153 MB. GUI used memory: 73 MB. Current time: 5/30/24, 10:29:27 PM CST
+// HMemoryUtils.trashcanNow. Engine heap size: 1,153 MB. GUI used memory: 73 MB. Current time: 5/30/24, 10:29:57 PM CST
+// Elapsed time: 145 seconds
+selectButton(RDIResource.ProgressDialog_CANCEL, "Cancel"); // a
+dismissDialog("Opening Editor"); // bz
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, a32ITI(Behavioral) (a32ITI.vhd)]", 37, false); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, a32ITI(Behavioral) (a32ITI.vhd)]", 37, false, false, false, false, false, true); // D - Double Click
+// bz (cs):  Opening Editor : addNotify

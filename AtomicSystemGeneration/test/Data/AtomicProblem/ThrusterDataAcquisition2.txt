@@ -1,0 +1,17 @@
+AtomicProblem:
+    Name:
+        Thruster Data Acquisition 2(TDA)
+    ProblemPattern:
+        Data based Control Pattern
+    ProblemDomains:
+        Device:
+            Thruster(TCT)
+        Storage:
+            Thruster_Data(TD)
+    Phenomena:
+        Gyro_power_on_instruction_load_instruction,Gyro_power_on_instruction, Gyro_power_on_pulse, Gyro_power_on_pulse
+    Behaviors:
+    {
+        <TDA,Thruster power state perception instruction,TCT,instruction>;
+        <TDA,Thruster power state storage instruction,TD,instruction>;
+    }

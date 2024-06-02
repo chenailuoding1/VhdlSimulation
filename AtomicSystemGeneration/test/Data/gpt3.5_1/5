@@ -1,0 +1,22 @@
+void gyro_initialization() {
+    store_gyro_power_on_instruction();
+    gyro_control_output();
+}
+
+void sun_sensor_initialization() {
+    store_sun_sensor_power_on_instruction();
+    sun_sensor_control_output();
+}
+
+void thruster_initialization() {
+    store_thruster_power_on_instruction();
+    thruster_power_control_output();
+}
+
+void initialization() {
+    init_32ms_interrupt_timer();
+    gyro_initialization();
+    sun_sensor_initialization();
+    thruster_initialization();
+    mode_initialization();
+}

@@ -1,0 +1,14 @@
+#-----------------------------------------------------------
+# Vivado v2021.1 (64-bit)
+# SW Build 3247384 on Thu Jun 10 19:36:33 MDT 2021
+# IP Build 3246043 on Fri Jun 11 00:30:35 MDT 2021
+# Start of session at: Sun Jun  2 14:10:37 2024
+# Process ID: 2032
+# Current directory: E:/Pycharmworkplace/VhdlSimulation/AtomicSystemGeneration/test/Data/Vhdlproject/Sun
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent17260 E:\Pycharmworkplace\VhdlSimulation\AtomicSystemGeneration\test\Data\Vhdlproject\Sun\Sun.xpr
+# Log file: E:/Pycharmworkplace/VhdlSimulation/AtomicSystemGeneration/test/Data/Vhdlproject/Sun/vivado.log
+# Journal file: E:/Pycharmworkplace/VhdlSimulation/AtomicSystemGeneration/test/Data/Vhdlproject/Sun\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project E:/Pycharmworkplace/VhdlSimulation/AtomicSystemGeneration/test/Data/Vhdlproject/Sun/Sun.xpr
+update_compile_order -fileset sources_1

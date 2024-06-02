@@ -1,0 +1,27 @@
+entity TelecontrolInstructionProcessing is
+    Port (
+        -- Input signals
+        telecontrol_instruction : in std_logic;
+        
+        -- Output signals
+        next_cycle_mode_storage_instruction : out std_logic
+    );
+end TelecontrolInstructionProcessing;
+
+architecture Behavioral of TelecontrolInstructionProcessing is
+begin
+    process(telecontrol_instruction)
+    begin
+        -- Implement your Telecontrol Instruction Processing logic here
+
+        -- Sample data based on conditions
+        if telecontrol_instruction = '1' then
+            -- Process telecontrol instruction
+            -- Set next_cycle_mode_storage_instruction based on your requirements
+        end if;
+
+        -- Output sampled data
+        next_cycle_mode_storage_instruction <= next_cycle_mode_storage_instruction_internal;
+    end process;
+
+end Behavioral;

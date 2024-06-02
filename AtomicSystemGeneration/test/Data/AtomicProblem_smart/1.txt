@@ -1,0 +1,18 @@
+AtomicProblem:
+     Name:
+        Monitor_humidity(MH)
+     ProblemPattern:
+        Data Acquisition Pattern
+     ProblemDomains:
+         Device:
+            Humidistat[i](HU), Humidity(HUM)
+         Storage:
+            HomeDatabase(HD)
+     Phenomena:
+         humidity acquisition instruction, current humidity, humidity value storage instruction
+     Behaviors:
+     {
+              <MH, humidity_acquisition_instruction, HU,instruction>;
+              <HUM, current_humidity, HU,value>;
+              <MH, humidity_value_storage_instruction, HD, instruction>;
+     }

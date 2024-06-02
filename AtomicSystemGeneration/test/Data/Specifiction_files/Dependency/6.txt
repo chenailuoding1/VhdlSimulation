@@ -1,0 +1,5 @@
+Thruster Initialization
+{
+Store Thruster Power on Instruction;
+Thruster Power Control Output;
+}

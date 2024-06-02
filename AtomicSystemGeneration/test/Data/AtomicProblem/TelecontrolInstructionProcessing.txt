@@ -1,0 +1,21 @@
+AtomicProblem:
+    Name:
+        Telecontrol Instruction Processing(TIP)
+    ProblemPattern:
+        Data based Control Pattern
+    ProblemDomains:
+        Device:
+            Data_Management_Computer(DMC)
+        Storage:
+            Mode_Result(MR)
+        Self-designedComponent:
+            Telecontrol_Instruction_Processing_Computing_Component(TIPCC)
+    Phenomena:
+        Gyro_power_on_instruction_load_instruction,Gyro_power_on_instruction, Gyro_power_on_pulse, Gyro_power_on_pulse
+    Behaviors:
+    {
+        <DMC,Telecontrol instruction,TIP,instruction>;
+        <TIP,Telecontrol instruction,TIPCC,instruction>;
+        <TIPCC,Next cycle mode,TIP,value>;
+        <TIP,Next cycle mode storage instruction,MR,instruction>;
+    }

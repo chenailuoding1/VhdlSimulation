@@ -1,0 +1,63 @@
+entity AttitudeDetermination is
+    Port (
+        -- Input signals
+        gyro_power_on_instruction_load_instruction : in std_logic;
+        gyro_power_on_instruction : in std_logic;
+        gyro_power_on_pulse : in std_logic;
+        angular_velocity_analog_load_instruction : in std_logic;
+        sun_visible_sign_load_instruction : in std_logic;
+        sun_measurement_angle_load_instruction : in std_logic;
+        current_mode_load_instruction : in std_logic;
+        
+        -- Output signals
+        angular_velocity_analog : out std_logic_vector(7 downto 0);
+        sun_visible_sign : out std_logic_vector(7 downto 0);
+        sun_measurement_angle : out std_logic_vector(7 downto 0);
+        current_mode : out std_logic_vector(7 downto 0);
+        triaxial_attitude_angle_storage_instruction : out std_logic;
+        triaxial_angular_velocity_storage_instruction : out std_logic
+    );
+end AttitudeDetermination;
+
+architecture Behavioral of AttitudeDetermination is
+    signal angular_velocity_analog_internal : std_logic_vector(7 downto 0) := (others => '0');
+    signal sun_visible_sign_internal : std_logic_vector(7 downto 0) := (others => '0');
+    signal sun_measurement_angle_internal : std_logic_vector(7 downto 0) := (others => '0');
+    signal current_mode_internal : std_logic_vector(7 downto 0) := (others => '0');
+
+begin
+    process(gyro_power_on_instruction_load_instruction, gyro_power_on_instruction, gyro_power_on_pulse,
+            angular_velocity_analog_load_instruction, sun_visible_sign_load_instruction,
+            sun_measurement_angle_load_instruction, current_mode_load_instruction)
+    begin
+        -- Implement your Attitude Determination logic here
+
+        -- Sample data based on load instructions
+        if angular_velocity_analog_load_instruction = '1' then
+            angular_velocity_analog_internal <= <your_data>; -- Replace with actual data
+        end if;
+
+        if sun_visible_sign_load_instruction = '1' then
+            sun_visible_sign_internal <= <your_data>; -- Replace with actual data
+        end if;
+
+        if sun_measurement_angle_load_instruction = '1' then
+            sun_measurement_angle_internal <= <your_data>; -- Replace with actual data
+        end if;
+
+        if current_mode_load_instruction = '1' then
+            current_mode_internal <= <your_data>; -- Replace with actual data
+        end if;
+
+        -- Output sampled data
+        angular_velocity_analog <= angular_velocity_analog_internal;
+        sun_visible_sign <= sun_visible_sign_internal;
+        sun_measurement_angle <= sun_measurement_angle_internal;
+        current_mode <= current_mode_internal;
+
+        -- Set storage instructions
+        triaxial_attitude_angle_storage_instruction <= <your_condition>; -- Replace with actual condition
+        triaxial_angular_velocity_storage_instruction <= <your_condition>; -- Replace with actual condition
+    end process;
+
+end Behavioral;

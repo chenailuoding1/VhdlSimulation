@@ -1,0 +1,36 @@
+entity ThrusterPowerControlOutput is
+    Port (
+        -- Input signals
+        thruster_power_on_instruction_load_instruction : in std_logic;
+        thruster_power_on_instruction : in std_logic;
+        
+        -- Output signals
+        thruster_power_control_output : out std_logic;
+        thruster_power_on_pulse : out std_logic
+    );
+end ThrusterPowerControlOutput;
+
+architecture Behavioral of ThrusterPowerControlOutput is
+begin
+    process(thruster_power_on_instruction_load_instruction, thruster_power_on_instruction)
+    begin
+        -- Implement your Thruster Power Control Output logic here
+
+        -- Sample data based on conditions
+        if thruster_power_on_instruction_load_instruction = '1' then
+            -- Process thruster_power_on_instruction load instruction
+            -- Set thruster_power_control_output based on your requirements
+        end if;
+
+        -- Output sampled data
+        thruster_power_control_output <= thruster_power_control_output_internal;
+
+        -- Generate pulse based on thruster_power_on_instruction
+        if thruster_power_on_instruction = '1' then
+            thruster_power_on_pulse <= '1';
+        else
+            thruster_power_on_pulse <= '0';
+        end if;
+    end process;
+
+end Behavioral;

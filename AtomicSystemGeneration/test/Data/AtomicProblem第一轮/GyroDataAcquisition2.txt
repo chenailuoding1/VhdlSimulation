@@ -1,0 +1,42 @@
+entity GyroDataAcquisition2 is
+    Port (
+        -- Input signals
+        pulse_count_acquisition_instruction : in std_logic;
+        gyro_power_state_perception_instruction : in std_logic;
+        
+        -- Output signals
+        pulse_count : out integer range 0 to 255;
+        angular_velocity_analog : out real;
+        gyro_power_state_storage_instruction : out std_logic
+    );
+end GyroDataAcquisition2;
+
+architecture Behavioral of GyroDataAcquisition2 is
+    signal pulse_count_internal : integer range 0 to 255 := 0;
+    signal angular_velocity_analog_internal : real := 0.0;
+    signal gyro_power_state_storage_instruction_internal : std_logic := '0';
+
+begin
+    process(pulse_count_acquisition_instruction, gyro_power_state_perception_instruction)
+    begin
+        -- Implement your Gyro Data Acquisition 2 logic here
+
+        -- Sample data based on conditions
+        if pulse_count_acquisition_instruction = '1' then
+            pulse_count_internal <= pulse_count_internal + 1;
+        end if;
+
+        if gyro_power_state_perception_instruction = '1' then
+            angular_velocity_analog_internal <= <your_data>;
+            gyro_power_state_storage_instruction_internal <= '1';
+        else
+            gyro_power_state_storage_instruction_internal <= '0';
+        end if;
+
+        -- Output sampled data
+        pulse_count <= pulse_count_internal;
+        angular_velocity_analog <= angular_velocity_analog_internal;
+        gyro_power_state_storage_instruction <= gyro_power_state_storage_instruction_internal;
+    end process;
+
+end Behavioral;

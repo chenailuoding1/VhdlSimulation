@@ -1,0 +1,7 @@
+ProcessControlProblem: DigitalHomeSystem
+       SubProblems:
+           Monitor temperature, Control humidity, Control temperature, Monitor humidity, Reporting, Set plan, Execute plan, User Change appliance state, Monitor appliance state, Control appliance state, Control security;
+       ControlFlows:
+           {
+               {Monitor temperature; Control temperature;} || {Monitor humidity; Control humidity;} || {Monitor appliance state; Control appliance state;} || {Reporting;} || {Set plan; Execute plan;} || {User Change appliance state;} || {Control security;};
+           }

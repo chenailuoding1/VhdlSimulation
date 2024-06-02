@@ -1,0 +1,67 @@
+entity ModeSwitchingManagement3 is
+    Port (
+        -- Input signals
+        triaxial_attitude_angle_load_instruction : in std_logic;
+        triaxial_angular_velocity_load_instruction : in std_logic;
+        sun_visible_sign_load_instruction : in std_logic;
+        current_mode_load_instruction : in std_logic;
+        current_mode_working_time_load_instruction : in std_logic;
+
+        -- Output signals
+        triaxial_attitude_angle : out std_logic_vector(15 downto 0);
+        triaxial_angular_velocity : out std_logic_vector(15 downto 0);
+        sun_visible_sign : out std_logic_vector(7 downto 0);
+        current_mode : out std_logic_vector(7 downto 0);
+        current_mode_working_time : out std_logic_vector(15 downto 0);
+
+        -- Internal signals
+        next_cycle_mode_internal : integer range 0 to 255 := 1;
+        current_mode_internal : integer range 0 to 255 := 1;
+        current_mode_working_time_internal : integer range 0 to 65535 := 0;
+    );
+end ModeSwitchingManagement3;
+
+architecture Behavioral of ModeSwitchingManagement3 is
+begin
+    process(triaxial_attitude_angle_load_instruction, triaxial_angular_velocity_load_instruction,
+            sun_visible_sign_load_instruction, current_mode_load_instruction, current_mode_working_time_load_instruction)
+    begin
+        -- Implement your Mode Switching Management 3 logic here
+
+        -- Sample data based on conditions
+        if triaxial_attitude_angle_load_instruction = '1' then
+            -- Load triaxial attitude angle
+            -- Set triaxial_attitude_angle based on your requirements
+        end if;
+
+        if triaxial_angular_velocity_load_instruction = '1' then
+            -- Load triaxial angular velocity
+            -- Set triaxial_angular_velocity based on your requirements
+        end if;
+
+        if sun_visible_sign_load_instruction = '1' then
+            -- Load sun visible sign
+            -- Set sun_visible_sign based on your requirements
+        end if;
+
+        if current_mode_load_instruction = '1' then
+            -- Load current mode
+            -- Set current_mode_internal based on your requirements
+        end if;
+
+        if current_mode_working_time_load_instruction = '1' then
+            -- Load current mode working time
+            -- Set current_mode_working_time_internal based on your requirements
+        end if;
+
+        -- Output sampled data
+        triaxial_attitude_angle <= std_logic_vector(to_unsigned(triaxial_attitude_angle_internal, 16));
+        triaxial_angular_velocity <= std_logic_vector(to_unsigned(triaxial_angular_velocity_internal, 16));
+        sun_visible_sign <= std_logic_vector(to_unsigned(sun_visible_sign_internal, 8));
+        current_mode <= std_logic_vector(to_unsigned(current_mode_internal, 8));
+        current_mode_working_time <= std_logic_vector(to_unsigned(current_mode_working_time_internal, 16));
+
+        -- Additional logic for next cycle mode (if needed)
+    end process;
+
+end Behavioral;

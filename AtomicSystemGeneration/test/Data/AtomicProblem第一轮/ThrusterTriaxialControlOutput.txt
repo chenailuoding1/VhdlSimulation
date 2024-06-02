@@ -1,0 +1,35 @@
+entity ThrusterTriaxialControlOutput is
+    Port (
+        -- Input signals
+        triaxial_control_instruction_load_instruction : in std_logic;
+        triaxial_control_instruction : in std_logic_vector(2 downto 0);
+        
+        -- Output signals
+        triaxial_control_signal : out std_logic;
+        thruster_power_on_pulse : out std_logic
+    );
+end ThrusterTriaxialControlOutput;
+
+architecture Behavioral of ThrusterTriaxialControlOutput is
+    signal internal_triaxial_control_instruction : std_logic_vector(2 downto 0);
+begin
+    process(triaxial_control_instruction_load_instruction, triaxial_control_instruction)
+    begin
+        -- Implement your Thruster Triaxial Control Output logic here
+
+        -- Sample data based on conditions
+        if triaxial_control_instruction_load_instruction = '1' then
+            -- Process triaxial_control_instruction load instruction
+            internal_triaxial_control_instruction <= triaxial_control_instruction;
+        end if;
+
+        -- Set signals based on conditions
+        -- Example: Set triaxial_control_signal based on internal_triaxial_control_instruction
+        -- Example: Set thruster_power_on_pulse based on your requirements
+
+        -- Output signals
+        triaxial_control_signal <= internal_triaxial_control_instruction(0);
+        thruster_power_on_pulse <= '1';  -- Replace with your logic
+    end process;
+
+end Behavioral;

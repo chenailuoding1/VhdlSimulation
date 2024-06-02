@@ -1,0 +1,24 @@
+AtomicProblem:
+    Name:
+        Gyro Data Acquisition 2(GCO)
+    ProblemPattern:
+        Data based Control Pattern
+    ProblemDomains:
+        Device:
+            Gyro(G)
+        Storage:
+            Gyro_Data(GD)
+        Self-designedComponent:
+            Gyro_Data_Acquisition_Computing_Component(GDACC)
+    Phenomena:
+        Gyro_power_on_instruction_load_instruction,Gyro_power_on_instruction, Gyro_power_on_pulse, Gyro_power_on_pulse
+    Behaviors:
+    {
+        <GDA,Pulse count acquisition instruction,G,instruction>;
+        <GDA,Gyro power state perception instruction,G,instruction>;
+        <GDA,Pulse count,GDACC,value>;
+        <GDACC,Angular velocity analog,GDA,value>;
+        <GDA,Angular velocity analog storage instruction,GD,instruction>;
+        <GDA,Gyro power state storage instruction,GD,instruction>;
+    }
+

@@ -1,0 +1,22 @@
+Declaration:
+      Device:
+           PassiveDevices:
+               Humidity(HUM)
+               Temperature(TEM)
+               Light[i](LI)
+               Audio[i](AD)
+               Door[i](DR)
+               Window[i](WD)
+               DoorContactSensor[i](DCS)
+               WindowContactSensor[i](WCS)
+               Humidistat[i](HU)
+               Thermostat[i](TH)
+               PowerSwitch[i](PS)
+               LightAlarmSubsystem(LAS)
+               SoundAlarmSubsystem(SAS)
+           ActiveDevices:
+               WebReadyDevice(WRD)
+               User(US)
+      DataStorages:
+           Physical DataStorages:
+               HomeDatabase(HD): plan, temperature value, humidity value, security breach value, appliance status

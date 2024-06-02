@@ -1,0 +1,22 @@
+AtomicProblem:
+    Name:
+        Control appliance state(CAS)
+    ProblemPattern:
+        Data Based Control Pattern
+    ProblemDomains:
+        Device:
+            PowerSwitch[i](PS), Light[i](LI), Audio[i](AD)
+        Storage:
+            HomeDatabase(HD)
+    Phenomena:
+        appliance status load instruction, turn power switch on, turn power switch off, turn light on, turn light off, turn audio on, turn audio off
+    Behaviors:
+    {
+        <CAS, appliance status load instruction, HD, instruction>;
+        <CAS,  turn power switch on,PS, instruction>;
+        <CAS,  turn power switch off, PS,instruction>;
+        <PS,  turn light on,LI, instruction>;
+        <PS,  turn light off,LI, instruction>;
+        <PS,  turn audio on, AD,instruction>;
+        <PS,  turn audio off,AD, instruction>;
+    }
