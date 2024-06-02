@@ -6,6 +6,7 @@
 class AtomicCommponet:
     def __init__(self):
         self.Name =""#简写
+        self.requirement=""
         self.AtomicName=""#原称
         self.Computing={
             "ComputingName": None,
@@ -34,7 +35,10 @@ class AtomicCommponet:
         self.Name=name
     def GetName(self):
         return  self.Name
-
+    def SetRequirement(self,requirement):
+        self.requirement=requirement
+    def GetRequirement(self):
+        return  self.requirement
     def SetAtomicName(self,name):
         self.AtomicName=name
     def GetAtomicName(self):
