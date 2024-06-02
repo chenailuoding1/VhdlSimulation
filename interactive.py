@@ -10,7 +10,7 @@ import AtomicSystemGeneration.atomtest
 import AtomicSystemGeneration.DataExtraction
 import AtomicSystemGeneration.GenerateAtomsystemVhdl
 import AtomicSystemGeneration.GenerateDomainVhdl
-import AtomicSystemGeneration.GenerateProject
+
 import AtomicSystemGeneration.SystemTree
 import AtomicSystemGeneration.DataHandling
 import AtomicSystemGeneration.AbbrName
@@ -23,13 +23,21 @@ import AtomicSystemGeneration.Oroperty
 import AtomicSystemGeneration.Cleanupdirectory
 import AtomicSystemGeneration.test.algorithms.algorithm3 as GreateAtomic
 import AtomicSystemGeneration.test.algorithms.specification as specification
+import AtomicSystemGeneration.test.algorithms.GenerateProject as GenerateProject
+# import AtomicSystemGeneration.test.algorithms.modeltest as modeltest
 app = Flask(__name__)
 
 @app.route("/")
 def index():
     return render_template('index.html')
 
+@app.route('/api/gettext', methods=['GET'])
+def gettext():
+    text=""
+    with open("Uploads/sp.txt","r") as file:
+        text=file.readlines()
 
+    return jsonify(text)
 @app.route('/api/upload_specification2', methods=['POST'])
 def upload_specification2():
     if 'file' not in request.files:
@@ -171,6 +179,12 @@ def model_check():
         for definition in definitions:
             name=definition["name"]
             print(name)
+            # 将数据转换为字符串格式
+        data_str = json.dumps(data)
+
+        # 将JSON数据写入文本文件
+        with open("de.txt", 'a+') as file:
+            file.write(data_str)
 
         print("newdefinitions")
         print(definitions)
@@ -195,14 +209,73 @@ def model_check():
     # "VHDL Generate Successful", 200, computerdict,
     # return send_file(zip_name, attachment_filename=zip_name, as_attachment=True)
     return jsonify(data)
+@app.route('/api/GPT', methods=['POST'])
+def GPT():
+    try:
+        data = request.json
+        definitions = data.get('definitions')
+        print("definitions")
+        print(definitions)
+
+        # data_str = json.dumps(data)
+        template=""
+        requirement=""
+        with open("promttemplate.txt", 'r') as file:
+            template="".join(file.readlines())
+        with open("Uploads/sp.txt", 'r') as file:
+            requirement="".join(file.readlines())
+        promt=template.replace("<<requirement>>",requirement)
+        for i in range(0,len(definitions)):
+            if i!=len(definitions)-1:
+                definitionstr="组件"+str(i)+"的形式化定义为"+json.dumps(definitions[i])+"\n<<definition>>"
+            else:
+                definitionstr = "组件"+str(i)+"的形式化定义为"+json.dumps(definitions[i])
+            promt = promt.replace("<<definition>>", definitionstr)
+        # 将JSON数据写入文本文件
+        with open("de.txt", 'w') as file:
+            file.write(promt)
+        # modeltest.Chat_Code(data_str)
+        print("newdefinitions")
+        print(definitions)
+
+        # data = {
+        #     'message': 'VHDL Generate Fail!'
+        # }
+        data = {
+            'message': 'Model Check Successful!',
+            'code': 200,
+            "result":"生成成功！",
+            "definitions":definitions
+        }
+    except Exception as e:
+        # 处理 ZeroDivisionError 异常
+        print("原子系统抽取信息失败+！："+str(e))
+        data = {
+            'message': 'Model Check Failed!'+str(e),
+            'code':500
+        }
+    # 返回下载链接
+    # "VHDL Generate Successful", 200, computerdict,
+    # return send_file(zip_name, attachment_filename=zip_name, as_attachment=True)
+    return jsonify(data)
+
 @app.route('/api/run_simulation', methods=['POST'])
 def run_simulation():
     try:
-        AtomicSystemGeneration.Oroperty.runsim()
-        data = {
-            'message': 'simulation Successful!' ,
-            'code': 200
-        }
+        data=request.json
+        definitions = data.get('definitions')
+        falg=GenerateProject.Generate_atomsystem_project(definitions)
+        # AtomicSystemGeneration.Oroperty.runsim()
+        if falg:
+            data = {
+                'message': 'simulation Successful!' ,
+                'code': 200
+            }
+        else:
+            data = {
+                'message': 'simulation False!',
+                'code': 400
+            }
     except Exception as e:
         # 处理 ZeroDivisionError 异常
         print("仿真失败+！：" + str(e))
