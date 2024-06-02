@@ -96,7 +96,6 @@ def AtomicCommponetCreate():
             #应用转换规则
             Name,AtomicName,ControllerName=rule1(converted_data["Name"])#规则1 将原子问题名称映射为原子组件和原子控制器子组件名称
 
-
             atomicCommponets[AtomicName]=Name
             atomicCommponet.SetName(Name)
             atomicCommponet.SetAtomicName(AtomicName)
@@ -381,7 +380,9 @@ def AtomicCommponetCreate():
 
             # print("atomicCommponet")
             # atomicCommponet.PrintAtomic()
+            atomicCommponet.SetRequirement(data)
             Commponets[Name]=atomicCommponet
+
             # atomicCommponets.append(atomicCommponet)
             # print("events")
             # print(events)
@@ -685,6 +686,7 @@ def GAtomicCommponet():
             definition["events"] =commponet.GetController()['Event']
             definition["trans"] = commponet.GetController()['Tran']
             definition["vhdl"] =""
+            definition["requirement"] =commponet.GetRequirement()
             # print("commponet.GetConnector_datas()")
             # print(commponet.GetConnector_datas())
             # commponet.PrintAtomic()
@@ -738,6 +740,7 @@ def GAtomicCommponet():
             definition["trans"] = []
             definition["inputs"] = []
             definition["outputs"] = []
+            definition["requirement"] = ""
             ports = commponet.GetConnector_devices()
             i = 0
             j = 0
@@ -771,6 +774,7 @@ def GAtomicCommponet():
             definition["trans"] = []
             definition["inputs"] = []
             definition["outputs"] = []
+            definition["requirement"] = ""
             ports = commponet.GetConnector_datas()
             i = 0
             j = 0
@@ -804,6 +808,7 @@ def GAtomicCommponet():
             definition["trans"] = commponet.GetSubController()['Tran']
             definition["inputs"] = []
             definition["outputs"] = []
+            definition["requirement"] = ""
             ports =  commponet.GetConnector_controllers()
             i = 0
             j = 0
@@ -871,14 +876,17 @@ def GenerateDataStorageVHDL(definition):
         elif Signalcjudge(input["value"])==2:
             storeports.append(input["value"])
 
-    for output in outputs:
+    for i in range(0,len(outputs)):
         # 原子组件输出端口转换成top的端口声明
-        portstr = "out_" + jianxie(output["value"]) + ":out STD_LOGIC_VECTOR ( 31 downto 0 );"
+        if i ==len(outputs)-1:
+            portstr = "out_" + jianxie(outputs[i]["value"]) + ":out STD_LOGIC_VECTOR ( 31 downto 0 )"
+        else:
+            portstr = "out_" + jianxie(outputs[i]["value"]) + ":out STD_LOGIC_VECTOR ( 31 downto 0 );"
         ports.append(portstr)
-        if Signalcjudge(output["value"])==1:
-            loadports.append(output["value"])
-        elif Signalcjudge(output["value"])==2:
-            storeports.append(output["value"])
+        if Signalcjudge(outputs[i]["value"])==1:
+            loadports.append(outputs[i]["value"])
+        elif Signalcjudge(outputs[i]["value"])==2:
+            storeports.append(outputs[i]["value"])
     portsstr = "\n    ".join(ports)
     # 生成顶层组件，原子控制子组件，计算子组件vhdl实体部分
     entitystr = entitytemplate.replace('<<entityname>>', jianxie(Name)).replace('<<port_section>>', portsstr)
@@ -891,7 +899,7 @@ def GenerateDataStorageVHDL(definition):
     print(loadports)
     print("testloadports")
     print(storeports)
-    vhdl = entitystr +f"\narchitecture Behavioral of {jianxie(Name)} is\n"+ signalstr+GenrateDataStoreVHDl(storeports,storetemplate)+GenrateLoadVHDl(loadports,loadtemplate)+"\nend Behavioral;"
+    vhdl = entitystr + signalstr+"\nbegin\n"+GenrateDataStoreVHDl(storeports,storetemplate)+GenrateLoadVHDl(loadports,loadtemplate)+"\nend Behavioral;"
     return vhdl
 
 def GenrateDataStoreVHDl(storeports,storetemplate):
@@ -1196,7 +1204,7 @@ def generatestatevhdl_atomic(trans,portdone):
         #超过两个以上
         else:
 
-            statevhdl =statevhdl+f"""if {"in_"+jianxie(condition)+" = std_logic_vector(to_unsigned(1, 32))"} then \n    {str1}\n"""
+            statevhdl =statevhdl+f"""\nif {"in_"+jianxie(condition)+" = std_logic_vector(to_unsigned(1, 32))"} then \n    {str1}\n"""
             for subtran in subtrans:
                 subcondition = subtran["migrateeevent"]
                 if subtran["destination"] == "0":
@@ -1318,20 +1326,7 @@ def generatecomputingvhdl(inputs,computingmplate,fx,name):
 
 
     return computingarchitecture
-def generatetoparchitecture(inputs,name):
-    computingarchitecture=""
-    inports=""
-    for i in range(0,len(inputs)):
-        if i!=len(inputs)-1:
-            #输入信号
-            inports+= "in_" + jianxie(inputs[i])+","
-        else:
-            inports += "in_" + jianxie(inputs[i])
-        #获取迁移事件
-    computingarchitecture +="\n"+computingmplate.replace("<<inports>>",inports).replace("<<fx>>",fx).replace("<<name>>",name)+"\n"
 
-
-    return computingarchitecture
 
 # print("数据流一致性：263个接口，其中261个接口一致性约束验证成功，导致2个接口一致性约束验证失败。MR数据储存中的两个接口验证失败！")
 # print("控制流正确性：针对19个原子问题和7个组合问题，19个原子问题控制流均验证成功！6个组合问题控制流验证成功，1个组合问题控制流验证失败")
