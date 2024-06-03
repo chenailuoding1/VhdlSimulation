@@ -1,0 +1,617 @@
+###
+AtomicProblem:
+    Name:
+        Gyro Falt(GF)
+    ProblemPattern:
+        Falt Pattern
+    ProblemDomains:
+        Device:
+            Gyro(G)
+        Storage:
+            Gyro_Data(GD)
+        Self-designedComponent:
+            Gyro_Falt_Computing_Component(GFCC)
+    Phenomena:
+         Gyro_power_off_pulse
+    Calculation formula:
+    variable gyrofaltcount=0;if(gyrofaltcount>5) Thruster_power_off_pulse=1 eles Thruster_power_off_pulse=0;if(Triaxial control instruction='U') gyrofaltcount++;
+
+    Behaviors:
+    {
+        <GF,Angular velocity analog load instruction,GD,instruction>;
+        <GF,Angular velocity analog,GFCC,value>;
+        <GFCC,Gyro_power_off_pulse,GF,value>;
+        <GF,Gyro_power_off_pulse,G,signal>;
+    }
+###
+###
+AtomicProblem:
+    Name:
+        Thruster Falt(TTF)
+    ProblemPattern:
+        Falt Pattern
+    ProblemDomains:
+        Device:
+            Thruster(TCT)
+        Storage:
+            Triaxial control_Instruction(TTI)
+        Self-designedComponent:
+            Thruster_Falt_Computing_Component(TTFCC)
+    Phenomena:
+         Thruster_power_off_pulse
+    Calculation formula:
+        判断推力器连续 5s 喷气间隔小于 1s，则判定发生频繁喷气，停止喷气。
+    Behaviors:
+    {
+        <TTF,Triaxial control instruction load instruction,TTI,instruction>;
+        <TTF,Triaxial control instruction,TTFCC,value>;
+        <TTFCC,Thruster_power_off_pulse,TTF,value>;
+        <TTF,Thruster_power_off_pulse,TCT,signal>;
+    }
+###
+###
+AtomicProblem:
+    Name:
+        32ms Interrupt Timer Initialization(32ITI)
+    ProblemPattern:
+        Data based Control Pattern
+    ProblemDomains:
+        Device:
+            32ms interrupt timer(32IT)
+    Parameter:
+        32ms interrupt timer start instruction=1
+    Phenomena:
+        32ms_interrupt_timer_start_instruction
+    Behaviors:
+    {
+        <32ITI,32ms interrupt timer start instruction,32IT,instruction>;
+    }
+###
+###
+AtomicProblem:
+    Name:
+        Attitude Determination(AD)
+    ProblemPattern:
+        Data based Control Pattern
+    ProblemDomains:
+        Storage:
+            Gyro_Data(GD)
+            Sun_Sensor_Data(SSD)
+            Mode_Result(MR)
+            Attitude_Determination_Result(ADR)
+        Self-designedComponent:
+            Attitude_Determination_Computing_Component(ADCC)
+    Phenomena:
+        Angular_velocity_analog_load_instruction,Sun_visible_sign_load_instruction
+    Behaviors:
+    {
+        <AD,Angular velocity analog load instruction,GD,instruction>;
+        <AD,Sun visible sign load instruction,SSD,instruction>;
+        <AD,Sun measurement angle load instruction,SSD,instruction>;
+        <AD,Current mode load instruction,MR,instruction>;
+        <AD,Angular velocity analog,ADCC,value>;
+        <AD,Sun visible sign,ADCC,value>;
+        <AD,Sun measurement angle,ADCC,value>;
+        <AD,Current mode,ADCC,value>;
+        <ADCC,Triaxial attitude angle,AD,value>;
+        <ADCC,Triaxial angular velocity,AD,value>;
+        <AD,Triaxial attitude angle storage instruction,ADR,instruction>;
+        <AD,Triaxial angular velocity storage instruction,ADR,instruction>;
+    }
+
+
+###
+###
+AtomicProblem:
+    Name:
+        Gyro Control Output(GCO)
+    ProblemPattern:
+        Data based Control Pattern
+    ProblemDomains:
+        Device:
+            Gyro(G)
+        Storage:
+            Gyro Instruction(GI)
+        Self-designedComponent:
+            Gyro Control Output Computing Component(GCOCC)
+    Phenomena:
+        Gyro_power_on_instruction_load_instruction,Gyro_power_on_instruction, Gyro_power_on_pulse, Gyro_power_on_pulse
+    Behaviors:
+    {
+        <GCO, Gyro power on instruction load instruction, GI, instruction>;
+        <GCO, Gyro power on instruction, GCOCC, instruction>;
+        <GCOCC, Gyro power on pulse, GCO, signal>;
+        <GCO, Gyro power on pulse, G, signal>;
+    }
+
+
+###
+###
+AtomicProblem:
+    Name:
+        Gyro Data Acquisition 2(GDA)
+    ProblemPattern:
+        Data based Control Pattern
+    ProblemDomains:
+        Device:
+            Gyro(G)
+        Storage:
+            Gyro_Data(GD)
+        Self-designedComponent:
+            Gyro_Data_Acquisition_Computing_Component(GDACC)
+    Phenomena:
+        Gyro_power_on_instruction_load_instruction,Gyro_power_on_instruction, Gyro_power_on_pulse, Gyro_power_on_pulse
+    Behaviors:
+    {
+        <GDA,Pulse count acquisition instruction,G,instruction>;
+        <GDA,Gyro power state perception instruction,G,instruction>;
+        <GDA,Pulse count,GDACC,value>;
+        <GDACC,Angular velocity analog,GDA,value>;
+        <GDA,Angular velocity analog storage instruction,GD,instruction>;
+        <GDA,Gyro power state storage instruction,GD,instruction>;
+    }
+
+
+###
+###
+AtomicProblem:
+    Name:
+        Mode Initialization(MI)
+    ProblemPattern:
+        Data based Control Pattern
+    ProblemDomains:
+        Storage:
+            Mode_Reslut(MR)
+    Parameter:
+        Current mode=1
+    Phenomena:
+        Gyro_power_on_instruction_load_instruction,Gyro_power_on_instruction, Gyro_power_on_pulse, Gyro_power_on_pulse
+    Behaviors:
+    {
+        <MI,Current mode storage instruction,MR,instruction>;
+    }
+
+###
+###
+AtomicProblem:
+    Name:
+       Mode Switching Management 3(MSM)
+    ProblemPattern:
+        Data based Control Pattern
+    ProblemDomains:
+        Storage:
+            Gyro_Data(GD)
+            Sun_Sensor_Data(SSD)
+            Mode_Result(MR)
+            Attitude_Determination_Result(ADR)
+        Self-designedComponent:
+            Mode_Switching_Management_Computing_Component(MSMCC)
+    Phenomena:
+        Gyro_power_on_instruction_load_instruction,Gyro_power_on_instruction, Gyro_power_on_pulse, Gyro_power_on_pulse
+    Behaviors:
+    {
+        <MSM,Triaxial attitude angle load instruction,ADR,instruction>;
+        <MSM,Triaxial angular velocity load instruction,ADR,instruction>;
+        <MSM,Sun visible sign load instruction,SSD,instruction>;
+        <MSM,Current mode load instruction,MR,instruction>;
+        <MSM,Current mode working time load instruction,MR,instruction>;
+        <MSM,Triaxial attitude angle,MSMCC,value>;
+        <MSM,Triaxial angular velocity,MSMCC,value>;
+        <MSM,Sun visible sign,MSMCC,value>;
+        <MSM,Current mode,MSMCC,value>;
+        <MSM,Current mode working time,MSMCC,value>;
+        <MSMCC,Next cycle mode,MSM,value>;
+        <MSMCC,Current mode working time,MSM,value>;
+        <MSMCC,Target angle,MSM,value>;
+        <MSMCC,Target angular velocity,MSM,value>;
+        <MSM,Next cycle mode storage instruction,MR,instruction>;
+        <MSM,Current mode working time storage instruction,MR,instruction>;
+        <MSM,Target angle storage instruction,MR,instruction>;
+        <MSM,Target angular velocity storage instruction,MR,instruction>;
+    }
+
+
+###
+###
+AtomicProblem:
+    Name:
+        Store Gyro Power on Instruction(SGPOI)
+    ProblemPattern:
+        Data based Control Pattern
+    ProblemDomains:
+        Storage:
+            Gyro_Instruction(GI)
+    Parameter:
+        Gyro_power_on_instruction=1
+    Phenomena:
+        Gyro_power_on_instruction_load_instruction,Gyro_power_on_instruction, Gyro_power_on_pulse, Gyro_power_on_pulse
+    Behaviors:
+    {
+       <SGPonI,Gyro power on instruction storage instruction,GI,instruction>;
+    }
+
+###
+###
+AtomicProblem:
+    Name:
+        Store Sun Sensor Power on Instruction(SSSPOI)
+    ProblemPattern:
+        Data based Control Pattern
+    ProblemDomains:
+        Storage:
+            Sun_Sensor_Instruction(SSI)
+    Parameter:
+        Sun_Sensor_power_on_instruction=1
+    Phenomena:
+        Gyro_power_on_instruction_load_instruction,Gyro_power_on_instruction, Gyro_power_on_pulse, Gyro_power_on_pulse
+    Behaviors:
+    {
+        <SSSPonI,Sun sensor power on instruction storage instruction,SSI,instruction>;
+    }
+
+###
+###
+AtomicProblem:
+    Name:
+        Store Thruster Power on Instruction(STPOI)
+    ProblemPattern:
+        Data based Control Pattern
+    ProblemDomains:
+        Storage:
+            Thruster_Instruction(TPI)
+    Parameter:
+        Thruster_power_on_instruction=1
+    Phenomena:
+        Gyro_power_on_instruction_load_instruction,Gyro_power_on_instruction, Gyro_power_on_pulse, Gyro_power_on_pulse
+    Behaviors:
+    {
+        <STPOI,Thruster power on instruction storage instruction,TPI,instruction>;
+    }
+
+###
+###
+AtomicProblem:
+    Name:
+        Sun Sensor Control Output(SSCO)
+    ProblemPattern:
+        Data based Control Pattern
+    ProblemDomains:
+        Device:
+            Sun_Sensor(SS)
+        Storage:
+            Sun_Sensor_Instruction(SSI)
+        Self-designedComponent:
+           Sun_Sensor_Control_Output_Computing_Component(SSCOCC)
+    Phenomena:
+        Gyro_power_on_instruction_load_instruction,Gyro_power_on_instruction, Gyro_power_on_pulse, Gyro_power_on_pulse
+    Behaviors:
+    {
+        <SSCO,Sun sensor power on instruction load instruction,SSI,instruction>;
+        <SSCO,Sun sensor power on instruction,SSCOCC,instruction>;
+        <SSCOCC,Sun sensor power on pulse,SSCO,signal>;
+        <SSCO,Sun sensor power on pulse,SS,signal>;
+    }
+
+###
+###
+AtomicProblem:
+    Name:
+        Sun Sensor Data Acquisition 2(SSDA)
+    ProblemPattern:
+        Data based Control Pattern
+    ProblemDomains:
+        Device:
+            Sun_Sensor(SS)
+        Storage:
+            Sun_Sensor_Data(SSD)
+        Self-designedComponent:
+            Sun_Sensor_Control_Output_Computing_Component(SSDACC)
+    Phenomena:
+        Gyro_power_on_instruction_load_instruction,Gyro_power_on_instruction, Gyro_power_on_pulse, Gyro_power_on_pulse
+    Behaviors:
+    {
+        <SSDA,Sun visible sign acquisition instruction,SS,instruction>;
+        <SSDA,Angle analog acquisition instruction,SS,instruction>;
+        <SSDA,Sun sensor power state perception instruction,SS,instruction>;
+        <SSDA,Angle analog,SSDACC,value>;
+        <SSDACC,Sun measurement angle,SSDA,value>;
+        <SSDA,Sun visible sign storage instruction,SSD,instruction>;
+        <SSDA,Sun measurement angle storage instruction,SSD,instruction>;
+        <SSDA,Sun sensor power state storage instruction,SSD,instruction>;
+    }
+
+###
+###
+AtomicProblem:
+    Name:
+        Telecontrol Instruction Processing(TIP)
+    ProblemPattern:
+        Data based Control Pattern
+    ProblemDomains:
+        Device:
+            Data_Management_Computer(DMC)
+        Storage:
+            Mode_Result(MR)
+        Self-designedComponent:
+            Telecontrol_Instruction_Processing_Computing_Component(TIPCC)
+    Phenomena:
+        Gyro_power_on_instruction_load_instruction,Gyro_power_on_instruction, Gyro_power_on_pulse, Gyro_power_on_pulse
+    Behaviors:
+    {
+        <DMC,Telecontrol instruction,TIP,instruction>;
+        <TIP,Telecontrol instruction,TIPCC,instruction>;
+        <TIPCC,Next cycle mode,TIP,value>;
+        <TIP,Next cycle mode storage instruction,MR,instruction>;
+    }
+
+###
+###
+AtomicProblem:
+    Name:
+        Telemetry Processing 3(TP)
+    ProblemPattern:
+        Data Transmission Pattern
+    ProblemDomains:
+        Device:
+            Data_Management_Computer(DMC)
+        Storage:
+            Mode_Register(MR)
+            Attitude_Determination_Result(ADR)
+        Self-designedComponent:
+            Telemetry_Processing_Computing_Component(TPCC)
+    Phenomena:
+        Current_mode_load_instruction, Triaxial_attitude_angle_load_instruction,Triaxial_angular_velocity_load_instruction, Current_mode, Triaxial_attitude_angle,Triaxial_angular_velocity, Telemetry_data, Telemetry_data_transmission_instruction
+    Behaviors:
+    {
+        <TP,Current mode load instruction,MR,instruction>;
+        <TP,Triaxial attitude angle load instruction,ADR,instruction>;
+        <TP,Triaxial angular velocity load instruction,ADR,instruction>;
+        <TP,Current mode,TPCC,value>;
+        <TP,Triaxial attitude angle,TPCC,value>;
+        <TP,Triaxial angular velocity,TPCC,value>;
+        <TPCC,Telemetry data,TP,value>;
+        <TP,Telemetry data transmission instruction,DMC,instruction>;
+    }
+###
+###
+AtomicProblem:
+    Name:
+        Thruster Control Computing 2(TCC)
+    ProblemPattern:
+        Data based Control Pattern
+    ProblemDomains:
+        Storage:
+            Mode_Register(MR)
+            Attitude_Determination_Result(ADR)
+            Thruster_Control_Computing_Result(CCR)
+        Self-designedComponent:
+            Thruster_Control_Computing_Component(CCC)
+    Phenomena:
+        Gyro_power_on_instruction_load_instruction,Gyro_power_on_instruction, Gyro_power_on_pulse, Gyro_power_on_pulse
+    Behaviors:
+    {
+        <TCC,Triaxial attitude angle load instruction,ADR,instruction>;
+        <TCC,Triaxial angular velocity load instruction,ADR,instruction>;
+        <TCC,Target angle load instruction,MR,instruction>;
+        <TCC,Target angular velocity load instruction,MR,instruction>;
+            <TCC,Triaxial attitude angle,CCC,value>;
+            <TCC,Triaxial angular velocity,CCC,value>;
+            <TCC,Target angle,CCC,value>;
+            <TCC,Target angular velocity,CCC,value>;
+        <CCC,Triaxial control quantity,TCC,value>;
+        <TCC,Triaxial control quantity storage instruction,CCR,instruction>;
+    }
+
+###
+###
+AtomicProblem:
+    Name:
+        Thruster Data Acquisition 2(TDA)
+    ProblemPattern:
+        Data based Control Pattern
+    ProblemDomains:
+        Device:
+            Thruster(TCT)
+        Storage:
+            Thruster_Data(TD)
+    Phenomena:
+        Gyro_power_on_instruction_load_instruction,Gyro_power_on_instruction, Gyro_power_on_pulse, Gyro_power_on_pulse
+    Behaviors:
+    {
+        <TDA,Thruster power state perception instruction,TCT,instruction>;
+        <TDA,Thruster power state storage instruction,TD,instruction>;
+    }
+
+###
+###
+AtomicProblem:
+    Name:
+        Thruster Distribution Computing(TDC)
+    ProblemPattern:
+        Data based Control Pattern
+    ProblemDomains:
+        Storage:
+            Thruster Distribution Computing_Result(TDCR)
+            Thruster_Data(TD)
+            Thruster_Control_Computing_Result(CCR)
+        Self-designedComponent:
+            Thruster_Distribution_Computing_Component(TDCC)
+    Phenomena:
+        Gyro_power_on_instruction_load_instruction,Gyro_power_on_instruction, Gyro_power_on_pulse, Gyro_power_on_pulse
+    Behaviors:
+    {
+        <TDC,Thruster power state load instruction,TD,instruction>;
+        <TDC,Triaxial control quantity load instruction,CCR,instruction>;
+        <TDC,Thruster power state,TDCC,state>;
+        <TDC,Triaxial control quantity,TDCC,value>;
+        <TDCC,Thruster combination logic,TDC,value>;
+        <TDC,Thruster combination logic storage instruction,TDCR,instruction>;
+    }
+###
+###
+AtomicProblem:
+    Name:
+        Thruster Power Control Output(TPCO)
+    ProblemPattern:
+        Data based Control Pattern
+    ProblemDomains:
+        Device:
+            Thruster(TCT)
+        Storage:
+            Thruster_Instruction(TPI)
+        Self-designedComponent:
+            Gyro_Control_Output_Computing_Component(TPCOCC)
+    Phenomena:
+        Gyro_power_on_instruction_load_instruction,Gyro_power_on_instruction, Gyro_power_on_pulse, Gyro_power_on_pulse
+    Behaviors:
+    {
+            <TPCO,Thruster power on instruction load instruction,TPI,instruction>;
+            <TPCO,Thruster power on instruction,TPCOCC,instruction>;
+            <TPCOCC,Thruster power on pulse,TPCO,signal>;
+            <TPCO,Thruster power on pulse,TCT,signal>;
+    }
+
+
+###
+###
+AtomicProblem:
+    Name:
+        Thruster Triaxial Control 2(TTC)
+    ProblemPattern:
+        Data based Control Pattern
+    ProblemDomains:
+        Storage:
+            Triaxial control_Instruction(TTI)
+            Thruster Distribution Computing_Result(TDCR)
+        Self-designedComponent:
+            Thruster Triaxial Control_Computing_Component(TTCCC)
+    Phenomena:
+        Gyro_power_on_instruction_load_instruction,Gyro_power_on_instruction, Gyro_power_on_pulse, Gyro_power_on_pulse
+    Behaviors:
+    {
+
+        <TTC,Thruster combination logic load instruction,TDCR,instruction>;
+            <TTC,Thruster combination logic,TTCCC,value>;
+            <TTCCC,Triaxial control instruction,TTC,instruction>;
+            <TTC,Triaxial control instruction storage instruction,TTI,instruction>;
+    }
+
+###
+###
+AtomicProblem:
+    Name:
+        Thruster Triaxial Control Output(TTCO)
+    ProblemPattern:
+        Data based Control Pattern
+    ProblemDomains:
+        Device:
+            Thruster(TCT)
+        Storage:
+            Triaxial control_Instruction(TTI)
+        Self-designedComponent:
+            Thruster Triaxial_Control_Output_Computing_Component(TTCOCC)
+    Phenomena:
+        Gyro_power_on_instruction_load_instruction,Gyro_power_on_instruction, Gyro_power_on_pulse, Gyro_power_on_pulse
+    Behaviors:
+    {
+        while(time){
+            <TTCO,Triaxial control instruction load instruction,TTI,instruction>;
+            <TTCO,Triaxial control instruction,TTCOCC,instruction>;
+            <TTCOCC,Triaxial control signal,TTCO,signal>;
+            <TTCO,Triaxial control signal,TCT,signal>;
+        }
+    }
+
+###
+@@@
+Sun Search Subsystem
+{
+        Initialization;
+        while(160ms) {
+                Telecontrol Instruction Processing;
+                Data Acquisition;
+                Attitude Determination;
+                Mode Switching Management 3;
+                Thruster Control Computing 2;
+                Thruster Distribution Computing;
+                Telemetry Processing 3;
+                at@(128ms) {
+                        Thruster Triaxial Control;
+                }
+        }
+}
+
+@@@
+@@@
+Initialization
+{
+    32ms Interrupt Timer Initialization;
+    Gyro Initialization;
+    Sun Sensor Initialization;
+    Thruster Initialization;
+    Mode Initialization;
+}
+@@@
+@@@
+Gyro Initialization
+{
+Store Gyro Power on Instruction;
+ Gyro Control Output;
+ }
+@@@
+@@@
+Sun Sensor Initialization
+{
+Store Sun Sensor Power on Instruction;
+Sun Sensor Control Output;
+}
+@@@
+@@@
+Thruster Initialization
+{
+Store Thruster Power on Instruction;
+Thruster Power Control Output;
+}
+
+@@@
+@@@
+Data Acquisition
+{
+Gyro Data Acquisition 2;
+Sun Sensor Data Acquisition 2;
+Thruster Data Acquisition 2;
+}
+@@@
+@@@
+Thruster Triaxial Control
+ {
+Thruster Triaxial Control 2;
+Thruster Triaxial Control Output;
+}
+@@@
+&&&
+Declaration:
+    Devices:
+        PassiveDevices:
+            Gyro(G): Three_Volts, Serial_Port, 0x881A
+            Sun_Sensor(SS): Digital, AD, 0xA000, 0xA001, 0xA003, 0xA100, 0xC000, 0xE000
+            Triaxial Control Thruster(TCT): 10N, AD, 0xE000
+        ActiveDevices:
+            Data_Management_Computer(DMC): Serial_Port, 0x88DA
+    DataStorages:
+        Physical DataStorages:
+            Gyro_Instruction(GI): Gyro_power_on_instruction
+            Mode_Register(MR): Current_mode, Target_angle, Target_angular_velocity,Next_cycle_mode, Current_mode_working_time
+            Sun_Sensor_Instruction(SSI): Sun_sensor_power_on_instruction
+            Thruster_Power_Instruction(TPI): Thruster_power_on_instruction
+        Logical DataStorages:
+            Sun_Sensor_Data(SSD): Sun_visible_sign, Sun_measurement_angle, Sun_sensor_power_state
+            Thruster_Data(TD): Thruster_power_state
+            Attitude_Determination_Result(ADR): Triaxial_attitude_angle, Triaxial_angular_velocity
+            Control_Computing_Result(CCR): Triaxial_control_quantity
+            Thruster_Distribution_Computing_Result(TDCR): Thruster_combination_logic
+            Thruster_Triaxial_Instruction(TTI): Triaxial_control_instruction
+            Gyro_Data(GD): Angular_velocity_analog, Gyro_power_state
+    Timer:
+        32ms_Interrupt_Timer(32IT)
+&&&
