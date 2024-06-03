@@ -1,30 +1,23 @@
 AtomicProblem:
     Name:
-        Attitude Determination(AD)
+        Thruster Falt(TTF)
     ProblemPattern:
-        Data based Control Pattern
+        Falt Pattern
     ProblemDomains:
+        Device:
+            Thruster(TCT)
         Storage:
-            Gyro_Data(GD)
-            Sun_Sensor_Data(SSD)
-            Mode_Result(MR)
-            Attitude_Determination_Result(ADR)
+            Triaxial control_Instruction(TTI)
         Self-designedComponent:
-            Attitude_Determination_Computing_Component(ADCC)
+            Thruster_Falt_Computing_Component(TTFCC)
     Phenomena:
-        Angular_velocity_analog_load_instruction,Sun_visible_sign_load_instruction
+         Thruster_power_off_pulse
+    Calculation formula:
+        判断推力器连续 5s 喷气间隔小于 1s，则判定发生频繁喷气，停止喷气。
     Behaviors:
     {
-        <AD,Angular velocity analog load instruction,GD,instruction>;
-        <AD,Sun visible sign load instruction,SSD,instruction>;
-        <AD,Sun measurement angle load instruction,SSD,instruction>;
-        <AD,Current mode load instruction,MR,instruction>;
-        <AD,Angular velocity analog,ADCC,value>;
-        <AD,Sun visible sign,ADCC,value>;
-        <AD,Sun measurement angle,ADCC,value>;
-        <AD,Current mode,ADCC,value>;
-        <ADCC,Triaxial attitude angle,AD,value>;
-        <ADCC,Triaxial angular velocity,AD,value>;
-        <AD,Triaxial attitude angle storage instruction,ADR,instruction>;
-        <AD,Triaxial angular velocity storage instruction,ADR,instruction>;
+        <TTF,Triaxial control instruction load instruction,TTI,instruction>;
+        <TTF,Triaxial control instruction,TTFCC,value>;
+        <TTFCC,Thruster_power_off_pulse,TTF,value>;
+        <TTF,Thruster_power_off_pulse,TCT,signal>;
     }

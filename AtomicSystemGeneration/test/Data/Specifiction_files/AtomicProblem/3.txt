@@ -1,21 +1,16 @@
 AtomicProblem:
     Name:
-        Gyro Control Output(GCO)
+        32ms Interrupt Timer Initialization(32ITI)
     ProblemPattern:
         Data based Control Pattern
     ProblemDomains:
         Device:
-            Gyro(G)
-        Storage:
-            Gyro Instruction(GI)
-        Self-designedComponent:
-            Gyro Control Output Computing Component(GCOCC)
+            32ms interrupt timer(32IT)
+    Parameter:
+        32ms interrupt timer start instruction=1
     Phenomena:
-        Gyro_power_on_instruction_load_instruction,Gyro_power_on_instruction, Gyro_power_on_pulse, Gyro_power_on_pulse
+        32ms_interrupt_timer_start_instruction
     Behaviors:
     {
-        <GCO, Gyro power on instruction load instruction, GI, instruction>;
-        <GCO, Gyro power on instruction, GCOCC, instruction>;
-        <GCOCC, Gyro power on pulse, GCO, signal>;
-        <GCO, Gyro power on pulse, G, signal>;
+        <32ITI,32ms interrupt timer start instruction,32IT,instruction>;
     }

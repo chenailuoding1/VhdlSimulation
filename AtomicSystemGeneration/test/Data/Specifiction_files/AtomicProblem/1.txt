@@ -1,16 +1,24 @@
 AtomicProblem:
     Name:
-        32ms Interrupt Timer Initialization(32ITI)
+        Gyro Falt(GF)
     ProblemPattern:
-        Data based Control Pattern
+        Falt Pattern
     ProblemDomains:
         Device:
-            32ms interrupt timer(32IT)
-    Parameter:
-        32ms interrupt timer start instruction=1
+            Gyro(G)
+        Storage:
+            Gyro_Data(GD)
+        Self-designedComponent:
+            Gyro_Falt_Computing_Component(GFCC)
     Phenomena:
-        32ms_interrupt_timer_start_instruction
+         Gyro_power_off_pulse
+    Calculation formula:
+    variable gyrofaltcount=0;if(gyrofaltcount>5) Thruster_power_off_pulse=1 eles Thruster_power_off_pulse=0;if(Triaxial control instruction='U') gyrofaltcount++;
+
     Behaviors:
     {
-        <32ITI,32ms interrupt timer start instruction,32IT,instruction>;
+        <GF,Angular velocity analog load instruction,GD,instruction>;
+        <GF,Angular velocity analog,GFCC,value>;
+        <GFCC,Gyro_power_off_pulse,GF,value>;
+        <GF,Gyro_power_off_pulse,G,signal>;
     }

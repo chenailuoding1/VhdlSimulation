@@ -1,16 +1,21 @@
 AtomicProblem:
     Name:
-        Mode Initialization(MI)
+        Gyro Control Output(GCO)
     ProblemPattern:
         Data based Control Pattern
     ProblemDomains:
+        Device:
+            Gyro(G)
         Storage:
-            Mode_Reslut(MR)
-    Parameter:
-        Current mode=1
+            Gyro Instruction(GI)
+        Self-designedComponent:
+            Gyro Control Output Computing Component(GCOCC)
     Phenomena:
         Gyro_power_on_instruction_load_instruction,Gyro_power_on_instruction, Gyro_power_on_pulse, Gyro_power_on_pulse
     Behaviors:
     {
-        <MI,Current mode storage instruction,MR,instruction>;
+        <GCO, Gyro power on instruction load instruction, GI, instruction>;
+        <GCO, Gyro power on instruction, GCOCC, instruction>;
+        <GCOCC, Gyro power on pulse, GCO, signal>;
+        <GCO, Gyro power on pulse, G, signal>;
     }

@@ -1,23 +1,27 @@
 AtomicProblem:
     Name:
-        Thruster Distribution Computing(TDC)
+        Thruster Control Computing 2(TCC)
     ProblemPattern:
         Data based Control Pattern
     ProblemDomains:
         Storage:
-            Thruster Distribution Computing_Result(TDCR)
-            Thruster_Data(TD)
+            Mode_Register(MR)
+            Attitude_Determination_Result(ADR)
             Thruster_Control_Computing_Result(CCR)
         Self-designedComponent:
-            Thruster_Distribution_Computing_Component(TDCC)
+            Thruster_Control_Computing_Component(CCC)
     Phenomena:
         Gyro_power_on_instruction_load_instruction,Gyro_power_on_instruction, Gyro_power_on_pulse, Gyro_power_on_pulse
     Behaviors:
     {
-        <TDC,Thruster power state load instruction,TD,instruction>;
-        <TDC,Triaxial control quantity load instruction,CCR,instruction>;
-        <TDC,Thruster power state,TDCC,state>;
-        <TDC,Triaxial control quantity,TDCC,value>;
-        <TDCC,Thruster combination logic,TDC,value>;
-        <TDC,Thruster combination logic storage instruction,TDCR,instruction>;
+        <TCC,Triaxial attitude angle load instruction,ADR,instruction>;
+        <TCC,Triaxial angular velocity load instruction,ADR,instruction>;
+        <TCC,Target angle load instruction,MR,instruction>;
+        <TCC,Target angular velocity load instruction,MR,instruction>;
+            <TCC,Triaxial attitude angle,CCC,value>;
+            <TCC,Triaxial angular velocity,CCC,value>;
+            <TCC,Target angle,CCC,value>;
+            <TCC,Target angular velocity,CCC,value>;
+        <CCC,Triaxial control quantity,TCC,value>;
+        <TCC,Triaxial control quantity storage instruction,CCR,instruction>;
     }

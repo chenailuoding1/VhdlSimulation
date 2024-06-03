@@ -1,25 +1,16 @@
 AtomicProblem:
     Name:
-        Sun Sensor Data Acquisition 2(SSDA)
+        Store Thruster Power on Instruction(STPOI)
     ProblemPattern:
         Data based Control Pattern
     ProblemDomains:
-        Device:
-            Sun_Sensor(SS)
         Storage:
-            Sun_Sensor_Data(SSD)
-        Self-designedComponent:
-            Sun_Sensor_Control_Output_Computing_Component(SSDACC)
+            Thruster_Instruction(TPI)
+    Parameter:
+        Thruster_power_on_instruction=1
     Phenomena:
         Gyro_power_on_instruction_load_instruction,Gyro_power_on_instruction, Gyro_power_on_pulse, Gyro_power_on_pulse
     Behaviors:
     {
-        <SSDA,Sun visible sign acquisition instruction,SS,instruction>;
-        <SSDA,Angle analog acquisition instruction,SS,instruction>;
-        <SSDA,Sun sensor power state perception instruction,SS,instruction>;
-        <SSDA,Angle analog,SSDACC,value>;
-        <SSDACC,Sun measurement angle,SSDA,value>;
-        <SSDA,Sun visible sign storage instruction,SSD,instruction>;
-        <SSDA,Sun measurement angle storage instruction,SSD,instruction>;
-        <SSDA,Sun sensor power state storage instruction,SSD,instruction>;
+        <STPOI,Thruster power on instruction storage instruction,TPI,instruction>;
     }

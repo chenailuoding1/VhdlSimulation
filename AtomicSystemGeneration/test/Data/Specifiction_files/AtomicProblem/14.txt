@@ -1,27 +1,21 @@
 AtomicProblem:
     Name:
-        Thruster Control Computing 2(TCC)
+        Telecontrol Instruction Processing(TIP)
     ProblemPattern:
         Data based Control Pattern
     ProblemDomains:
+        Device:
+            Data_Management_Computer(DMC)
         Storage:
-            Mode_Register(MR)
-            Attitude_Determination_Result(ADR)
-            Thruster_Control_Computing_Result(CCR)
+            Mode_Result(MR)
         Self-designedComponent:
-            Thruster_Control_Computing_Component(CCC)
+            Telecontrol_Instruction_Processing_Computing_Component(TIPCC)
     Phenomena:
         Gyro_power_on_instruction_load_instruction,Gyro_power_on_instruction, Gyro_power_on_pulse, Gyro_power_on_pulse
     Behaviors:
     {
-        <TCC,Triaxial attitude angle load instruction,ADR,instruction>;
-        <TCC,Triaxial angular velocity load instruction,ADR,instruction>;
-        <TCC,Target angle load instruction,MR,instruction>;
-        <TCC,Target angular velocity load instruction,MR,instruction>;
-            <TCC,Triaxial attitude angle,CCC,value>;
-            <TCC,Triaxial angular velocity,CCC,value>;
-            <TCC,Target angle,CCC,value>;
-            <TCC,Target angular velocity,CCC,value>;
-        <CCC,Triaxial control quantity,TCC,value>;
-        <TCC,Triaxial control quantity storage instruction,CCR,instruction>;
+        <DMC,Telecontrol instruction,TIP,instruction>;
+        <TIP,Telecontrol instruction,TIPCC,instruction>;
+        <TIPCC,Next cycle mode,TIP,value>;
+        <TIP,Next cycle mode storage instruction,MR,instruction>;
     }

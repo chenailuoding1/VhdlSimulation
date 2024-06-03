@@ -1,21 +1,21 @@
 AtomicProblem:
     Name:
-        Telecontrol Instruction Processing(TIP)
+        Sun Sensor Control Output(SSCO)
     ProblemPattern:
         Data based Control Pattern
     ProblemDomains:
         Device:
-            Data_Management_Computer(DMC)
+            Sun_Sensor(SS)
         Storage:
-            Mode_Result(MR)
+            Sun_Sensor_Instruction(SSI)
         Self-designedComponent:
-            Telecontrol_Instruction_Processing_Computing_Component(TIPCC)
+           Sun_Sensor_Control_Output_Computing_Component(SSCOCC)
     Phenomena:
         Gyro_power_on_instruction_load_instruction,Gyro_power_on_instruction, Gyro_power_on_pulse, Gyro_power_on_pulse
     Behaviors:
     {
-        <DMC,Telecontrol instruction,TIP,instruction>;
-        <TIP,Telecontrol instruction,TIPCC,instruction>;
-        <TIPCC,Next cycle mode,TIP,value>;
-        <TIP,Next cycle mode storage instruction,MR,instruction>;
+        <SSCO,Sun sensor power on instruction load instruction,SSI,instruction>;
+        <SSCO,Sun sensor power on instruction,SSCOCC,instruction>;
+        <SSCOCC,Sun sensor power on pulse,SSCO,signal>;
+        <SSCO,Sun sensor power on pulse,SS,signal>;
     }

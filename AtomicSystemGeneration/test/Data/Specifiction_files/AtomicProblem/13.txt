@@ -1,26 +1,25 @@
 AtomicProblem:
     Name:
-        Telemetry Processing 3(TP)
+        Sun Sensor Data Acquisition 2(SSDA)
     ProblemPattern:
-        Data Transmission Pattern
+        Data based Control Pattern
     ProblemDomains:
         Device:
-            Data_Management_Computer(DMC)
+            Sun_Sensor(SS)
         Storage:
-            Mode_Register(MR)
-            Attitude_Determination_Result(ADR)
+            Sun_Sensor_Data(SSD)
         Self-designedComponent:
-            Telemetry_Processing_Computing_Component(TPCC)
+            Sun_Sensor_Control_Output_Computing_Component(SSDACC)
     Phenomena:
-        Current_mode_load_instruction, Triaxial_attitude_angle_load_instruction,Triaxial_angular_velocity_load_instruction, Current_mode, Triaxial_attitude_angle,Triaxial_angular_velocity, Telemetry_data, Telemetry_data_transmission_instruction
+        Gyro_power_on_instruction_load_instruction,Gyro_power_on_instruction, Gyro_power_on_pulse, Gyro_power_on_pulse
     Behaviors:
     {
-        <TP,Current mode load instruction,MR,instruction>;
-        <TP,Triaxial attitude angle load instruction,ADR,instruction>;
-        <TP,Triaxial angular velocity load instruction,ADR,instruction>;
-        <TP,Current mode,TPCC,value>;
-        <TP,Triaxial attitude angle,TPCC,value>;
-        <TP,Triaxial angular velocity,TPCC,value>;
-        <TPCC,Telemetry data,TP,value>;
-        <TP,Telemetry data transmission instruction,DMC,instruction>;
+        <SSDA,Sun visible sign acquisition instruction,SS,instruction>;
+        <SSDA,Angle analog acquisition instruction,SS,instruction>;
+        <SSDA,Sun sensor power state perception instruction,SS,instruction>;
+        <SSDA,Angle analog,SSDACC,value>;
+        <SSDACC,Sun measurement angle,SSDA,value>;
+        <SSDA,Sun visible sign storage instruction,SSD,instruction>;
+        <SSDA,Sun measurement angle storage instruction,SSD,instruction>;
+        <SSDA,Sun sensor power state storage instruction,SSD,instruction>;
     }

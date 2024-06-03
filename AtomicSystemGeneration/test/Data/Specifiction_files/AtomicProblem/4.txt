@@ -1,23 +1,30 @@
 AtomicProblem:
     Name:
-        Gyro Data Acquisition 2(GDA)
+        Attitude Determination(AD)
     ProblemPattern:
         Data based Control Pattern
     ProblemDomains:
-        Device:
-            Gyro(G)
         Storage:
             Gyro_Data(GD)
+            Sun_Sensor_Data(SSD)
+            Mode_Result(MR)
+            Attitude_Determination_Result(ADR)
         Self-designedComponent:
-            Gyro_Data_Acquisition_Computing_Component(GDACC)
+            Attitude_Determination_Computing_Component(ADCC)
     Phenomena:
-        Gyro_power_on_instruction_load_instruction,Gyro_power_on_instruction, Gyro_power_on_pulse, Gyro_power_on_pulse
+        Angular_velocity_analog_load_instruction,Sun_visible_sign_load_instruction
     Behaviors:
     {
-        <GDA,Pulse count acquisition instruction,G,instruction>;
-        <GDA,Gyro power state perception instruction,G,instruction>;
-        <GDA,Pulse count,GDACC,value>;
-        <GDACC,Angular velocity analog,GDA,value>;
-        <GDA,Angular velocity analog storage instruction,GD,instruction>;
-        <GDA,Gyro power state storage instruction,GD,instruction>;
+        <AD,Angular velocity analog load instruction,GD,instruction>;
+        <AD,Sun visible sign load instruction,SSD,instruction>;
+        <AD,Sun measurement angle load instruction,SSD,instruction>;
+        <AD,Current mode load instruction,MR,instruction>;
+        <AD,Angular velocity analog,ADCC,value>;
+        <AD,Sun visible sign,ADCC,value>;
+        <AD,Sun measurement angle,ADCC,value>;
+        <AD,Current mode,ADCC,value>;
+        <ADCC,Triaxial attitude angle,AD,value>;
+        <ADCC,Triaxial angular velocity,AD,value>;
+        <AD,Triaxial attitude angle storage instruction,ADR,instruction>;
+        <AD,Triaxial angular velocity storage instruction,ADR,instruction>;
     }
