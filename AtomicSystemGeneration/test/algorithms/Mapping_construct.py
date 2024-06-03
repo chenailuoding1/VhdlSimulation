@@ -8,6 +8,10 @@ import re
 from AtomicSystemGeneration.test.algorithms.Function import *
 def rule1(input):
     name = input.split("(")[1].strip(")")#名称简写
+    if vhdlname(name)=="*":
+        name="name"
+    else:
+        name=vhdlname(name)
     atomicname=input.split("(")[0].strip(")")#名称原称
     atomiccontrollername=name+"controller"
     return name,atomicname,atomiccontrollername
