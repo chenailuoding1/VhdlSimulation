@@ -85,8 +85,9 @@ def Grenate_VHDL():
     try:
         data = request.json
         definitions = data.get('definitions')
-        # print("definitions")
-        # print(definitions)
+        connects = data.get('connects')
+        print("connects")
+        print(connects)
         for definition in definitions:
             vhdl=""
             if definition["type"]=="AtomicCommponet":
@@ -96,6 +97,7 @@ def Grenate_VHDL():
             elif definition["type"]=="ComController":
                 vhdl = GreateAtomic.GenerateComControllerVHDL(definition)
             definition["vhdl"]=vhdl
+        print(GreateAtomic.GenerateTopVHDL(definitions,connects))
         # print("newdefinitions")
         # print(definitions)
 
