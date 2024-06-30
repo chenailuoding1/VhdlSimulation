@@ -89,17 +89,19 @@ def AtomicCommponetCreate():
             parser = AtomicProblemParser()
             converted_data = parser.parse_text_data(data)
             # 原子组件
-
+            Calculationformula=converted_data["Calculation formula"]
             atomicCommponet=AtomicCommponet()
             # 打印转换后的数据
             # print(converted_data)
             #应用转换规则
             Name,AtomicName,ControllerName=rule1(converted_data["Name"])#规则1 将原子问题名称映射为原子组件和原子控制器子组件名称
-
+            RAMs=rule8(converted_data["Parameter"])
+            atomicCommponet.SetRAMs(RAMs)
             atomicCommponets[AtomicName]=Name
             atomicCommponet.SetName(Name)
             atomicCommponet.SetAtomicName(AtomicName)
             atomicCommponet.SetControllerName(ControllerName)
+            atomicCommponet.SetCalculationformula(Calculationformula)
             # print(atomicCommponet.AtomicName)
             # print(converted_data["Behaviors"])
             # print("Gyro(G)" in converted_data["ProblemDomains"]["Device"])
@@ -115,18 +117,23 @@ def AtomicCommponetCreate():
             # print(converted_data["Behaviors"])
             # print(rule(converted_data["Behaviors"]))
             #解析共享现象Behaviors，得到原子共享现象状态数组，时间约束数组，共享现象数组
-            atomicstates, timeconstraints, behaviors,events=rule(converted_data["Behaviors"],Name)
+            atomicstates, timeconstraints, behaviors=rule(converted_data["Behaviors"],Name)
+            # print(f"原子问题{Name}的行为处理前{behaviors}")
+
             for behavior in behaviors:
                 otherbehav = {}
                 if behavior["Sender"] in devices :
+                    #连接包括发送接收方，以及发送接收方各自的端口名称
+                    connect={"Sender":behavior["Sender"],"Receiver":behavior["Receiver"],"Sender_signal":behavior["Signal"],"Receiver_signal":behavior["Signal"]}
                     #将连接保存在总连接库里
-                    Connects.append(behavior)
+                    Connects.append(connect)
                     atomicCommponet.SetConnector_devices(behavior)#往原子组件中添加连接
                     Commponets[behavior["Sender"]].SetConnector_devices(behavior)  # 规则4 映射为设备连接，并向相应的设备组件中加入连接
                 elif behavior["Receiver"] in devices:
+                    connect = {"Sender": behavior["Sender"], "Receiver": behavior["Receiver"],"Sender_signal": behavior["Signal"], "Receiver_signal": behavior["Signal"]}
                     # print("devices")
                     # 将连接保存在总连接库里
-                    Connects.append(behavior)
+                    Connects.append(connect)
                     atomicCommponet.SetConnector_devices(behavior)
                     Commponets[behavior["Receiver"]].SetConnector_devices(behavior)  # 规则4 映射为设备连接
                     if Signalcjudge(behavior["Signal"])==1:#为读取、采集指令
@@ -134,47 +141,103 @@ def AtomicCommponetCreate():
                         otherbehav["Sender"]=behavior["Receiver"]
                         otherbehav["Receiver"] = behavior["Sender"]
                         otherbehav["Signal"] = behavior["Signal"].replace(" load instruction","").replace(" acquisition instruction","").replace(" perception instruction","")
+                        otherconnect = {"Sender": otherbehav["Sender"], "Receiver": otherbehav["Receiver"],
+                                        "Sender_signal": otherbehav["Signal"], "Receiver_signal": otherbehav["Signal"]}
                         # 将额外连接保存在总连接库里
-                        Connects.append(otherbehav)
+                        Connects.append(otherconnect)
                     elif Signalcjudge(behavior["Signal"])==2 :#为存储指令
 
                         otherbehav["Sender"] = behavior["Sender"]
                         otherbehav["Receiver"] = behavior["Receiver"]
                         otherbehav["Signal"] = behavior["Signal"].replace(" storage instruction", "")
-                        Connects.append(otherbehav)
+                        otherconnect = {"Sender": otherbehav["Sender"], "Receiver": otherbehav["Receiver"],
+                                        "Sender_signal": otherbehav["Signal"], "Receiver_signal": otherbehav["Signal"]}
+                        # 将额外连接保存在总连接库里
+                        Connects.append(otherconnect)
+
                     Commponets[behavior["Receiver"]].SetConnector_devices(otherbehav)
                     atomicCommponet.SetConnector_devices(otherbehav)
                 elif behavior["Sender"] in storages :
-                    Connects.append(behavior)
+
+                    behaviorSignal = behavior["Signal"]
+                    # 如果该行为的信号在这个数据存储中重名了,需要加上接收方发送方进行区分
+                    if behaviorSignal in Commponets[behavior["Sender"]].GetConnector_outsignals():
+
+                        behaviorSignal = behavior["Sender"] + "_" + behavior["Receiver"] + "_" + behaviorSignal
+
+
+                    Commponets[behavior["Sender"]].SetConnector_outsignals(behaviorSignal)
+                    connect = {"Sender": behavior["Sender"], "Receiver": behavior["Receiver"],
+                               "Sender_signal": behaviorSignal, "Receiver_signal": behavior["Signal"]}
+                    Connects.append(connect)
                     atomicCommponet.SetConnector_datas(behavior)
-                    Commponets[behavior["Sender"]].SetConnector_datas(behavior)  # 规则4 映射为设备连接
+                    Commponets[behavior["Sender"]].SetConnector_datas({"Sender":behavior["Sender"],"Receiver":behavior["Receiver"],"Signal":behaviorSignal})  # 规则4 映射为设备连接
 
 
                 elif behavior["Receiver"] in storages:
                     # print("storages")
-                    #将连接记录下来
-                    Connects.append(behavior)
-                    atomicCommponet.SetConnector_datas(behavior)
-                    Commponets[behavior["Receiver"]].SetConnector_datas(behavior)  # 规则4 映射为设备连接
-                    if Signalcjudge(behavior["Signal"])==1:#为读取、采集指令
+                    RAMs = Commponets[behavior["Receiver"]].GetRAMs()  # 获取存储（storage）的RAMs进行更新
 
+                    RAMsignal=behavior["Signal"].replace(" load instruction","").replace(" acquisition instruction","").replace(" perception instruction","").replace(" storage instruction", "")
+                    behaviorSignal=behavior["Signal"]
+                    #如果该行为的信号在这个数据存储中重名了,需要加上接收方发送方进行区分
+                    if behaviorSignal in Commponets[behavior["Receiver"]].GetConnector_insignals():
+                        # RAMs = Commponets[behavior["Receiver"]].GetRAMs()  # 获取RAMs进行更新
+
+                        behaviorSignal=behavior["Sender"]+"_"+behavior["Receiver"]+"_"+behaviorSignal
+
+                    Commponets[behavior["Receiver"]].SetConnector_insignals(behaviorSignal)
+
+                    #将连接记录下来
+                    #作为发送方的原子组件信号没有重名不需要改变，而接收方的存储器需要
+                    connect = {"Sender": behavior["Sender"], "Receiver": behavior["Receiver"],
+                               "Sender_signal":behavior["Signal"] , "Receiver_signal": behaviorSignal}
+                    Connects.append(connect)
+                    atomicCommponet.SetConnector_datas(behavior)
+                    Commponets[behavior["Receiver"]].SetConnector_datas({"Sender":behavior["Sender"],"Receiver":behavior["Receiver"],"Signal":behaviorSignal})  # 规则4 映射为设备连接
+                    if Signalcjudge(behaviorSignal)==1:#为读取、采集指令
+                        #将要读取的数据记录下来
+                        datasingal= behaviorSignal.replace(" load instruction","").replace(" acquisition instruction","").replace(" perception instruction","").replace(" storage instruction", "")
                         otherbehav["Sender"]=behavior["Receiver"]
                         otherbehav["Receiver"] = behavior["Sender"]
-                        otherbehav["Signal"] = behavior["Signal"].replace(" load instruction","").replace(" acquisition instruction","").replace(" perception instruction","")
+                        otherbehav["Signal"] =behavior["Signal"].replace(" load instruction","").replace(" acquisition instruction","").replace(" perception instruction","").replace(" storage instruction", "")
                         # 将额外连接记录下来
-                        Connects.append(otherbehav)
-                    elif Signalcjudge(behavior["Signal"])==2 :
 
+                        otherconnect = {"Sender": otherbehav["Sender"], "Receiver": otherbehav["Receiver"],
+                                        "Sender_signal":datasingal , "Receiver_signal": otherbehav["Signal"]}
+                        # 将额外连接保存在总连接库里
+                        Connects.append(otherconnect)
+                        #将读取指令和要读取的数据形成字典放入RAM的read字段里
+                        if RAMsignal in RAMs.keys():
+                            RAMs[RAMsignal]["read"].append({"loadins":behaviorSignal,"data":datasingal})
+                        else:
+                            RAMs[RAMsignal] = {"read": [{"loadins":behaviorSignal,"data":datasingal}], "write": []}
+                    elif Signalcjudge(behaviorSignal)==2 :#存储指令
+                        datasingal = behaviorSignal.replace(" load instruction", "").replace(" acquisition instruction", "").replace(" perception instruction", "").replace(" storage instruction", "")
                         otherbehav["Sender"] = behavior["Sender"]
                         otherbehav["Receiver"] = behavior["Receiver"]
-                        otherbehav["Signal"] = behavior["Signal"].replace(" storage instruction", "")
-                        # 将额外连接记录下来
-                        Connects.append(otherbehav)
-                    Commponets[behavior["Receiver"]].SetConnector_datas(otherbehav)
+                        otherbehav["Signal"] = behavior["Signal"].replace(" load instruction","").replace(" acquisition instruction","").replace(" perception instruction","").replace(" storage instruction", "")
+                        otherconnect = {"Sender": otherbehav["Sender"], "Receiver": otherbehav["Receiver"],
+                                        "Sender_signal": otherbehav["Signal"], "Receiver_signal":  datasingal}
+                        # 将额外连接保存在总连接库里
+                        Connects.append(otherconnect)
+                        # 将存储指令和要存储的数据形成字典放入RAM的write字段里
+
+                        if RAMsignal in RAMs.keys():
+                            RAMs[RAMsignal]["write"].append({"storeins": behaviorSignal,"data": datasingal})
+                        else:
+                            RAMs[RAMsignal] = {"read": [], "write": [{"storeins": behaviorSignal,"data": datasingal}]}
+                    Commponets[behavior["Receiver"]].SetConnector_datas({"Sender":otherbehav["Sender"],"Receiver":otherbehav["Receiver"],"Signal":datasingal})
                     atomicCommponet.SetConnector_datas(otherbehav)
                 elif behavior["Sender"] in self_designedComponents or behavior["Receiver"] in self_designedComponents:
                     # print("self_designedComponents")
                     atomicCommponet.SetConnector_components(behavior)#规则2 映射为组件连接
+            # print(f"原子问题{Name}的行为处理后{behaviors}")
+            events=[]
+            for i in range(1,len(atomicstates)+1):
+
+                events.append(rule6(atomicstates[i-1], behaviors[i-1]["Signal"]))
+            # print(f"原子问题{Name}的行为处理后{events}")
             #将时间约束化为状态，并与原子共享现象状态数组结合，形成原子问题的状态数组，以及状态间的迁移条件
             if_stack=[] #利用栈实现if elif  else 匹配，应对if else 嵌套问题
             for item in timeconstraints:
@@ -437,8 +500,10 @@ def ComCommponetCreate():
                         dependencyconnect2 = {}
                         dependencyconnect["Sender"] = ComControllerName
                         dependencyconnect2["Receiver"]= ComControllerName
-                        dependencyconnect["Signal"] = line.strip(";")+"_start"
-                        dependencyconnect2["Signal"] = line.strip(";") + "_done"
+                        dependencyconnect["Sender_signal"] = line.strip(";")+"_start"
+                        dependencyconnect["Receiver_signal"] = line.strip(";") + "_start"
+                        dependencyconnect2["Sender_signal"] = line.strip(";") + "_done"
+                        dependencyconnect2["Receiver_signal"] = line.strip(";") + "_done"
                         if line.strip(";") in atomicCommponets.keys():#如果组件是原子组件，即能在原子组件字典中找到对应名称
                             dependencyconnect["Receiver"] = atomicCommponets[line.strip(";")]#记录为原子组件的简写
                             dependencyconnect2["Sender"] = atomicCommponets[line.strip(";")]  # 记录为原子组件的简写
@@ -610,8 +675,12 @@ def ComCommponetCreate():
                     events.append(rule6("if_else_start" + str(ifitem["startstate"]), "nothing"))
             # 添加一个初始状态
             comcontrollerstates.insert(0, '0')
+            # 添加一个末尾状态
+            comcontrollerstates.insert(len(comcontrollerstates), 'last')
             # 将起始和末尾状态的执行事件添加到执行事件集中
             events.append(rule6('0', "nothing"))
+            # 将起始和末尾状态的执行事件添加到执行事件集中
+            events.append(rule6('last', ComControllerName+"_done"))
             # 循环遍历状态列表，为每个状态确定其迁移集
             for state in comcontrollerstates:
                 index = comcontrollerstates.index(state)
@@ -625,7 +694,7 @@ def ComCommponetCreate():
                 for event in events:
                     if event["state"] == state:
                         curentevent=event["event"]
-                if flag:
+                if flag :
                     tran = {}
                     tran["state"] = state
                     tran["tranconditions"] = []
@@ -638,10 +707,13 @@ def ComCommponetCreate():
                         trancondition["destination"] = comcontrollerstates[0]
                     if index == 0:
                         trancondition["migrateeevent"] = ComControllerName+"_start"
+                    elif state=="last":
+                        trancondition["migrateeevent"] = "nothing"
                     else:
                         trancondition["migrateeevent"] = curentevent.split("_")[0]+"_done"
                     tran["tranconditions"].append(trancondition)
                     comController.SetSubController_Tran(tran)
+
             for state in comcontrollerstates:
                 comController.SetSubController_State(state)
             for event in events:
@@ -668,20 +740,21 @@ def GAtomicCommponet():
         Connects.append(item)
         Sender = item["Sender"]
         Receiver = item["Receiver"]
-        Commponets[Sender].SetConnector_controllers(item)
-        Commponets[Receiver].SetConnector_controllers(item)
+        Commponets[Sender].SetConnector_controllers({"Sender":Sender,"Receiver":Receiver,"Signal":item["Sender_signal"]})
+        Commponets[Receiver].SetConnector_controllers({"Sender":Sender,"Receiver":Receiver,"Signal":item["Sender_signal"]})
     definitions=[]
     for name,commponet in Commponets.items():
         if name in atomicCommponets.values():
             definition = {}
             definition["type"] = "AtomicCommponet"
-            definition["name"] = "*" + commponet.GetName()
-            definition["fx"] = commponet.GetComputing()["Fx"]
+            definition["name"] = commponet.GetName()
+            definition["fx"] = commponet.GetCalculationformula()
             definition["subport"] = []
             definition["inputs"] = []
             definition["outputs"] = []
-            print("test")
-            print(commponet.GetController()['State'])
+            definition["RAMs"] = commponet.GetRAMs()
+            print("testGetRAMs")
+            print(commponet.GetRAMs())
             definition["states"] = commponet.GetController()['State']
             definition["events"] =commponet.GetController()['Event']
             definition["trans"] = commponet.GetController()['Tran']
@@ -732,12 +805,8 @@ def GAtomicCommponet():
         elif name in Devices:
             definition = {}
             definition["type"] = "Device"
-            definition["name"] = "*" + commponet.GetName()
-            definition["fx"] =""
-            definition["subport"] = []
-            definition["states"] = []
-            definition["events"] = []
-            definition["trans"] = []
+            definition["name"] =  commponet.GetName()
+            definition["vhdl"] = ""
             definition["inputs"] = []
             definition["outputs"] = []
             definition["requirement"] = ""
@@ -766,15 +835,12 @@ def GAtomicCommponet():
         elif name in DataStorages:
             definition = {}
             definition["type"] = "DataStorage"
-            definition["name"] = "*" + commponet.GetName()
-            definition["fx"] = ""
-            definition["subport"] = []
-            definition["states"] =[]
-            definition["events"] =[]
-            definition["trans"] = []
+            definition["name"] =  commponet.GetName()
+
+            definition["vhdl"] = ""
             definition["inputs"] = []
             definition["outputs"] = []
-            definition["requirement"] = ""
+            definition["RAMs"] = commponet.GetRAMs()
             ports = commponet.GetConnector_datas()
             i = 0
             j = 0
@@ -800,7 +866,7 @@ def GAtomicCommponet():
         elif name in ComControllers:
             definition = {}
             definition["type"] = "ComController"
-            definition["name"] = "*" + commponet.GetName()
+            definition["name"] =  commponet.GetName()
             definition["fx"] = ""
             definition["subport"] = []
             definition["states"] = commponet.GetSubController()['State']
@@ -808,6 +874,7 @@ def GAtomicCommponet():
             definition["trans"] = commponet.GetSubController()['Tran']
             definition["inputs"] = []
             definition["outputs"] = []
+            definition["vhdl"] = ""
             definition["requirement"] = ""
             ports =  commponet.GetConnector_controllers()
             i = 0
@@ -832,6 +899,9 @@ def GAtomicCommponet():
                         j = j + 1
             definitions.append(definition)
     return definitions,Connects
+
+
+
 def GenerateDataStorageVHDL(definition):
     # 生成vhdl代码
 
@@ -839,12 +909,8 @@ def GenerateDataStorageVHDL(definition):
     vhdl = ""
     inputs = definition["inputs"]
     outputs = definition["outputs"]
-    subports = definition["subport"]
-    states = definition["states"]
-    events = definition["events"]
-    trans = definition["trans"]
-    fx = definition["fx"]
-    vhdl = ""
+    RAMs = definition["RAMs"]
+
     entitystr = ""
     signalstr = ""
     storeprocessstr = ""
@@ -862,8 +928,8 @@ def GenerateDataStorageVHDL(definition):
         storetemplate = file.read()
     # 原子组件的输入输出端口
     portstr = ""
-    loadports=[]
-    storeports=[]
+    loadports = []
+    storeports = []
     print("testloadports")
     ports = []
     for input in inputs:
@@ -871,49 +937,48 @@ def GenerateDataStorageVHDL(definition):
         # 原子组件输入端口转换成top的端口声明以及信号声明
         portstr = "in_" + jianxie(input["value"]) + ":in STD_LOGIC_VECTOR ( 31 downto 0 );"
         ports.append(portstr)
-        if Signalcjudge(input["value"])==1:
-            loadports.append(input["value"])
-        elif Signalcjudge(input["value"])==2:
-            storeports.append(input["value"])
 
-    for i in range(0,len(outputs)):
+
+    for i in range(0, len(outputs)):
         # 原子组件输出端口转换成top的端口声明
-        if i ==len(outputs)-1:
+        if i == len(outputs) - 1:
             portstr = "out_" + jianxie(outputs[i]["value"]) + ":out STD_LOGIC_VECTOR ( 31 downto 0 )"
         else:
             portstr = "out_" + jianxie(outputs[i]["value"]) + ":out STD_LOGIC_VECTOR ( 31 downto 0 );"
         ports.append(portstr)
-        if Signalcjudge(outputs[i]["value"])==1:
-            loadports.append(outputs[i]["value"])
-        elif Signalcjudge(outputs[i]["value"])==2:
-            storeports.append(outputs[i]["value"])
+
     portsstr = "\n    ".join(ports)
     # 生成顶层组件，原子控制子组件，计算子组件vhdl实体部分
     entitystr = entitytemplate.replace('<<entityname>>', jianxie(Name)).replace('<<port_section>>', portsstr)
 
-    for storeport in storeports:
-        inport = storeport.replace(' storage instruction', "")
-        signalstr +=  "\nsignal RAM_" + jianxie(inport)+": STD_LOGIC_VECTOR ( 31 downto 0 );\n"
-
-
+    RAMsignals=RAMs.keys()
+    for RAMsignal in RAMsignals:
+        signalstr += "\nsignal RAM_" + jianxie(RAMsignal) + ": STD_LOGIC_VECTOR ( 31 downto 0 );\n"
+    vhdl = entitystr + signalstr + "\nbegin\n"
+    for RAM in RAMs.items():
+        RAMsignal=RAM[0]
+        RAMlist=RAM[1]
+        print(f"RAMsignal{RAMsignal},{RAMlist}")
+        loadvhdl=GenrateDataLoadVHDl(RAMsignal,RAMlist["read"],loadtemplate)
+        storevhdl = GenrateDataStoreVHDl(RAMsignal, RAMlist["write"], storetemplate)
+        vhdl = vhdl +loadvhdl+"\n"+storevhdl+"\n"
     print(loadports)
     print("testloadports")
     print(storeports)
-    vhdl = entitystr + signalstr+"\nbegin\n"+GenrateDataStoreVHDl(storeports,storetemplate)+GenrateLoadVHDl(loadports,loadtemplate)+"\nend Behavioral;"
+    vhdl = vhdl+ "\nend Behavioral;"
     return vhdl
 
-def GenrateDataStoreVHDl(storeports,storetemplate):
+def GenrateDataStoreVHDl(RAMsignal,writelist,storetemplate):
     vhdl=""
-    for storeport in storeports:
-        inport=storeport.replace(' storage instruction', "")
-        vhdl+=storetemplate.replace('<<storeport>>', "in_" + jianxie(storeport)).replace('<<inport>>', "in_" + jianxie(inport)).replace('<<ram>>', "RAM_" + jianxie(inport))
+    for write in writelist:
+        vhdl+=storetemplate.replace('<<storeport>>', "in_" + jianxie(write["storeins"])).replace('<<inport>>', "in_" + jianxie(write["data"])).replace('<<ram>>', "RAM_" + jianxie(RAMsignal))
     return vhdl
 
-def GenrateLoadVHDl(loadports,loadtemplate):
+def GenrateDataLoadVHDl(RAMsignal,readlist,loadtemplate):
+
     vhdl=""
-    for loadport in loadports:
-        outport=loadport.replace(' load instruction', "")
-        vhdl+=loadtemplate.replace('<<loadport>>', "in_" + jianxie(loadport)).replace('<<outport>>', "out_" + jianxie(outport)).replace('<<ram>>', "RAM_" + jianxie(outport))
+    for read in readlist:
+        vhdl+=loadtemplate.replace('<<loadport>>', "in_" + jianxie(read["loadins"])).replace('<<outport>>', "out_" + jianxie(read["data"])).replace('<<ram>>', "RAM_" + jianxie(RAMsignal))
     return vhdl
 def GenerateComControllerVHDL(definition):
     # 生成vhdl代码
@@ -954,6 +1019,7 @@ def GenerateComControllerVHDL(definition):
         ports.append(portstr)
     portsstr = "\n    ".join(ports)+"\nclk:in std_logic;\nrst:in std_logic\n"
     # 生成顶层组件，原子控制子组件，计算子组件vhdl实体部分
+    # print("ccname"+Name+","+vhdlname(jianxie(Name)))
     entitystr = entitytemplate.replace('<<entityname>>', jianxie(Name)).replace('<<port_section>>',portsstr)
     statesignalstr = ""
     for i in range(0, len(states)):
@@ -965,6 +1031,120 @@ def GenerateComControllerVHDL(definition):
     stateprocess = statetemplate.replace("<<statevhdl>>", generatestatevhdl_concomponent(trans)).replace("<<eventvhdl>>",generateeventvhdl_concomponent(events))
     vhdl=entitystr+signalstr+stateprocess+"\nend Behavioral;"
     return vhdl
+def GenerateTopVHDL(definitions,connects,modelName):
+    vhdl=""
+    entitytemplate_file = 'AtomicSystemGeneration/test/Template/Entity_Template'
+
+    with open(entitytemplate_file, 'r', encoding='utf-8') as file:
+        entitytemplate = file.read()
+
+    topports=[]
+    topcomponet=""
+    topcomponetmap=""
+    midsignalsin = {}
+    midsignalsout = {}
+    for definition in definitions:
+
+        inputs = definition["inputs"]
+        outputs = definition["outputs"]
+        atomicName = definition["name"]
+        midsignalsin[jianxie(atomicName)]=[]
+        midsignalsout[jianxie(atomicName)] = []
+        ports=[]
+
+        componenttemplate_file = 'AtomicSystemGeneration/test/Template/Componentdefine_Template'
+        with open(componenttemplate_file, 'r', encoding='utf-8') as file:
+            componenttemplate = file.read()
+        componentstr=""
+        if definition["type"]!="DataStorage":
+            componentstr +="\nclk:in std_logic;\nrst:in std_logic;\n"
+        for input in inputs:
+            # 原子组件输入端口转换成top的端口声明以及信号声明
+            portstr = "in_" + jianxie(input["value"]) + ":in STD_LOGIC_VECTOR ( 31 downto 0 );"
+            # 输入的需要信号声明来存储
+            ports.append(portstr)
+
+        for i in range(0,len(outputs)):
+            # 原子组件输出端口转换成top的端口声明
+            if i!=len(outputs)-1:
+                portstr = "out_" + jianxie(outputs[i]["value"]) + ":out STD_LOGIC_VECTOR ( 31 downto 0 );"
+            else:
+                portstr = "out_" + jianxie(outputs[i]["value"]) + ":out STD_LOGIC_VECTOR ( 31 downto 0 )"
+            ports.append(portstr)
+        componentstr += "\n    ".join(ports)
+
+
+        # print(componenttemplate.replace('<<name>>', atomicName).replace('<<ports>>', topstr)+"\n")
+        topcomponet += componenttemplate.replace('<<name>>', jianxie(atomicName)).replace('<<ports>>', componentstr)+"\n"
+    signalstr=""
+
+    for connect in connects:
+        midsignal="m_"+jianxie(connect["Sender"])+"_"+jianxie(connect["Receiver"]) +"_"+ jianxie(connect["Receiver_signal"])
+        signalstr += "signal " +midsignal + ": STD_LOGIC_VECTOR ( 31 downto 0 );\n"
+        inmidsignaldict={}
+        inmidsignaldict[jianxie(connect["Receiver_signal"])]=midsignal
+        outmidsignaldict = {}
+        outmidsignaldict[jianxie(connect["Sender_signal"])] = midsignal
+        #将连接与原子组件关联起来
+        midsignalsout[jianxie(connect["Sender"])].append(outmidsignaldict)
+        midsignalsin[jianxie(connect["Receiver"])].append(inmidsignaldict)
+    signalstr +="begin\n"
+
+    for definition in definitions:
+        inputs = definition["inputs"]
+        outputs = definition["outputs"]
+        atomicName = definition["name"]
+        ports=[]
+        msignalsin=midsignalsin[jianxie(atomicName)]
+        msignalsout = midsignalsout[jianxie(atomicName)]
+        print("in")
+        print(msignalsin)
+        print("out")
+        print(msignalsout)
+        print("msignals")
+        componenttemplate_file = 'AtomicSystemGeneration/test/Template/Component_Template'
+        with open(componenttemplate_file, 'r', encoding='utf-8') as file:
+            componenttemplate = file.read()
+        componentmapstr=""
+        if definition["type"]!="DataStorage":
+            componentmapstr +="\nclk=>clk,\nrst=>rst,\n"
+        for input in inputs:
+            # 原子组件输入端口转换成top的端口声明以及信号声明
+
+            if find_value_by_key(jianxie(input["value"]),msignalsin)!=None:
+
+                portstr = "in_" + jianxie(input["value"]) + " => " + str(find_value_by_key(jianxie(input["value"]),msignalsin)) + ","
+            else:
+                print("外部"+input["value"])
+                portstr = "in_"+jianxie(input["value"])+" => in_"+jianxie(input["value"])+","
+                topports.append("in_"+jianxie(input["value"])+":in STD_LOGIC_VECTOR ( 31 downto 0 );")
+
+            # 输入的需要信号声明来存储
+            ports.append(portstr)
+
+        for i in range(0,len(outputs)):
+            # 原子组件输出端口转换成top的端口声明
+            if find_value_by_key(jianxie(outputs[i]["value"]),msignalsout)!=None:
+                # print(find_value_by_key(jianxie(outputs[i]["value"]),msignalsout))
+                portstr = "out_" + jianxie(outputs[i]["value"]) + " => " + str(find_value_by_key(jianxie(outputs[i]["value"]),msignalsout))
+            else:
+                print("外部" + outputs[i]["value"])
+                portstr = "out_"+jianxie(outputs[i]["value"])+" => out_"+jianxie(outputs[i]["value"])
+                topports.append("out_" + jianxie(outputs[i]["value"]) + ":out STD_LOGIC_VECTOR ( 31 downto 0 );")
+            if i != len(outputs) - 1:
+                portstr += ","
+
+            ports.append(portstr)
+        componentmapstr += "\n    ".join(ports)
+
+
+        # print(componenttemplate.replace('<<name>>', atomicName).replace('<<ports>>', topstr)+"\n")
+        topcomponetmap += componenttemplate.replace('<<name>>', jianxie(atomicName)).replace('<<ports>>', componentmapstr)+"\n"
+    topstr="\n    ".join(topports)+"\nclk:in std_logic;\nrst:in std_logic\n"
+    topentity = entitytemplate.replace('<<entityname>>', modelName).replace('<<port_section>>', topstr)
+    vhdl=topentity+"\n"+topcomponet+signalstr+topcomponetmap+"\nend Behavioral;"
+
+    return vhdl
 def GenerateAtomicCommponetVHDL(definition):
     # 生成vhdl代码
 
@@ -972,6 +1152,7 @@ def GenerateAtomicCommponetVHDL(definition):
     vhdl=""
     inputs=definition["inputs"]
     outputs = definition["outputs"]
+    RAMs = definition["RAMs"]
     subports = definition["subport"]
     states=definition["states"]
     events=definition["events"]
@@ -994,7 +1175,7 @@ def GenerateAtomicCommponetVHDL(definition):
     computingmplate_file = 'AtomicSystemGeneration/test/Template/Computing_Template'
     with open(computingmplate_file, 'r', encoding='utf-8') as file:
         computingtemplate = file.read()
-    componenttemplate_file = 'AtomicSystemGeneration/test/Template/Componentdefine_Template'
+    componenttemplate_file = 'AtomicSystemGeneration/test/Template/Atop_Template'
     with open(componenttemplate_file, 'r', encoding='utf-8') as file:
         componenttemplate = file.read()
     #原子组件里包含顶层组件、控制子组件、计算子组件
@@ -1123,13 +1304,13 @@ def GenerateAtomicCommponetVHDL(definition):
         computingcomponentstr = "\n    ".join(computingcomponent)
         controllercomponentstr = "\n    ".join(topcomponent+controllercomponent)
         #将上面部分插入到模板相应位置，生成顶层组件，原子控制子组件，计算子组件vhdl实体部分
-        topentity = entitytemplate.replace('<<entityname>>', atomicName).replace('<<port_section>>', topstr)
-        controlleentity = entitytemplate.replace('<<entityname>>', atomicName+"_con").replace('<<port_section>>', controllerstr)
-        computingentity = entitytemplate.replace('<<entityname>>', atomicName+"_com").replace('<<port_section>>', computingstr)
+        topentity = entitytemplate.replace('<<entityname>>', jianxie(atomicName)).replace('<<port_section>>', topstr)
+        controlleentity = entitytemplate.replace('<<entityname>>', jianxie(atomicName)+"_con").replace('<<port_section>>', controllerstr)
+        computingentity = entitytemplate.replace('<<entityname>>', jianxie(atomicName)+"_com").replace('<<port_section>>', computingstr)
         #生成计算组件结构体部分
-        computingarchitecture = generatecomputingvhdl(computinginports,computingtemplate,fx, atomicName+"_com")
+        computingarchitecture = generatecomputingvhdl(computinginports,computingtemplate,fx, jianxie(atomicName)+"_com")
         # 生成顶层组件结构体部分
-        toparchitecture = componenttemplate.replace('<<atoicmname>>', atomicName).replace('<<controllername>>', atomicName+"_con").replace('<<computingname>>', atomicName+"_com")\
+        toparchitecture = componenttemplate.replace('<<atoicmname>>', jianxie(atomicName)).replace('<<controllername>>', jianxie(atomicName)+"_con").replace('<<computingname>>', jianxie(atomicName)+"_com")\
             .replace('<<controllerports>>', controllerstr).replace('<<computingports>>', computingstr).replace('<<componentsignals>>', componentsignalsstr)\
             .replace('<<controllercomponent>>', controllercomponentstr).replace('<<computingcomponent>>', computingcomponentstr)
         #得到计算子组件完整vhdl代码
@@ -1138,7 +1319,7 @@ def GenerateAtomicCommponetVHDL(definition):
 
     else:
         controllerstr = "\n    ".join(controllerports + ports)+"\nclk:in std_logic;\nrst:in std_logic\n"
-        controlleentity = entitytemplate.replace('<<entityname>>', atomicName).replace('<<port_section>>',controllerstr)
+        controlleentity = entitytemplate.replace('<<entityname>>', jianxie(atomicName)).replace('<<port_section>>',controllerstr)
     #信号声明部分，声明状态机相关信号
     statesignalstr=""
     for i in range(0,len(states)):
@@ -1146,6 +1327,10 @@ def GenerateAtomicCommponetVHDL(definition):
             statesignalstr+="sta_"+states[i]+","
         else:
             statesignalstr+="sta_" + states[i]
+    #初始储存器
+    for RAMname,value in RAMs.items():
+        RAMsignal = "signal " + "RAM_" + jianxie(RAMname) + ": STD_LOGIC_VECTOR ( 31 downto 0 ):= std_logic_vector(to_unsigned("+value+", 32)) ;"
+        signals.append(RAMsignal)
     controllersignal=signaltemplate.replace('<<states_str>>', statesignalstr).replace('<<signals>>', "\n    ".join(signals))
     controllerstateprocess=statetemplate.replace("<<statevhdl>>",generatestatevhdl_atomic(trans,portdone)).replace("<<eventvhdl>>",generateeventvhdl_atomic(events,trans))
     controllerstoreprocess = generatestorevhdl(inputs,subinports,storetemplate)
@@ -1241,11 +1426,15 @@ def generateeventvhdl_concomponent(events):
         state = events[i]["state"]
         eventvhdl += "\nwhen " + "sta_" + state + "=>"
         # 获取执行事件
-        if events[i]["event"] != "nothing":
+        if events[i]["event"] != "nothing" and events[i]["state"]!="last":
             eventvhdl += "\nout_" + jianxie(events[i]["event"]) + "<= std_logic_vector(to_unsigned(1, 32)) ;\n"
             arr.append("\nout_" + jianxie(events[i]["event"]) + "<= std_logic_vector(to_unsigned(0, 32)) ;\n")
+        elif events[i]["state"]=="last":
+            eventvhdl += "\nout_" + jianxie(events[i]["event"]) + "<= std_logic_vector(to_unsigned(1, 32)) ;\n"
         if events[i]["state"]=="0":
             eventvhdl+="".join(arr)
+
+
     return eventvhdl
 def generatestatevhdl_concomponent(trans):
     statevhdl=""
@@ -1263,7 +1452,7 @@ def generatestatevhdl_concomponent(trans):
         if len(subtrans) == 1:
             #获取迁移事件
 
-            if condition =="nothing":
+            if subtrans[0]["migrateeevent"] =="nothing":
                 statevhdl = statevhdl +str1
             else:
                 statevhdl =statevhdl+ f"""
